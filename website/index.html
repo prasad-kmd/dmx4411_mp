@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player Equalizer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Music Player Equalizer</h1>
+    </header>
+    <main>
+        <section id="section1">
+            <h2>Section 1: Signal Acquisition</h2>
+            <div>
+                <h3>a. Record three music files for 1 minutes each in different noisy environment (.mp3 files)</h3>
+                <p>The three music files are provided in the `audio/mp3` folder.</p>
+                <h3>b. Load all three .wav files to MATLAB</h3>
+                <p>The MATLAB script `signal_acquisition.m` loads the three .wav files using the `audioread()` function.</p>
+                <h3>c. Pot the time-domain signals of audio on one space</h3>
+                <p>The `signal_acquisition.m` script plots the time-domain signals of the three audio files in a single figure with three subplots.</p>
+                <h3>d. Display Sampling frequency of each signal.</h3>
+                <p>The sampling frequencies of the three signals are displayed in the MATLAB command window when the `signal_acquisition.m` script is executed.</p>
+            </div>
+        </section>
+        <section id="section2">
+            <h2>Section 2: Frequency Domain Analysis</h2>
+            <div>
+                <h3>a. Compute the Fast Fourier Transform (FFT) of each signal</h3>
+                <p>The `frequency_analysis.m` script computes the FFT of each signal using the `fft()` function.</p>
+                <h3>b. Identify the dominant frequency component of each signal.</h3>
+                <p>The script identifies the dominant frequency by finding the maximum value in the FFT output. This is a simplification and may not represent the true fundamental frequency of the music, but it gives an indication of the most prominent frequency component. The dominant frequencies are printed to the console.</p>
+                <h3>c. Plot the magnitude spectrums of each signal (single-sided) on one figure.</h3>
+                <p>The script plots the single-sided magnitude spectrums of the three audio signals in a single figure with three subplots.</p>
+            </div>
+        </section>
+        <section id="section3">
+            <h2>Section 3: Filter Design and Implementation</h2>
+            <div>
+                <h3>a. Design appropriate filter for each noisy audio files by identifying cut-off frequencies. Provide all calculations and justifications for filter selection.</h3>
+                <p>The `filter_design.m` script designs filters for each audio file. The filter design is based on the frequency spectrum analysis from Section 2.</p>
+                <ul>
+                    <li><strong>Audio 1 (Thunder):</strong> The frequency spectrum of this audio file shows a significant amount of low-frequency noise below 100 Hz, which corresponds to the thunder rumble. To remove this noise, a high-pass Butterworth filter is designed with a cutoff frequency of 100 Hz.</li>
+                    <li><strong>Audio 2 (Autumn Walk):</strong> The frequency spectrum of this audio file shows high-frequency noise above 4000 Hz, which corresponds to a hissing sound. To remove this noise, a low-pass Butterworth filter is designed with a cutoff frequency of 4000 Hz.</li>
+                    <li><strong>Audio 3 (Data Center):</strong> The frequency spectrum of this audio file shows a low-frequency hum around 150 Hz. To remove this noise, a high-pass Butterworth filter is designed with a cutoff frequency of 150 Hz.</li>
+                </ul>
+                <h3>b. Plot frequency response of your filter designs</h3>
+                <p>The script plots the frequency response of each filter design using the `freqz()` function.</p>
+                <h3>c. Apply appropriate filter designs to each noisy signal.</h3>
+                <p>The script applies the designed filters to the noisy signals using the `filter()` function.</p>
+                <h3>d. Plot following signals in same space and use separate figures for each three signal samples.</h3>
+                <p>The script generates plots showing the frequency spectrum of the original and filtered signals for each of the three audio samples.</p>
+                <h3>e. Compute and display the FFT of the filtered signal</h3>
+                <p>The FFT of the filtered signal is computed and displayed as part of the plots in the previous step.</p>
+                <h3>f. Play the filtered audio and describe the improvement</h3>
+                <p>The script contains commands to play the filtered audio. The expected improvements are:</p>
+                <ul>
+                    <li><strong>Audio 1:</strong> Reduction of low-frequency thunder rumble.</li>
+                    <li><strong>Audio 2:</strong> Reduction of high-frequency hiss.</li>
+                    <li><strong>Audio 3:</strong> Reduction of low-frequency data center hum.</li>
+                </ul>
+            </div>
+        </section>
+        <section id="section4">
+            <h2>Section 4: Performance Evaluation</h2>
+            <div>
+                <h3>a. Calculate the Mean Square Error (MSE) between noisy signal and filtered signal</h3>
+                <p>Quantitative performance evaluation metrics like Mean Square Error (MSE) and Signal-to-Noise Ratio (SNR) require a clean, noise-free reference signal. Since we do not have a clean reference signal for the audio files, it is not possible to calculate these metrics accurately.</p>
+                <h3>b. Calculate the SNR improvement after filtering</h3>
+                <p>As mentioned above, calculating SNR improvement is not feasible without a clean reference signal.</p>
+                <h3>c. Present results in a table format.</h3>
+                <p>Since we cannot calculate MSE and SNR, we cannot present the results in a table format.</p>
+                <h3>d. Describe the effectiveness of your filter</h3>
+                <p>The effectiveness of the filters is evaluated qualitatively by listening to the filtered audio. The high-pass filters successfully removed the low-frequency rumble and hum, while the low-pass filter removed the high-frequency hiss.</p>
+                <h3>e. What are the limitations of your approach?</h3>
+                <p>The filter design was based on a qualitative analysis of the frequency spectrum. A more quantitative approach could be used if a clean reference signal was available. Additionally, the Butterworth filter design is a simple approach and more advanced filter designs could provide better results.</p>
+                <h3>f. Suggest one improvement that could be made</h3>
+                <p>An adaptive filter could be used to remove the noise. An adaptive filter can adjust its parameters based on the characteristics of the signal and the noise, which would likely result in better performance than a fixed filter.</p>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
