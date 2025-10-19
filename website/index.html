@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music Player Equalizer</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0KOucwUaflkTJ5Ui9Pa0il4YBG/+uR389I/2+Ub0s/P8uD0A/hXGg" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIeFw8MCf/GVM8/6T5M/6f/F_XG4XPCsfW/7RTwY07+p+aN2" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURPl3x14PFeZyYHjPZ/i7pcvA+vKdNl4rQJQLAHDgQupX9a/L5vQP3" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
 </head>
 <body>
     <header>
@@ -50,10 +54,25 @@
             <div>
                 <h3>a. Design appropriate filter for each noisy audio files by identifying cut-off frequencies. Provide all calculations and justifications for filter selection.</h3>
                 <p>The `filter_design.m` script designs filters for each audio file. The filter design is based on the frequency spectrum analysis from Section 2.</p>
+
+                <h4>Filter Justification and Calculations</h4>
+                <p>The Butterworth filter is chosen for its maximally flat frequency response in the passband. The magnitude of the Butterworth filter's frequency response is given by the formula:</p>
+                <p>$$
+                |H(j\\Omega)| = \\frac{1}{\\sqrt{1 + (\\frac{\\Omega}{\\Omega_c})^{2N}}}
+                $$</p>
+                <p>Where:</p>
                 <ul>
-                    <li><strong>Audio 1 (Thunder):</strong> The frequency spectrum of this audio file shows a significant amount of low-frequency noise below 100 Hz, which corresponds to the thunder rumble. To remove this noise, a high-pass Butterworth filter is designed with a cutoff frequency of 100 Hz.</li>
-                    <li><strong>Audio 2 (Autumn Walk):</strong> The frequency spectrum of this audio file shows high-frequency noise above 4000 Hz, which corresponds to a hissing sound. To remove this noise, a low-pass Butterworth filter is designed with a cutoff frequency of 4000 Hz.</li>
-                    <li><strong>Audio 3 (Data Center):</strong> The frequency spectrum of this audio file shows a low-frequency hum around 150 Hz. To remove this noise, a high-pass Butterworth filter is designed with a cutoff frequency of 150 Hz.</li>
+                    <li>$|H(j\\Omega)|$ is the magnitude of the frequency response</li>
+                    <li>$\\Omega$ is the frequency</li>
+                    <li>$\\Omega_c$ is the cutoff frequency</li>
+                    <li>$N$ is the filter order</li>
+                </ul>
+                <p>A higher filter order $N$ results in a sharper transition from the passband to the stopband. For this project, a filter order of 6 was chosen as a compromise between a sharp cutoff and computational complexity.</p>
+                <p>The cutoff frequencies were determined by analyzing the frequency spectrums from Section 2:</p>
+                <ul>
+                    <li><strong>Audio 1 (Thunder):</strong> A high-pass filter is needed to remove the low-frequency thunder rumble. The noise is concentrated below 100 Hz, so a cutoff frequency of $\\Omega_c = 100$ Hz is chosen.</li>
+                    <li><strong>Audio 2 (Autumn Walk):</strong> A low-pass filter is needed to remove the high-frequency hiss. The noise is concentrated above 4000 Hz, so a cutoff frequency of $\\Omega_c = 4000$ Hz is chosen.</li>
+                    <li><strong>Audio 3 (Data Center):</strong> A high-pass filter is needed to remove the low-frequency hum. The noise is concentrated around 150 Hz, so a cutoff frequency of $\\Omega_c = 150$ Hz is chosen.</li>
                 </ul>
                 <h3>b. Plot frequency response of your filter designs</h3>
                 <p>The script plots the frequency response of each filter design using the `freqz()` function. This allows for a visual analysis of the filter's characteristics.</p>
