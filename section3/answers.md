@@ -9,22 +9,22 @@ The `filter_design.m` script designs filters for each audio file. The filter des
 The Butterworth filter is chosen for its maximally flat frequency response in the passband. The magnitude of the Butterworth filter's frequency response is given by the formula:
 
 $$
-|H(j\\Omega)| = \\frac{1}{\\sqrt{1 + (\\frac{\\Omega}{\\Omega_c})^{2N}}}
+|H(j\Omega)| = \frac{1}{\sqrt{1 + (\frac{\Omega}{\Omega_c})^{2N}}}
 $$
 
 Where:
-- $|H(j\\Omega)|$ is the magnitude of the frequency response
-- $\\Omega$ is the frequency
-- $\\Omega_c$ is the cutoff frequency
+- $|H(j\Omega)|$ is the magnitude of the frequency response
+- $\Omega$ is the frequency
+- $\Omega_c$ is the cutoff frequency
 - $N$ is the filter order
 
 A higher filter order $N$ results in a sharper transition from the passband to the stopband. For this project, a filter order of 6 was chosen as a compromise between a sharp cutoff and computational complexity.
 
 The cutoff frequencies were determined by analyzing the frequency spectrums from Section 2:
 
-*   **Audio 1 (Thunder):** A high-pass filter is needed to remove the low-frequency thunder rumble. The noise is concentrated below 100 Hz, so a cutoff frequency of $\\Omega_c = 100$ Hz is chosen.
-*   **Audio 2 (Autumn Walk):** A low-pass filter is needed to remove the high-frequency hiss. The noise is concentrated above 4000 Hz, so a cutoff frequency of $\\Omega_c = 4000$ Hz is chosen.
-*   **Audio 3 (Data Center):** A high-pass filter is needed to remove the low-frequency hum. The noise is concentrated around 150 Hz, so a cutoff frequency of $\\Omega_c = 150$ Hz is chosen.
+*   **Audio 1 (Thunder):** A high-pass filter is needed to remove the low-frequency thunder rumble. The noise is concentrated below 100 Hz, so a cutoff frequency of $\Omega_c = 100$ Hz is chosen.
+*   **Audio 2 (Autumn Walk):** A low-pass filter is needed to remove the high-frequency hiss. The noise is concentrated above 4000 Hz, so a cutoff frequency of $\Omega_c = 4000$ Hz is chosen.
+*   **Audio 3 (Data Center):** A high-pass filter is needed to remove the low-frequency hum. The noise is concentrated around 150 Hz, so a cutoff frequency of $\Omega_c = 150$ Hz is chosen.
 
 ## b. Plot frequency response of your filter designs
 
