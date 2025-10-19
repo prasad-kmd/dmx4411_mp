@@ -9,30 +9,40 @@
 <body>
     <header>
         <h1>Music Player Equalizer</h1>
+        <p>A project on analyzing and filtering noisy audio signals using MATLAB.</p>
     </header>
     <main>
+        <section id="intro">
+            <h2>Project Introduction</h2>
+            <p>This project is a simulation of a real-world engineering task where a team has received complaints about poor audio quality in their portable music players. The goal is to develop a signal processing system to analyze the audio signals, identify noise, and design filters to improve the audio quality. The project is divided into four main sections: Signal Acquisition, Frequency Domain Analysis, Filter Design and Implementation, and Performance Evaluation.</p>
+        </section>
         <section id="section1">
             <h2>Section 1: Signal Acquisition</h2>
             <div>
                 <h3>a. Record three music files for 1 minutes each in different noisy environment (.mp3 files)</h3>
-                <p>The three music files are provided in the `audio/mp3` folder.</p>
+                <p>The three music files are provided in the `audio/mp3` folder. The noisy environments are:</p>
+                <ul>
+                    <li>Distant Thunder</li>
+                    <li>Autumn Walk</li>
+                    <li>Data Center</li>
+                </ul>
                 <h3>b. Load all three .wav files to MATLAB</h3>
-                <p>The MATLAB script `signal_acquisition.m` loads the three .wav files using the `audioread()` function.</p>
+                <p>The MATLAB script `signal_acquisition.m` loads the three .wav files using the `audioread()` function. This function reads the audio file and returns the audio data and the sampling rate.</p>
                 <h3>c. Pot the time-domain signals of audio on one space</h3>
-                <p>The `signal_acquisition.m` script plots the time-domain signals of the three audio files in a single figure with three subplots.</p>
+                <p>The `signal_acquisition.m` script plots the time-domain signals of the three audio files in a single figure with three subplots. This allows for a visual comparison of the signals.</p>
                 <h3>d. Display Sampling frequency of each signal.</h3>
-                <p>The sampling frequencies of the three signals are displayed in the MATLAB command window when the `signal_acquisition.m` script is executed.</p>
+                <p>The sampling frequencies of the three signals are displayed in the MATLAB command window when the `signal_acquisition.m` script is executed. The sampling frequency is a crucial parameter for signal processing as it determines the frequency range that can be represented by the signal.</p>
             </div>
         </section>
         <section id="section2">
             <h2>Section 2: Frequency Domain Analysis</h2>
             <div>
                 <h3>a. Compute the Fast Fourier Transform (FFT) of each signal</h3>
-                <p>The `frequency_analysis.m` script computes the FFT of each signal using the `fft()` function.</p>
+                <p>The `frequency_analysis.m` script computes the FFT of each signal using the `fft()` function. The FFT is an algorithm that computes the Discrete Fourier Transform (DFT) of a sequence, or its inverse. FFTs are used for frequency analysis of a signal.</p>
                 <h3>b. Identify the dominant frequency component of each signal.</h3>
                 <p>The script identifies the dominant frequency by finding the maximum value in the FFT output. This is a simplification and may not represent the true fundamental frequency of the music, but it gives an indication of the most prominent frequency component. The dominant frequencies are printed to the console.</p>
                 <h3>c. Plot the magnitude spectrums of each signal (single-sided) on one figure.</h3>
-                <p>The script plots the single-sided magnitude spectrums of the three audio signals in a single figure with three subplots.</p>
+                <p>The script plots the single-sided magnitude spectrums of the three audio signals in a single figure with three subplots. This allows for a visual analysis of the frequency components of the signals.</p>
             </div>
         </section>
         <section id="section3">
@@ -46,11 +56,11 @@
                     <li><strong>Audio 3 (Data Center):</strong> The frequency spectrum of this audio file shows a low-frequency hum around 150 Hz. To remove this noise, a high-pass Butterworth filter is designed with a cutoff frequency of 150 Hz.</li>
                 </ul>
                 <h3>b. Plot frequency response of your filter designs</h3>
-                <p>The script plots the frequency response of each filter design using the `freqz()` function.</p>
+                <p>The script plots the frequency response of each filter design using the `freqz()` function. This allows for a visual analysis of the filter's characteristics.</p>
                 <h3>c. Apply appropriate filter designs to each noisy signal.</h3>
-                <p>The script applies the designed filters to the noisy signals using the `filter()` function.</p>
+                <p>The script applies the designed filters to the noisy signals using the `filter()` function. This function filters the input data using a rational transfer function defined by the filter coefficients.</p>
                 <h3>d. Plot following signals in same space and use separate figures for each three signal samples.</h3>
-                <p>The script generates plots showing the frequency spectrum of the original and filtered signals for each of the three audio samples.</p>
+                <p>The script generates plots showing the frequency spectrum of the original and filtered signals for each of the three audio samples. This allows for a visual comparison of the signals before and after filtering.</p>
                 <h3>e. Compute and display the FFT of the filtered signal</h3>
                 <p>The FFT of the filtered signal is computed and displayed as part of the plots in the previous step.</p>
                 <h3>f. Play the filtered audio and describe the improvement</h3>
@@ -80,5 +90,6 @@
             </div>
         </section>
     </main>
+    <script src="script.js"></script>
 </body>
 </html>
