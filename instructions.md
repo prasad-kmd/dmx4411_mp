@@ -5,6 +5,7 @@
     - create .md file for answers for relevant questions each.
     - create .m (matlab code ) file for matlab instructions
 - create a simple but elegant website (html, css and js only) for above sections and its answers, with guiding informations.
+- use [common instructions](/common.md) given under common.md .
 - in that [pdf](/DMX4411_Mini%20Project_2025.pdf) file , disregard any information after the point it mentioned as "Deliverables".
 - if you can't read the [pdf](/DMX4411_Mini%20Project_2025.pdf) file use following content.
 -----------------------------------
