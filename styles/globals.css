@@ -1,0 +1,248 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Font Definitions */
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Mozilla Headline';
+  src: url('/fonts/MozillaHeadline-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Material Symbols Rounded';
+  src: url('/fonts/MaterialSymbolsRounded-VariableFont_FILL,GRAD,opsz,wght.woff2') format('woff2');
+  font-weight: 100 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Light Mode Colors (Default Blue Accent) */
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
+  --primary: 221.2 83.2% 53.3%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 210 40% 96.1%;
+  --secondary-foreground: 222.2 47.4% 11.2%;
+  --muted: 210 40% 96.1%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --accent: 221.2 83.2% 53.3%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 221.2 83.2% 53.3%;
+  --radius: 0.5rem;
+
+  /* Chart Colors */
+  --chart-1: 221.2 83.2% 53.3%;
+  --chart-2: 160 60% 45%;
+  --chart-3: 30 80% 55%;
+  --chart-4: 280 65% 60%;
+  --chart-5: 340 75% 55%;
+}
+
+.dark {
+  /* Dark Mode Colors (Default Blue Accent) */
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  --card: 222.2 84% 4.9%;
+  --card-foreground: 210 40% 98%;
+  --popover: 222.2 84% 4.9%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 217.2 91.2% 59.8%;
+  --primary-foreground: 222.2 47.4% 11.2%;
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+  --accent: 217.2 91.2% 59.8%;
+  --accent-foreground: 222.2 47.4% 11.2%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --ring: 224.3 76.3% 48%;
+
+  /* Chart Colors - Dark Mode */
+  --chart-1: 217.2 91.2% 59.8%;
+  --chart-2: 160 70% 50%;
+  --chart-3: 30 90% 60%;
+  --chart-4: 280 70% 65%;
+  --chart-5: 340 80% 60%;
+}
+
+/* Accent Color Variants */
+[data-accent="purple"] {
+  --primary: 271 76% 53%;
+  --primary-foreground: 210 40% 98%;
+  --accent: 271 76% 53%;
+  --accent-foreground: 210 40% 98%;
+  --ring: 271 76% 53%;
+  --chart-1: 271 76% 53%;
+}
+
+[data-accent="green"] {
+  --primary: 142 71% 45%;
+  --primary-foreground: 210 40% 98%;
+  --accent: 142 71% 45%;
+  --accent-foreground: 210 40% 98%;
+  --ring: 142 71% 45%;
+  --chart-1: 142 71% 45%;
+}
+
+[data-accent="orange"] {
+  --primary: 24 87% 50%;
+  --primary-foreground: 210 40% 98%;
+  --accent: 24 87% 50%;
+  --accent-foreground: 210 40% 98%;
+  --ring: 24 87% 50%;
+  --chart-1: 24 87% 50%;
+}
+
+[data-accent="pink"] {
+  --primary: 330 81% 60%;
+  --primary-foreground: 210 40% 98%;
+  --accent: 330 81% 60%;
+  --accent-foreground: 210 40% 98%;
+  --ring: 330 81% 60%;
+  --chart-1: 330 81% 60%;
+}
+
+[data-accent="cyan"] {
+  --primary: 199 89% 48%;
+  --primary-foreground: 210 40% 98%;
+  --accent: 199 89% 48%;
+  --accent-foreground: 210 40% 98%;
+  --ring: 199 89% 48%;
+  --chart-1: 199 89% 48%;
+}
+
+[data-accent="red"] {
+  --primary: 0 72% 51%;
+  --primary-foreground: 210 40% 98%;
+  --accent: 0 72% 51%;
+  --accent-foreground: 210 40% 98%;
+  --ring: 0 72% 51%;
+  --chart-1: 0 72% 51%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Custom Scrollbar */
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--muted)) transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--muted));
+    border-radius: 4px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(var(--muted-foreground));
+  }
+}
+
+/* KaTeX Customization */
+.katex {
+  font-size: 1.1em;
+}
+
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.5em 0;
+}
+
+/* Shiki Code Blocks */
+.shiki {
+  border-radius: var(--radius);
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+/* Canvas for Click Spark Effect */
+#spark-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Audio Player Custom Styles */
+.audio-player-container {
+  @apply rounded-lg border bg-card p-4 shadow-sm;
+}
+
+/* Chart Container */
+.chart-container {
+  @apply w-full h-full min-h-[300px];
+}
+
+/* Placeholder Styles */
+.placeholder-card {
+  @apply flex flex-col items-center justify-center rounded-lg border border-dashed bg-muted/50 p-8 text-center;
+}
+
+/* Selection Colors */
+::selection {
+  background-color: hsl(var(--accent) / 0.3);
+  color: hsl(var(--foreground));
+}
+
+/* Focus Visible */
+:focus-visible {
+  @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+}
+
+/* Smooth Transitions */
+.theme-transition {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
