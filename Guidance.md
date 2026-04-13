@@ -107,7 +107,7 @@ Create comprehensive placeholder content for any missing/failed extractions.
 Set up the Next.js 15 project with proper configuration.
 
 **Requirements:**
-- Initialize Next.js 15 (latest) with App Router
+- Initialize Next.js 15 with App Router
 - TypeScript with strict mode
 - NO src directory - root level app folder
 - PNPM as package manager
@@ -118,9 +118,9 @@ Use create-next-app with appropriate flags
 **Dependencies to Install:**
 
 **Core:**
-- next@latest
-- react@latest
-- react-dom@latest
+- next [15.5.7]
+- react
+- react-dom
 - typescript
 - @types/node
 - @types/react
@@ -153,6 +153,8 @@ Use create-next-app with appropriate flags
 **Utilities:**
 - date-fns or dayjs
 - sonner (toast notifications)
+
+> Furthure more use only given Local Fonts, no other fonts for entire website. And Customize Metadata as well, including Favicon.
 
 **Configuration Files:**
 
