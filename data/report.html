@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Denoising System - Mini Project Report</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #34495e; border-bottom: 2px solid #ecf0f1; padding-bottom: 8px; margin-top: 30px; }
+        h3 { color: #7f8c8d; margin-top: 25px; }
+        p { color: #333; text-align: justify; }
+        .code-block {
+            background-color: #282c34;
+            color: #abb2bf;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            margin: 15px 0;
+        }
+        .figure {
+            background-color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .figure-caption { font-style: italic; color: #7f8c8d; margin-top: 10px; }
+        .table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .table th, .table td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        .table th { background-color: #3498db; color: white; }
+        .table tr:nth-child(even) { background-color: #f2f2f2; }
+        .page-marker {
+            color: #95a5a6;
+            font-size: 12px;
+            text-align: center;
+            margin: 30px 0;
+            border-top: 1px dashed #bdc3c7;
+            padding-top: 10px;
+        }
+        .toc {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .toc ul { list-style-type: none; padding-left: 20px; }
+        .toc li { margin: 8px 0; }
+        .toc a { color: #3498db; text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Audio Denoising System - Mini Project Report</h1>
+
+        <div class="toc">
+            <h2>Table of Contents</h2>
+            <ul>
+                <li><a href="#background-and-context-4">Background and Context</a></li>
+                <li><a href="#problem-statement-4">Problem Statement</a></li>
+                <li><a href="#project-objective-4">Project Objective</a></li>
+                <li><a href="#signal-acquisition-6">Signal Acquisition</a></li>
+                <li><a href="#matlab-implementation-6">MATLAB Implementation</a></li>
+                <li><a href="#noise-identification-and-characterization-10">Noise Identification and Characterization</a></li>
+                <li><a href="#filter-selection-and-design-calculations-11">Filter Selection and Design Calculations</a></li>
+                <li><a href="#filter-implementation-and-frequency-response-14">Filter Implementation and Frequency Response</a></li>
+                <li><a href="#filtered-signal-analysis-18">Filtered Signal Analysis</a></li>
+                <li><a href="#audio-quality-assessment-21">Audio Quality Assessment</a></li>
+                <li><a href="#summary-of-filtering-results-22">Summary of Filtering Results</a></li>
+                <li><a href="#quantitative-performance-metrics-23">Quantitative Performance Metrics</a></li>
+                <li><a href="#effectiveness-of-designed-filters-27">Effectiveness of Designed Filters</a></li>
+                <li><a href="#filter-design-tool-matlab-filter-designer-app-28">Filter Design Tool: MATLAB Filter Designer App</a></li>
+                <li><a href="#limitations-of-the-approach-29">Limitations of the Approach</a></li>
+                <li><a href="#suggested-improvement-31">Suggested Improvement</a></li>
+                <li><a href="#project-summary-32">Project Summary</a></li>
+                <li><a href="#key-findings-32">Key Findings</a></li>
+                <li><a href="#technical-accomplishments-33">Technical Accomplishments</a></li>
+                <li><a href="#learning-outcomes-33">Learning Outcomes</a></li>
+                <li><a href="#practical-applications-33">Practical Applications</a></li>
+                <li><a href="#background-and-context">Background and Context</a></li>
+                <li><a href="#problem-statement">Problem Statement</a></li>
+                <li><a href="#project-objective">Project Objective</a></li>
+                <li><a href="#signal-acquisition">Signal Acquisition</a></li>
+                <li><a href="#matlab-implementation">MATLAB Implementation</a></li>
+                <li><a href="#noise-identification-and-characterization">Noise Identification and Characterization</a></li>
+                <li><a href="#filter-selection-and-design-calculations">Filter Selection and Design Calculations</a></li>
+                <li><a href="#filter-implementation-and-frequency-response">Filter Implementation and Frequency Response</a></li>
+                <li><a href="#filtered-signal-analysis">Filtered Signal Analysis</a></li>
+                <li><a href="#audio-quality-assessment">Audio Quality Assessment</a></li>
+                <li><a href="#summary-of-filtering-results">Summary of Filtering Results</a></li>
+                <li><a href="#quantitative-performance-metrics">Quantitative Performance Metrics</a></li>
+                <li><a href="#effectiveness-of-designed-filters">Effectiveness of Designed Filters</a></li>
+                <li><a href="#filter-design-tool-matlab-filter-designer-app">Filter Design Tool: MATLAB Filter Designer App</a></li>
+                <li><a href="#limitations-of-the-approach">Limitations of the Approach</a></li>
+                <li><a href="#fixed-filter-parameters">Fixed Filter Parameters</a></li>
+                <li><a href="#trade-off-between-noise-removal-and-signal-preservation">Trade-off Between Noise Removal and Signal Preservation</a></li>
+                <li><a href="#inability-to-handle-non-stationary-noise">Inability to Handle Non-Stationary Noise</a></li>
+                <li><a href="#single-notch-limitation-for-harmonic-interference">Single Notch Limitation for Harmonic Interference</a></li>
+                <li><a href="#manual-design-process">Manual Design Process</a></li>
+                <li><a href="#lack-of-perceptual-weighting">Lack of Perceptual Weighting</a></li>
+                <li><a href="#phase-distortion-considerations">Phase Distortion Considerations</a></li>
+                <li><a href="#snr-metric-limitations">SNR Metric Limitations</a></li>
+                <li><a href="#suggested-improvement">Suggested Improvement</a></li>
+                <li><a href="#project-summary">Project Summary</a></li>
+                <li><a href="#key-findings">Key Findings</a></li>
+                <li><a href="#technical-accomplishments">Technical Accomplishments</a></li>
+                <li><a href="#learning-outcomes">Learning Outcomes</a></li>
+                <li><a href="#practical-applications">Practical Applications</a></li>
+                <li><a href="#practical-introduction-to-digital-filtering-mathworks">Practical Introduction to Digital Filtering, MathWorks</a></li>
+                <li><a href="#introduction-to-filter-designer-mathworks">Introduction to Filter Designer, MathWorks</a></li>
+                <li><a href="#smoothing-denoising-mathworks">Smoothing & Denoising, MathWorks</a></li>
+                <li><a href="#real-time-audio-in-matlab-mathworks">Real-Time Audio in MATLAB, MathWorks</a></li>
+                <li><a href="#denoising-overview-mathworks">Denoising Overview, MathWorks</a></li>
+                <li><a href="#matlab-central-thread-can-you-help-remove-the-noise-from-this-audio-file">MATLAB Central thread [Can you help remove the noise from this audio file?],</a></li>
+                <li><a href="#noise-machines-by-mynoise-net-simulating-noises">Noise Machines by MyNoise.net [Simulating Noises]</a></li>
+                <li><a href="#audacity-software">Audacity [Software]</a></li>
+                <li><a href="#crysis-3-pc-ost-by-crytek-g-m-b-h-music">Crysis 3 (PC) OST by Crytek G.m.b.H [Music]</a></li>
+                <li><a href="#last-summer-by-ikson-youtube-music">Last Summer by Ikson™, YouTube [Music]</a></li>
+                <li><a href="#dreams-chill-royalty-free-music-by-bensound-youtube-music">Dreams - Chill Royalty Free Music by Bensound, YouTube [Music]</a></li>
+                <li><a href="#matlab-2024b-by-mathworks-software">MATLAB 2024b by MathWorks [Software]</a></li>
+                <li><a href="#signal-processing-toolbox-mathworks">Signal Processing Toolbox, MathWorks</a></li>
+                <li><a href="#magnitude">Magnitude</a></li>
+                <li><a href="#magnitude">Magnitude</a></li>
+                <li><a href="#magnitude">Magnitude</a></li>
+                <li><a href="#magnitude">Magnitude</a></li>
+            </ul>
+        </div>
+
+        <div class="page-marker">-- Page 1 --</div>
+
+        <h1 id="background-and-context-4">Background and Context</h1>
+
+        <p>2 | P a g e<br>TABLE OF CONTENTS<br>MINI PROJECT 	1<br>TABLE OF CONTENTS 	2<br>INTRODUCTION 	4<br>1. 	Background and Context 	4<br>2. 	Problem Statement 	4<br>3. 	Project Objective 	4<br>METHODOLOGY 	5<br>1. 	Signal Acquisition 	6<br>2. 	MATLAB Implementation 	6<br>I. 	Time Domain Analysis 	6<br>II. 	Frequency Domain Analysis 	8<br>DESIGN 	10<br>1. 	Noise Identification and Characterization 	10<br>I. 	Audio Signal 1 Analysis 	10<br>II. 	Audio Signal 2 Analysis 	10<br>III. 	Audio Signal 3 Analysis 	10<br>IV. 	Summary of Noise Characteristics 	11<br>2. 	Filter Selection and Design Calculations 	11<br>I. 	Audio 1: Low-Pass Filter Design 	11<br>II. 	Audio 2: Notch Filter Design 	12<br>III. 	Audio 3: High-Pass Filter Design 	13<br>IV. 	Summary of Filter Design Parameters 	13<br>3. 	Filter Implementation and Frequency Response 	14<br>I. 	MATLAB Filter Design 	14<br>II. 	Filter 1: Low-Pass Filter Response 	14<br>III. 	Filter 2: Band-Stop/Notch Filter Response 	15<br>IV. 	Filter 3: High-Pass Filter Response 	16<br>V. 	Filter Application & Audio Exports 	16<br>RESULTS 	18<br>1. 	Filtered Signal Analysis 	18<br>I. 	Audio 1: High-Frequency Hiss Removal 	18<br>II. 	Audio 2: Tonal Interference Removal 	19<br>III. 	Audio 3: Low-Frequency Rumble Removal 	20<br>2. 	Audio Quality Assessment 	21<br>I. 	Audio 1: Hiss Removal Assessment 	21<br>II. 	Audio 2: Tonal Interference Assessment 	22<br>III. 	Audio 3: Rumble Removal Assessment 	22<br>3. 	Summary of Filtering Results 	22<br>4. 	Quantitative Performance Metrics 	23</p>
+
+        <p>3 | P a g e<br>I. 	Mean Square Error (MSE) 	23<br>II. 	Signal-to-Noise Ratio (SNR) 	24<br>III. 	Results Summary 	25<br>DISCUSSION 	27<br>1. 	Effectiveness of Designed Filters 	27<br>I. 	Audio 1: Low-Pass Filter for Hiss Removal 	27<br>II. 	Audio 2: Band-Stop Filter for Tonal Interference 	27<br>III. 	Audio 3: High-Pass Filter for Rumble Removal 	28<br>2. 	Filter Design Tool: MATLAB Filter Designer App 	28<br>3. 	Limitations of the Approach 	29<br>4. 	Suggested Improvement 	31<br>i. 	Machine Learning Approaches 	31<br>CONCLUSION 	32<br>1. 	Project Summary 	32<br>2. 	Key Findings 	32<br>3. 	Technical Accomplishments 	33<br>4. 	Learning Outcomes 	33<br>5. 	Practical Applications 	33<br>REFERENCES 	35<br>APPENDIX 	36</p>
+
+        <p>4 | P a g e<br>INTRODUCTION<br>1. Background and Context<br>In the world of consumer electronics, portable music players and smartphones are<br>primary devices for personal audio enjoyment. Users expect high-quality playback<br>regardless of the source file's origin. However, audio signals are frequently corrupted by<br>various forms of background noise during recording, transmission, or storage. Common<br>noise types include constant tonal hum (50/60 Hz electrical interference), broadband hiss<br>(from electronic components or tape), low-frequency rumble and complex environmental<br>sounds (chatter, wind). These unwanted components significantly degrade the listening<br>experience, obscuring the clarity and detail of the original music.<br>These results in customer dissatisfaction and diminishes the intended listening<br>experience. Addressing these audio imperfections is important to maintaining product<br>quality and meeting consumer demand in the competitive electronics market.<br>2. Problem Statement<br>This project is based on a real-world engineering scenario; a consumer electronics<br>company has received customer complaints regarding poor audio quality and persistent<br>background noise in some files played on its portable devices. Manually cleaning these<br>files is not a scalable solution. Therefore, there is a clear need for an automated, signal<br>processing-based system that can analyze an audio file, identify the spectral<br>characteristics of the embedded noise and apply a targeted filtering algorithm to suppress<br>it while preserving the desired musical content. This project involves the development,<br>implementation and evaluation of such a system using MATLAB while moving from<br>theoretical concepts to a functional solution.<br>3. Project Objective<br>The primary aim is to design and implement a basic audio denoising system.<br>• 	Acquire and Analyze Audio Signals: Record music in noisy environments, import the<br>signals into MATLAB and perform both time-domain and frequency-domain analyses<br>to characterize the signal and identify noise components.<br>• 	Design Digital Filters: Based on spectral analysis, design appropriate digital filters<br>(Low-pass, High-pass, Band-stop) with calculated parameters to target specific noise<br>frequencies.<br>• 	Implement and Test Filters: Apply the designed filters to the noisy audio signals and<br>implement an objective evaluation framework using standard metrics like Signal-to-<br>Noise Ratio (SNR) and Mean Square Error (MSE).<br>• 	Evaluate System Performance: Quantify the improvement achieved, critically assess<br>the effectiveness and limitations of the chosen approach, and suggest potential<br>enhancements.<br>This project focuses on the application of fundamental concepts covered in Signal<br>Processing, including signal acquisition, Fourier analysis, filter design, and quantitative<br>performance evaluation using metrics such as mean square error (MSE) and signal-to-<br>noise ratio (SNR).<br>Digital Signal Processing (DSP) techniques are fundamental in audio engineering, enabling<br>the enhancement of perceived audio quality through the selective attenuation of noise.</p>
+
+        <p>5 | P a g e<br>METHODOLOGY<br>Noise Identification<br>Audio Signal 1 	Audio Signal 2 	Audio Signal 3<br>Low-Pass Filter 	Notch Filter 	High-Pass Filter<br>Apply to Audio<br>Calculated FFT 	Listening Audios</p>
+
+        <p>6 | P a g e<br>1. Signal Acquisition<br>Three music clips, each approximately one minute in duration, were recorded in distinct<br>noisy environments to ensure a variety of noise types were captured. These initial<br>recordings were saved in the compressed .mp3 format. As required for stable and<br>uncompressed signal processing, these files were converted to the Waveform Audio File<br>Format (.wav) using the open-source audio editor, Audacity. This conversion ensures that<br>all analysis is performed on uncompressed linear Pulse Code Modulation (PCM) data. This<br>conversion was necessary to preserve signal fidelity and avoid artifacts introduced by<br>lossy compression, which could interfere with subsequent frequency domain analysis.<br>Figure 2.1 – Exporting the Audio as .wav file<br>2. MATLAB Implementation<br>The converted .wav files were loaded into the MATLAB for initial processing and<br>visualization.<br>The audio signals are loaded using the audioread() function, which returns the audio<br>signal data and its corresponding sampling frequency (Fs).<br>Figure 2.2 – Load Audio to MATLAB workspace<br>I. Time Domain Analysis<br>The time-domain waveforms of all three audio signals were visualized using MATLAB's<br>subplot() function to display them in a single figure for comparative analysis.</p>
+
+        <p>7 | P a g e<br>Figure 2.3 – Time Domain Representation of Audio File (Stereo)<br>This time domain analysis shows that these three audio files are stereo which have two<br>audio channels. To enhance the performance, we can use mono audio by taking mean<br>values of those two channels.<br>Figure 2.4 – Converting Stereo Channels to Mono Channel<br>Figure 2.5 - Time Domain Representation of Audio File (Mono)<br>Figure 2.6 – Displaying Sampling Frequency of each Audio file<br>0 	10 	20 	30 	40 	50 	60<br>Time (s)<br>-1<br>-0.5<br>0<br>0.5<br>1<br>Amplitude<br>Audio Signal 1 - Time Domain<br>0 	10 	20 	30 	40 	50 	60<br>Time (s)<br>-1<br>-0.5<br>0<br>0.5<br>1<br>Amplitude<br>Audio Signal 2 - Time Domain<br>0 	10 	20 	30 	40 	50 	60<br>Time (s)<br>-1<br>-0.5<br>0<br>0.5<br>1<br>Amplitude<br>Audio Signal 3 - Time Domain</p>
+
+        <p>8 | P a g e<br>Sampling frequencies of audio files are same which was 44.1kHz and it is always equal<br>to the “Sample Rate” that we are chosen when we export the audio file as .wav file.<br>(Figure 2.1)<br>II. Frequency Domain Analysis<br>To identify noise components in the audio signals, frequency domain analysis was<br>performed using the Fast Fourier Transform (FFT). The FFT converts time-domain<br>signals into their frequency-domain representation, revealing the magnitude and<br>distribution of frequency components present in each signal. The Fast Fourier<br>Transform (FFT) was computed for each signal using MATLAB's fft() function.<br>For a discrete signal x(n) of length N, the FFT is computed as:<br>𝑋𝑋(𝑘𝑘) = � 𝑥𝑥(𝑛𝑛)<br>𝑁𝑁−1<br>𝑛𝑛=0<br>𝑒𝑒 −𝑗𝑗2𝜋𝜋𝜋𝜋𝑛𝑛<br>𝑁𝑁<br>where k represents the frequency bin index.<br>Figure 2.7 – Calculating FFT<br>The magnitude spectrum was calculated by taking the absolute value of the FFT output<br>and normalizing by the number of samples N. Since the FFT produces a two-sided<br>spectrum (both positive and negative frequencies), a single-sided spectrum was<br>extracted by considering only the positive frequency components from 0 to Fs/2 (the<br>Nyquist frequency). The magnitude values were doubled to preserve energy content,<br>except for the DC component and Nyquist frequency.<br>The fundamental frequency component of each signal was identified as the frequency<br>bin with the maximum magnitude in the spectrum.<br>As shown in Figure 2.8, fundamental frequencies for audio files were;<br>Audio 01 [Crysis3Intro.wav] 	: 	439.83 Hz<br>Audio 02 [DreamsBenSound.wav] 	: 	50.67 Hz<br>Audio 03 [LastSummer.wav] 	: 	42.20 Hz</p>
+
+        <p>9 | P a g e<br>Figure 2.8 – Identifying Fundamental Frequency<br>The single-sided magnitude spectrum was calculated to focus on positive frequencies,<br>as audio signals are real-valued and symmetric in the frequency domain. The single-<br>sided magnitude spectrums were plotted for visual analysis of frequency content and<br>noise characteristics.<br>Figure 2.9 – Magnitude Spectrum of Audio files in Frequency Domain<br>This visualization revealed distinct noise profiles:<br>• 	Audio Signal 1 in Figure 2.9 has a wide range of frequencies. This is mostly like a<br>broadband hiss noise. Therefore, we can assume Audio 01 (Crysis3Intro.wav) is<br>mixed with a hissing noise.<br>• 	Audio Signal 2 in Figure 2.9 has sharp peak at 50.67 Hz (mains hum). This could<br>cause when the Audio 02 (DreamsBenSound.wav) was recorded with background<br>fan or AC unit’s noises.<br>• 	Audio Signal 3 in Figure 2.9 can be seen as an elevated frequencies at lower<br>frequencies. This could be a rumble noise when recording Audio 03<br>(LastSummer.wav).<br>The 439.83 Hz, 50.67 Hz, and 42.20 Hz are the fundamental frequencies (loudest<br>components), but they might not necessarily the noise. The noise is separate from<br>these musical components.</p>
+
+        <p>10 | P a g e<br>DESIGN<br>1. Noise Identification and Characterization<br>Following the frequency domain analysis, each audio signal was examined to identify the<br>specific noise characteristics present. The magnitude spectrums revealed distinct noise<br>patterns requiring different filtering approaches.<br>I. Audio Signal 1 Analysis<br>Audio Signal 1 shows elevated magnitude levels in the high-frequency region of the<br>spectrum. Analysis of different frequency bands shows that while the primary musical<br>content resides in the mid-frequency range (200-4000 Hz), there exists a proportionally<br>significant noise floor extending across frequencies above 5 kHz.<br>The noise manifests as a broadband elevation rather than discrete tonal components,<br>characteristic of high-frequency hiss. This type of noise typically originates from analog<br>recording equipment noise, microphone self-noise, or environmental sources such as<br>air movement across the microphone diaphragm. The fundamental frequency<br>component of the music appears at 439.83 Hz, indicating that the musical content<br>occupies the low-to-mid frequency range, while the hiss extends broadly across the<br>upper spectrum.<br>The elevated high-frequency content reduces the perceived clarity of the audio and<br>introduces an audible "sss" or "shh" sound that masks the natural decay of musical<br>notes and reduces overall listening quality.<br>II. Audio Signal 2 Analysis<br>Audio Signal 2 shows a prominent narrow peak at 50.67 Hz with a magnitude of<br>0.041907, significantly exceeding surrounding frequency components. This sharp<br>spectral feature indicates the presence of tonal interference, where a single frequency<br>or narrow band dominates the noise profile.<br>The frequency of 50.67 Hz corresponds closely to the 50 Hz mains frequency used in<br>many regions, suggesting possible electromagnetic interference from power systems<br>or mechanical vibration from rotating equipment such as fans or motors. Fan noise<br>often produces tonal components at the fundamental rotation frequency and its<br>harmonics. The narrow, well-defined nature of this peak makes it amenable to targeted<br>removal using notch filtering techniques.<br>Unlike broadband noise that spreads across wide frequency ranges, this tonal<br>interference appears as a discrete component that can be selectively attenuated<br>without significantly affecting adjacent musical frequencies.<br>III. Audio Signal 3 Analysis<br>Audio Signal 3 exhibits elevated magnitude levels in the low-frequency region below<br>200 Hz. Analysis revealed average magnitudes in the 10-100 Hz band significantly<br>higher than those in the mid-frequency music content region, indicating the presence<br>of low-frequency noise.<br>This noise characteristic, commonly referred to as rumble, manifests as a broadband<br>elevation across the low-frequency spectrum. Rumble typically originates from<br>mechanical vibrations, structural transmission of low-frequency energy, handling<br>noise during recording, or environmental sources such as traffic or building systems.</p>
+
+        <p>11 | P a g e<br>The fundamental frequency of the musical content appears at 42.20 Hz, but the noise<br>occupies a broad range that extends well into the sub-bass region.<br>The presence of rumble reduces the clarity of bass instruments, creates a muddy or<br>boomy sound quality, and can mask low-frequency musical content. In some cases, it<br>may also cause physical resonances in playback systems, further degrading audio<br>quality.<br>IV. Summary of Noise Characteristics<br>The three audio signals show fundamentally different noise profiles requiring distinct<br>filtering strategies:<br>• 	Audio 1: Broadband high-frequency hiss requiring low-pass filtering to remove<br>content above the music bandwidth<br>• 	Audio 2: Narrow-band tonal interference requiring notch or shelving filtering to<br>selectively attenuate the specific frequency component<br>• 	Audio 3: Broadband low-frequency rumble requiring high-pass filtering to remove<br>content below the useful music range<br>These characterizations, derived from frequency domain analysis, create the<br>foundation for filter design decisions detailed in the following sections.<br>2. Filter Selection and Design Calculations<br>Based on the identified noise characteristics, appropriate FIR (Finite Impulse Response)<br>filters were designed. FIR filters were selected over IIR filters due to their inherent stability<br>and linear phase response, which preserves the temporal characteristics of audio signals<br>without introducing phase distortion.<br>I. Audio 1: Low-Pass Filter Design<br>Audio Signal 1 contains high-frequency hiss that extends above the primary musical<br>content. Analysis of the frequency spectrum indicates that the essential musical<br>information resides below approximately 300 Hz, while the hiss noise dominates<br>frequencies above this threshold. A low-pass filter was selected to attenuate high-<br>frequency content while preserving the desired signal components.<br>Design Parameters:<br>The cutoff frequency was determined based on the boundary between musical content<br>and noise-dominated regions,<br>𝑓𝑓𝑐𝑐1 = 300 Hz<br>This frequency was selected to preserve the fundamental tones and lower harmonics<br>of the musical content while removing the high-frequency hiss.<br>For MATLAB implementation, the cutoff frequency must be normalized relative to the<br>Nyquist frequency.<br>𝑓𝑓𝑐𝑐1,𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛 = 𝑓𝑓𝑐𝑐1<br>𝐹𝐹𝑠𝑠1<br>2<br>= 300<br>22050 = 0.0136<br>The Rolloff rate specification of 6 dB/octave corresponds to a first-order filter. For<br>Butterworth IIR filters, the relationship between filter order and Rolloff rate is,<br>Rolloff = 𝑛𝑛1 × 6 dB/octave</p>
+
+        <p>12 | P a g e<br>where n is the filter order. Therefore,<br>𝑛𝑛1 = 6<br>6 = 1<br>A first-order Butterworth low-pass filter provides a gradual transition between<br>passband and stopband, minimizing potential artifacts while achieving adequate<br>attenuation of high-frequency noise. The filter equation in the s-domain for a first-order<br>Butterworth filter is,<br>𝐻𝐻(𝑠𝑠) = 𝜔𝜔𝑐𝑐<br>𝑠𝑠 + 𝜔𝜔𝑐𝑐<br>Where 𝜔𝜔𝑐𝑐 = 2𝜋𝜋𝑓𝑓𝑐𝑐 is the cutoff frequency in radians per second.<br>Justification:<br>The 300 Hz cutoff preserves bass and low-mid frequency content while removing hiss<br>that typically located above 1 kHz. The moderate Rolloff rate of 6 dB/octave ensures a<br>smooth transition that avoids introducing resonances or ringing artifacts that could mix<br>the audio.<br>II. Audio 2: Notch Filter Design<br>Audio Signal 2 exhibits a narrow tonal peak at 50.67 Hz, characteristic of fan noise or<br>power line interference. A notch filter (also called a band-stop filter) was selected to<br>selectively attenuate this specific frequency component while minimizing impact on<br>adjacent frequencies.<br>Design Parameters:<br>The center frequency of the notch filter was positioned at the detected peak,<br>𝑓𝑓0 = 50.67 Hz<br>An 8 Hz bandwidth was selected to create a narrow notch around the interference<br>frequency,<br>BW = 8 Hz<br>The lower and upper cutoff frequencies defining the stopband were calculated as,<br>𝑓𝑓𝑐𝑐2,𝑙𝑙𝑛𝑛𝑙𝑙 = 𝑓𝑓0 − BW<br>2 = 46.67 Hz<br>𝑓𝑓𝑐𝑐2,ℎ𝑖𝑖𝑖𝑖ℎ = 𝑓𝑓0 + BW<br>2 = 54.67 Hz<br>Normalized frequencies for MATLAB implementation,<br>𝑓𝑓𝑐𝑐2,𝑙𝑙𝑛𝑛𝑙𝑙,𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛 = 46.67<br>22050 = 0.0021<br>𝑓𝑓𝑐𝑐2,ℎ𝑖𝑖𝑖𝑖ℎ,𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛 = 54.67<br>22050 = 0.0025<br>For a notch filter to achieve significant attenuation (approximately -18 dB or greater) at<br>the center frequency while maintaining a narrow bandwidth, a second-order section is<br>typically employed. Therefore,<br>𝑛𝑛2 = 2<br>A second-order notch filter provides adequate attenuation depth while maintaining<br>sharp selectivity. Higher orders would create a wider notch, potentially affecting<br>musical content near the interference frequency.</p>
+
+        <p>13 | P a g e<br>Justification:<br>The narrow 8 Hz bandwidth centered at 50.67 Hz creates a sharp notch that removes<br>the tonal interference with minimal impact on surrounding frequencies. The second-<br>order design provides attenuation exceeding 18 dB at the center frequency, effectively<br>eliminating the audible hum or drone associated with fan noise. The selectivity of the<br>notch ensures that low-frequency musical content, such as bass notes, remains<br>unaffected.<br>III. Audio 3: High-Pass Filter Design<br>Audio Signal 3 contains low-frequency rumble that obscures musical content. A high-<br>pass filter was selected to attenuate frequencies below 1000 Hz, where the rumble<br>dominates, while preserving mid and high-frequency content.<br>Design Parameters:<br>The cutoff frequency was positioned to preserve harmonic content while removing<br>noise,<br>𝑓𝑓𝑐𝑐3 = 1000 Hz<br>Normalized frequency calculation,<br>𝑓𝑓𝑐𝑐3,𝑛𝑛𝑛𝑛𝑛𝑛𝑛𝑛 = 𝑓𝑓𝑐𝑐3<br>𝐹𝐹𝑠𝑠3<br>2<br>= 1000<br>22050 = 0.0454<br>The higher Rolloff rate of 12 dB/octave determines the filter order,<br>Rolloff = 𝑛𝑛3 × 12 dB/octave<br>𝑛𝑛3 = 12<br>6 = 2<br>A second-order Butterworth high-pass filter provides a Rolloff rate of 12 dB/octave,<br>creating a moderately sharp transition between the stopband (attenuated rumble) and<br>passband (preserved music).<br>Justification:<br>The 1000 Hz cutoff effectively removes all low-frequency rumble while preserving mid<br>and high-frequency content where the majority of musical information remains. The 12<br>dB/octave Rolloff provides faster attenuation than a first-order filter, ensuring that<br>rumble components are reduced within one octave below the cutoff frequency. At 500<br>Hz (one octave below 1000 Hz), the attenuation reaches approximately -12 dB, and at<br>250 Hz (two octaves below), it reaches approximately -24 dB, effectively suppressing<br>rumble noise.<br>IV. Summary of Filter Design Parameters<br>Audio File 	Filter Type 	Cutoff Frequency 	Normalized Frequency 	Order<br>Audio 1 	Low-Pass 	300 Hz 	0.0136 	1<br>Audio 2 	Band-stop/Notch 	46.66 Hz – 54.67 Hz 	0.0021 – 0.0025 	2<br>Audio 3 	High-Pass 	1000 Hz 	0.0454 	2<br>Table 3.1 - Summary of Filter Design Parameters</p>
+
+        <p>14 | P a g e<br>3. Filter Implementation and Frequency Response<br>The three designed filters were implemented in MATLAB using IIR (Infinite Impulse<br>Response) digital filter structures using the designfilt() function, which generates<br>digital filter objects based on specified parameters. The implementation process involves<br>creating filter coefficients based on the calculated design parameters and analysing the<br>resulting frequency responses to verify proper filter behaviour.<br>I. MATLAB Filter Design<br>The three IIR filters were implemented in MATLAB using the Butterworth approximation<br>and the butter() function. This function generates the numerator and denominator<br>coefficients of the transfer function based on specified filter order, normalized cutoff<br>frequencies and filter type.<br>The frequency response of each filter was computed using the freqz() function,<br>which calculates the complex frequency response 𝐻𝐻(𝑒𝑒 𝑗𝑗𝑗𝑗) at 1024 discrete frequency<br>points spanning from 0 to the Nyquist frequency. The magnitude response is obtained<br>as,<br>|𝐻𝐻(𝑓𝑓)| = |𝐻𝐻(𝑒𝑒<br>𝑗𝑗2𝜋𝜋𝜋𝜋<br>𝐹𝐹𝑠𝑠 )|<br>For visualization purposes, the magnitude response is also expressed in decibels,<br>|𝐻𝐻(𝑓𝑓)|𝑑𝑑𝑑𝑑 = 20log10 (|𝐻𝐻(𝑓𝑓)|)<br>The butter() function in MATLAB implements the bilinear transformation method to<br>convert analog Butterworth filter designs to their digital equivalents. This<br>transformation preserves the magnitude response characteristics while mapping the<br>analog frequency axis to the digital frequency axis.<br>II. Filter 1: Low-Pass Filter Response<br>Figure 3.1 – Filter 1 Frequency Response<br>0 	5 	10 	15 	20<br>Frequency (kHz)<br>-80<br>-60<br>-40<br>-20<br>0<br>Phase<br> (degrees<br>)<br>Phase<br>0 	5 	10 	15 	20<br>Frequency (kHz)<br>-60<br>-50<br>-40<br>-30<br>-20<br>-10<br>0<br>Magnitude<br> (dB<br>)<br>Filter 1: Low-Pass Filter Frequency Response (Audio 1 - Hiss Removal)</p>
+
+        <p>15 | P a g e<br>Figure 3.1 presents the frequency response of the first-order Butterworth low-pass<br>filter designed for Audio 1. The magnitude response demonstrates the following<br>characteristics,<br>• 	Passband: Frequencies below 300 Hz maintain approximately 0 dB gain, allowing<br>low-frequency musical content to pass unattenuated.<br>• 	Cutoff frequency: At 300 Hz, the magnitude response is -3 dB, corresponding to the<br>half-power point where the signal power is reduced by 50%.<br>• 	Stopband: Above 300 Hz, the filter attenuates frequencies at the designed rate of 6<br>dB/octave (20 dB/decade), progressively reducing high-frequency hiss.<br>• 	Phase response: The phase shift varies smoothly from 0° at low frequencies to -90°<br>at high frequencies, characteristic of first-order systems.<br>At 600 Hz (one octave above the cutoff), the attenuation reaches approximately -9 dB.<br>At 3000 Hz, where hiss typically dominates, the attenuation exceeds -30 dB, providing<br>substantial noise reduction while preserving the fundamental tones and lower<br>harmonics of the music.<br>III. Filter 2: Band-Stop/Notch Filter Response<br>Figure 3.2 – Filter 2 Frequency Response<br>Figure 3.2 illustrates the frequency response of the second-order Butterworth band-<br>stop filter for Audio 2. The response shows:<br>• 	Passband (low frequencies): Below 21.53 Hz, unity gain is maintained.<br>• 	Transition band: Between 21.53 Hz and 43.06 Hz, the magnitude decreases sharply.<br>• 	Center frequency: At 43.06 Hz, maximum attenuation occurs, typically exceeding -<br>20 dB for a second-order design.<br>• 	Transition band (upper): Between 43.06 Hz and 86.13 Hz, the magnitude increases<br>back toward unity.<br>• 	Passband (high frequencies): Above 86.13 Hz, unity gain is restored.<br>0 	5 	10 	15 	20<br>Frequency (kHz)<br>-350<br>-300<br>-250<br>-200<br>-150<br>-100<br>-50<br>0<br>Phase<br> (degrees<br>)<br>Phase<br>0 	5 	10 	15 	20<br>Frequency (kHz)<br>-0.25<br>-0.2<br>-0.15<br>-0.1<br>-0.05<br>0<br>Magnitude<br> (dB<br>)<br>Filter 2: Band-Stop Filter Frequency Response (Audio 2 - Fan Noise Removal)</p>
+
+        <p>16 | P a g e<br>The symmetrical notch characteristic demonstrates effective removal of the 50.67 Hz<br>tonal interference while minimizing impact on adjacent frequencies. Musical content at<br>40 Hz and 60 Hz experiences negligible attenuation, preserving the integrity of bass<br>notes and low-frequency musical information.<br>IV. Filter 3: High-Pass Filter Response<br>Figure 3.3 – Filter 3 Frequency Response<br>Figure 3.3 displays the frequency response of the second-order Butterworth high-pass<br>filter designed for Audio 3. Key characteristics include:<br>• 	Stopband: Below 1000 Hz, frequencies are progressively attenuated at 12<br>dB/octave, removing low-frequency rumble.<br>• 	Cutoff frequency: At 1000 Hz, the response reaches -3 dB<br>• 	Passband: Above 1000 Hz, the filter maintains flat response near 0 dB, preserving<br>mid and high-frequency content.<br>• 	Phase response: Transitions from +180° at low frequencies to 0° at high<br>frequencies, characteristic of second-order high-pass filters.<br>At 500 Hz (one octave below the cutoff), the filter provides approximately -15 dB<br>attenuation. At 250 Hz (two octaves below), attenuation reaches approximately -27 dB.<br>This rapid Rolloff ensures effective suppression of rumble noise, which typically<br>concentrates below 200 Hz, while frequencies above 1000 Hz remain unaffected.<br>The frequency response analysis confirms that all three filters exhibit the designed<br>characteristics and provide appropriate magnitude responses for their respective noise<br>removal tasks. The combination of adequate stopband attenuation and minimal passband<br>distortion ensures effective noise reduction while preserving audio quality.<br>V. Filter Application & Audio Exports<br>The designed IIR Butterworth filters were applied to their respective noisy audio signals<br>using MATLAB's filtfilt() function. This function implements zero-phase forward<br>and reverse filtering, which applies the filter twice, once forward and once in reverse to<br>0 	5 	10 	15 	20<br>Frequency (kHz)<br>0<br>50<br>100<br>150<br>Phase<br> (degrees<br>)<br>Phase<br>0 	5 	10 	15 	20<br>Frequency (kHz)<br>-60<br>-50<br>-40<br>-30<br>-20<br>-10<br>0<br>Magnitude<br> (dB<br>)<br>Filter 3: High-Pass Filter Frequency Response (Audio 3 - Rumble Removal)</p>
+
+        <p>17 | P a g e<br>eliminate phase distortion that would otherwise occur with standard causal filtering.<br>This approach is particularly important for audio signals where phase coherence must<br>be preserved to maintain the natural sound of musical content.<br>Figure 3.4 – Applying Designed Filters to the Original Audio Files<br>Following successful filtering, each processed signal was saved as a standard .wav file<br>for subsequent analysis, evaluation. To ensure compatibility with audio playback<br>systems and prevent digital clipping during file writing, each filtered signal was<br>normalized to the range [-1, 1] by dividing by its maximum absolute amplitude value,<br>Figure 3.5 – Normalizing the Filtered Audio<br>The normalized signals were then exported using MATLAB's audiowrite() function<br>with the original sampling frequency preserved,<br>Figure 3.6 – Exporting Filtered & Normalized Audio Files<br>This process generated three distinct output files, each named to indicate both the<br>source audio and the filter type applied.</p>
+
+        <p>18 | P a g e<br>RESULTS<br>1. Filtered Signal Analysis<br>The designed filters were applied to the three noisy audio signals using MATLAB's<br>filtfilt() function, which implements zero-phase digital filtering. This function<br>processes the signal in both forward and reverse directions, eliminating phase distortion<br>that would otherwise be introduced by standard IIR filtering. Zero-phase filtering is<br>particularly important for audio applications, as it preserves the temporal relationships<br>between frequency components, maintaining the natural sound quality.<br>The frequency spectrums of both original (noisy) and filtered signals were computed using<br>the Fast Fourier Transform to quantitatively assess the effectiveness of each filter in<br>removing its target noise component.<br>I. Audio 1: High-Frequency Hiss Removal<br>Figure 4.1 – Comparison of Original Audio 1 & Filtered Audio 1 in Frequency Domain<br>Figure 4.1 presents a side-by-side comparison of the frequency spectrums for Audio 1<br>before and after low-pass filtering. The top subplot displays the original signal<br>spectrum, showing elevated magnitude levels across the high-frequency range above<br>300 Hz, characteristic of the hiss noise identified in the analysis phase.<br>The bottom subplot shows the filtered signal spectrum. A clear reduction in high-<br>frequency content is visible above the 300 Hz cutoff frequency. The magnitude of<br>frequency components above 1000 Hz has been substantially attenuated,<br>demonstrating effective removal of the hiss noise. The low-frequency content below<br>300 Hz remains largely intact, preserving the fundamental tones and bass content of<br>the music.<br>The gradual Rolloff characteristic of the first-order filter is evident in the transition<br>region between 300 Hz and 1000 Hz, where the attenuation increases progressively<br>according to the 6 dB/octave rate.</p>
+
+        <p>19 | P a g e<br>Figure 4.2 – Comparison of Original Audio 1 & Filtered Audio 1 in Frequency Domain [0-5000Hz]<br>II. Audio 2: Tonal Interference Removal<br>Figure 4.3 – Comparison of Original Audio 2 & Filtered Audio 2 in Frequency Domain<br>Figure 4.3 illustrates the frequency spectrum comparison for Audio 2, focusing on the<br>low-frequency region (0-200 Hz) where the 50.67 Hz tonal interference was identified.<br>The original signal spectrum (top subplot) shows a prominent peak at 50.67 Hz,<br>representing the fan noise component.<br>The filtered signal spectrum (bottom subplot) demonstrates almost successful<br>attenuation of the 50.67 Hz peak. This selective attenuation confirms the effectiveness<br>of the band-stop filter in removing the tonal interference without degrading adjacent<br>frequency content.<br>0 	500 	1000 	1500 	2000 	2500 	3000 	3500 	4000 	4500 	5000<br>Frequency (Hz)<br>0<br>0.005<br>0.01<br>0.015<br>0.02<br>0.025<br>Magnitude<br>Audio 1: Original Signal - Frequency Spectrum<br>0 	500 	1000 	1500 	2000 	2500 	3000 	3500 	4000 	4500 	5000<br>Frequency (Hz)<br>0<br>0.002<br>0.004<br>0.006<br>0.008<br>0.01<br>0.012<br>Magnitude<br>Audio 1: Filtered Signal - Frequency Spectrum<br>Audio 1: Original vs Filtered Frequency Spectrum Comparison</p>
+
+        <p>20 | P a g e<br>The narrow bandwidth of the notch filter is evident from the localized nature of the<br>attenuation, affecting only a small region of the spectrum centered at the interference<br>frequency.<br>Figure 4.4 – Comparison of Original Audio 2 & Filtered Audio 2 in Frequency Domain [0-200Hz]<br>III. Audio 3: Low-Frequency Rumble Removal<br>Figure 4.5 – Comparison of Original Audio 3 & Filtered Audio 3 in Frequency Domain<br>Figure 4.5 presents the frequency spectrum comparison for Audio 3, with emphasis on<br>the low-to-mid frequency range (0-3000 Hz). The original signal spectrum (top subplot)<br>shows elevated magnitude levels in the low-frequency region below 200 Hz, consistent<br>with the rumble noise identified during analysis.<br>The filtered signal spectrum (bottom subplot) shows substantial attenuation of low-<br>frequency content below the 1000 Hz cutoff. The magnitude of frequency components<br>0 	20 	40 	60 	80 	100 	120 	140 	160 	180 	200<br>Frequency (Hz)<br>0<br>0.01<br>0.02<br>0.03<br>0.04<br>0.05<br>Magnitude<br>Audio 2: Original Signal - Frequency Spectrum<br>0 	20 	40 	60 	80 	100 	120 	140 	160 	180 	200<br>Frequency (Hz)<br>0<br>0.01<br>0.02<br>0.03<br>0.04<br>0.05<br>Magnitude<br>Audio 2: Filtered Signal - Frequency Spectrum<br>Audio 2: Original vs Filtered Frequency Spectrum Comparison</p>
+
+        <p>21 | P a g e<br>below 500 Hz has been dramatically reduced, effectively removing the rumble noise.<br>Content above 1000 Hz remains unaffected, preserving mid and high-frequency<br>musical information.<br>The second-order high-pass filter provides a 12 dB/octave Rolloff rate, resulting in rapid<br>attenuation of frequencies well below the cutoff. This characteristic ensures complete<br>removal of rumble components while maintaining a relatively narrow transition band.<br>Figure 4.6 – Comparison of Original Audio 3 & Filtered Audio 3 in Frequency Domain [0-3000Hz]<br>2. Audio Quality Assessment<br>Following the application of the designed filters, the filtered audio files were subjected to<br>subjective listening tests to assess the perceptual improvement in audio quality. The<br>evaluation focused on the reduction of identified noise components and the preservation<br>of musical content.<br>I. Audio 1: Hiss Removal Assessment<br>The filtered version of Audio 1 demonstrates substantial reduction in high-frequency<br>hiss. Upon playback, the characteristic "sss" or "shh" sound present in the original<br>recording is markedly diminished. The background noise floor appears lower, resulting<br>in improved clarity and definition of the audio content.<br>The low-pass filter at 300 Hz successfully attenuated the high-frequency noise<br>components while preserving the fundamental tones and lower harmonics. The bass<br>and low-mid frequency content remains audible and intact, maintaining the essential<br>character of the music. The gradual 6 dB/octave Rolloff ensures that the transition<br>between preserved and attenuated frequencies occurs smoothly without introducing<br>audible artifacts such as ringing or resonance.<br>The overall listening experience is improved, with reduced listener fatigue associated<br>with prolonged exposure to high-frequency noise. The signal content becomes more<br>prominent relative to the noise floor, enhancing the perceived signal-to-noise ratio.</p>
+
+        <p>22 | P a g e<br>II. Audio 2: Tonal Interference Assessment<br>Audio 2 presents a more challenging filtering scenario. The band-stop filter designed to<br>remove the 50.67 Hz tonal interference shows partial effectiveness. While some<br>attenuation of the low-frequency drone or fan is perceptible, the tonal component<br>remains audible in the filtered output.<br>This limited effectiveness may be attributed to several factors. The narrow bandwidth<br>(8 Hz) of the notch filter may not provide sufficient attenuation depth for complete<br>removal of the interference. Additionally, if the fan noise contains harmonic<br>components at integer multiples of the fundamental frequency (likely near 101 Hz, 152<br>Hz), these would not be addressed by a notch filter centered only at the fundamental<br>frequency.<br>Further refinement of the filter design, potentially including a wider bandwidth, higher<br>filter order, or multiple notch filters targeting harmonic components, would be<br>necessary to achieve complete removal of the tonal interference. Alternatively,<br>parametric equalization with adjustable Q factor could provide more flexible control<br>over the notch characteristics. (More likely to Notch filter in Audacity)<br>Despite the partial effectiveness, the filtered version shows measurable improvement<br>over the original, as evidenced by the reduction in magnitude at 50.67 Hz in the<br>frequency spectrum analysis.<br>III. Audio 3: Rumble Removal Assessment<br>The filtered version of Audio 3 shows significant improvement in audio clarity through<br>effective removal of low-frequency rumble. The muddy or boomy quality present in the<br>original recording has been eliminated, resulting in cleaner and more defined audio.<br>The high-pass filter at 1000 Hz with 12 dB/octave Rolloff successfully attenuates the<br>low-frequency noise components that dominated the 200 Hz region. The removal of<br>rumble allows mid and high-frequency content to become more perceptible and<br>distinct. The overall tonal balance shifts toward the mid-range, which carries the<br>primary musical information.<br>The relatively high cutoff frequency of 1000 Hz does result in the loss of some low-<br>frequency musical content, such as bass notes and low-frequency harmonics.<br>However, for applications where rumble removal is prioritized over bass preservation,<br>this trade-off is acceptable. The filtered audio is suitable for playback on small<br>speakers or systems with limited low-frequency response, where the rumble would be<br>inaudible or cause distortion.<br>The second-order filter design provides adequate attenuation while maintaining<br>stability and avoiding excessive phase distortion in the passband.<br>3. Summary of Filtering Results<br>The application of frequency-selective filters to three noisy audio signals showed varying<br>degrees of success:</p>
+
+        <p>23 | P a g e<br>• 	Audio 1 demonstrated excellent hiss removal with the low-pass filter, achieving<br>substantial high-frequency noise attenuation while preserving essential low-frequency<br>content.<br>• 	Audio 2 showed partial improvement with the band-stop filter, though complete<br>removal of the tonal interference was not achieved. This indicates the need for further<br>filter optimization or alternative approaches.<br>• 	Audio 3 exhibited significant rumble reduction through high-pass filtering, though at<br>the cost of some bass content. The trade-off between noise removal and signal<br>preservation is acceptable for the intended application.<br>These results will be quantified in the following section through objective performance<br>metrics including Mean Square Error (MSE) and Signal-to-Noise Ratio (SNR)<br>improvements.<br>4. Quantitative Performance Metrics<br>To objectively assess the effectiveness of the filtering operations, two quantitative metrics<br>were computed: Mean Square Error (MSE) and Signal-to-Noise Ratio (SNR). These metrics<br>provide numerical measures of the difference between original and filtered signals and the<br>improvement in signal quality.<br>I. Mean Square Error (MSE)<br>The Mean Square Error quantifies the average squared difference between the original<br>noisy signal and the filtered signal. It is calculated as,<br>MSE = 1<br>𝑁𝑁 �[𝑥𝑥𝑛𝑛𝑛𝑛𝑖𝑖𝑠𝑠𝑛𝑛(𝑛𝑛) − 𝑥𝑥𝜋𝜋𝑖𝑖𝑙𝑙𝑓𝑓𝑓𝑓𝑛𝑛𝑓𝑓𝑑𝑑(𝑛𝑛)]2<br>𝑁𝑁<br>𝑛𝑛=1<br>Where, N is total number of samples, 𝑥𝑥𝑛𝑛𝑛𝑛𝑖𝑖𝑠𝑠𝑛𝑛(𝑛𝑛) is the original noisy signal and<br>𝑥𝑥𝜋𝜋𝑖𝑖𝑙𝑙𝑓𝑓𝑓𝑓𝑛𝑛𝑓𝑓𝑑𝑑(𝑛𝑛) is the filtered signal.<br>The MSE represents the power of the noise that was removed by the filter. A higher MSE<br>indicates that the filter removed more signal content (which includes both noise and<br>potentially some desired signal). The interpretation of MSE depends on the application<br>context,<br>• 	For noise removal applications, MSE represents the energy of the removed content<br>• 	An excessively high MSE may indicate over-filtering (removal of desired signal)<br>• 	An excessively low MSE may indicate under-filtering (insufficient noise removal)<br>The calculated MSE values are:<br>• 	Audio 1: MSE = 0.00295201<br>• 	Audio 2: MSE = 0.00845865<br>• 	Audio 3: MSE = 0.04110691<br>Audio 1 shows the lowest MSE, indicating that the low-pass filter at 300 Hz removed a<br>moderate amount of content (primarily high-frequency hiss). Audio 2 shows<br>intermediate MSE, reflecting the partial effectiveness of the notch filter. Audio 3 shows<br>the highest MSE (0.0411), indicating that the high-pass filter at 1000 Hz removed<br>substantial low-frequency content, including both rumble noise and some bass<br>frequency signal components.</p>
+
+        <p>24 | P a g e<br>The relatively higher MSE for Audio 3 aligns with the subjective assessment that noted<br>the trade-off between rumble removal and bass content preservation. The aggressive<br>high-pass filtering necessarily removes more energy to ensure complete elimination of<br>low-frequency noise.<br>II. Signal-to-Noise Ratio (SNR)<br>The Signal-to-Noise Ratio quantifies the ratio of signal power to noise power, expressed<br>in decibels. SNR is calculated using MATLAB's built-in snr() function, which performs<br>spectral analysis to identify the fundamental frequency and its harmonics as the signal<br>component, treating the remaining spectral content as noise.<br>The SNR is defined as,<br>SNR = 10log10 (𝑃𝑃𝑠𝑠𝑖𝑖𝑖𝑖𝑛𝑛𝑠𝑠𝑙𝑙<br>𝑃𝑃𝑛𝑛𝑛𝑛𝑖𝑖𝑠𝑠𝑓𝑓<br>) dB<br>Where, 𝑃𝑃𝑠𝑠𝑖𝑖𝑖𝑖𝑛𝑛𝑠𝑠𝑙𝑙 represents the power of the fundamental frequency and its harmonics<br>and 𝑃𝑃𝑛𝑛𝑛𝑛𝑖𝑖𝑠𝑠𝑓𝑓 represents the power of all other frequency components.<br>Original SNR was calculated for the noisy audio signals before filtering, providing a<br>baseline measurement of signal quality. Filtered SNR was calculated after applying the<br>designed filters, measuring the improved signal quality. The SNR improvement is the<br>difference between filtered and original SNR values,<br>ΔSNR = SNR𝜋𝜋𝑖𝑖𝑙𝑙𝑓𝑓𝑓𝑓𝑛𝑛𝑓𝑓𝑑𝑑 − SNR𝑛𝑛𝑛𝑛𝑖𝑖𝑖𝑖𝑖𝑖𝑛𝑛𝑠𝑠𝑙𝑙<br>Also, SNR was calculated using MATLAB's snr() function with a two-input approach,<br>where the filtered signal serves as the reference (clean signal) and the difference<br>between noisy and filtered signals represents the noise component:<br>noise(𝑛𝑛) = 𝑥𝑥𝑛𝑛𝑛𝑛𝑖𝑖𝑠𝑠𝑛𝑛(𝑛𝑛) − 𝑥𝑥𝜋𝜋𝑖𝑖𝑙𝑙𝑓𝑓𝑓𝑓𝑛𝑛𝑓𝑓𝑑𝑑(𝑛𝑛)<br>This method provides a direct comparison between the signal power (from the filtered<br>audio) and the noise power (the content removed by filtering).<br>The results are shown as Table 4.1.<br>In both methods, the negative SNR improvements persist, indicating that the filters<br>removed content in a manner that reduced the power ratio. This occurs because:<br>• 	The filters removed frequency bands containing both noise and signal<br>• 	The aggressive cutoff frequencies (300 Hz low-pass, 1000 Hz high-pass) necessarily<br>attenuated desired signal components<br>• 	The SNR calculation treats all removed content as "noise" even when it includes<br>signal harmonics<br>Alternative SNR Calculation Method<br>For comparison, SNR can also be calculated manually using time-domain power<br>ratios:<br>Figure 4.7 – Alternative Method</p>
+
+        <p>25 | P a g e<br>This manual calculation provides similar results to the two-input snr() function but<br>offers more explicit control over the power computation. The MATLAB snr() function<br>is preferred for its standardization and automatic handling of edge cases.<br>Interpretation of SNR Results<br>The negative SNR improvements across both calculation methods indicate that<br>traditional SNR metrics have limitations when evaluating frequency-selective noise<br>removal filters:<br>• 	Trade-off between noise removal and signal preservation: Aggressive filters that<br>ensure complete noise removal may necessarily attenuate some signal content,<br>particularly when noise and signal occupy overlapping frequency bands.<br>• 	Frequency-selective filtering characteristics: Unlike broadband noise reduction<br>techniques that uniformly reduce noise across all frequencies, band-limiting filters<br>intentionally remove specific frequency regions. SNR calculations that consider all<br>removed content as "noise" may not accurately reflect the perceptual<br>improvement.<br>• 	Perceptual vs. objective metrics: Subjective listening tests indicated successful<br>noise removal for Audio 1 and Audio 3, despite negative SNR improvements. This<br>demonstrates that perceptual audio quality improvement may not always correlate<br>with traditional SNR metrics, particularly when filters alter the frequency content<br>distribution.<br>The MSE and magnitude spectrum comparisons provide more reliable indicators of<br>filtering effectiveness in this application, as they directly quantify the energy removed<br>from target frequency bands without making assumptions about what constitutes<br>signal versus noise.<br>III. Results Summary<br>Audio<br>File MSE<br>SNR (dB)<br>Using snr(signal) 	Using snr(signal,noise)<br>Original<br>Audio<br>Filtered<br>Audio<br>SNR<br>Improve<br>ment<br>Original<br>Audio<br>Filtered<br>Audio<br>SNR<br>Improve<br>ment<br>Audio<br>1 0.00295 	-8.46 	-9.15 	-0.69 	6.32 	3.61 	-2.71<br>Audio<br>2 0.00845 	-14.38 	-16.23 	-1.85 	9.85 	9.09 	-0.75<br>Audio<br>3 0.04110 	-21.73 	-30.32 	-8.59 	0.61 	-9.82 	-10.43<br>Table 4.1 - Performance Evaluation Metrics<br>Key Observations:<br>• 	Audio 1: Lowest MSE indicates moderate content removal; negative SNR<br>improvement reflects removal of high-frequency harmonics along with hiss noise<br>• 	Audio 2: Intermediate MSE with minimal SNR change suggests limited filter<br>effectiveness, consistent with manual listening</p>
+
+        <p>26 | P a g e<br>• 	Audio 3: Highest MSE and most negative SNR improvement indicate aggressive<br>filtering with substantial signal content removal alongside rumble noise<br>The quantitative metrics, combined with frequency spectrum analysis and subjective<br>evaluation provide comprehensive assessment of the filtering performance,<br>highlighting both successes and limitations of the implemented approaches.</p>
+
+        <p>27 | P a g e<br>DISCUSSION<br>1. Effectiveness of Designed Filters<br>The three designed filters demonstrated varying levels of effectiveness in removing their<br>target noise components, as evidenced by both subjective listening tests and quantitative<br>analysis.<br>I. Audio 1: Low-Pass Filter for Hiss Removal<br>The first-order Butterworth low-pass filter with 300 Hz cutoff successfully reduced<br>high-frequency hiss, as confirmed by subjective listening evaluation. The frequency<br>spectrum comparison (Figure 4.1) shows clear attenuation of content above 300 Hz,<br>with magnitude reduction visible across the high-frequency range. The MSE of 0.00295<br>indicates moderate energy removal, suggesting that the filter effectively targeted the<br>noise without excessively degrading the signal.<br>However, the 300 Hz cutoff frequency, while effective at removing hiss, also attenuates<br>mid-frequency musical content between 300 Hz and 1000 Hz. Musical instruments and<br>vocals often contain significant energy in this range, and the 6 dB/octave rolloff means<br>that frequencies at 600 Hz experience approximately 6 dB attenuation. The negative<br>SNR improvement (-2.71 dB) quantitatively reflects this trade-off, indicating that some<br>desired signal harmonics were removed along with the noise.<br>Despite the SNR decrease, the subjective listening assessment confirmed improved<br>audio quality, demonstrating that perceptual quality improvement may not always align<br>with traditional SNR metrics. The removal of the annoying high-frequency hiss<br>improves listening comfort even if the harmonic content is somewhat reduced.<br>II. Audio 2: Band-Stop Filter for Tonal Interference<br>The second-order Butterworth band-stop filter targeting the 50.67 Hz tonal component<br>showed limited effectiveness. While the frequency spectrum comparison (Figure 4.3)<br>indicates some magnitude reduction at the target frequency (from 0.001236 to<br>0.000034 in the FFT display), subjective listening revealed that the tonal interference<br>remained audible.<br>Several factors may explain this limited effectiveness:<br>1) Insufficient attenuation depth: The second-order filter may not provide adequate<br>attenuation (>40 dB) at the center frequency for complete removal of a strong tonal<br>component.<br>2) Narrow bandwidth: The 8 Hz bandwidth creates a very narrow notch. If the<br>interference has slight frequency variation or spread due to modulation, a wider<br>notch might be necessary.<br>3) Harmonic content: Fan noise often contains harmonics at integer multiples of the<br>fundamental frequency. The single notch at 50.67 Hz addresses only the<br>fundamental, leaving harmonics unaffected.<br>4) Filter design limitations: The butter() function with low order may not achieve the<br>steep attenuation characteristics required for narrow-band interference removal.</p>
+
+        <p>28 | P a g e<br>The MSE of 0.00846 is higher than Audio 1 despite the narrow target band, suggesting<br>that the filter affected a broader frequency range than intended. The SNR improvement<br>of -0.75 dB indicates minimal change in the signal-to-noise power ratio.<br>Alternative approaches such as higher-order filters, cascaded notch filters targeting<br>both fundamental and harmonics, or adaptive filtering techniques might achieve better<br>results.<br>III. Audio 3: High-Pass Filter for Rumble Removal<br>The second-order Butterworth high-pass filter with 1000 Hz cutoff effectively removed<br>low-frequency rumble, as confirmed by subjective evaluation. The frequency spectrum<br>comparison (Figure 4.5) shows substantial attenuation of content below 1000 Hz, with<br>magnitude reduction clearly visible in the low-frequency region.<br>However, this aggressive filtering came at a significant cost. The MSE of 0.04111<br>(approximately 14 times higher than Audio 1) indicates substantial energy removal. The<br>cutoff frequency of 1000 Hz is considerably higher than typical rumble frequencies<br>(which concentrate below 200 Hz), meaning that the filter removed not only rumble but<br>also significant musical bass content.<br>The fundamental frequency of the music in Audio 3 is 42.20 Hz, and musical bass<br>instruments typically occupy the 40-200 Hz range. A high-pass filter at 1000 Hz<br>removes these entirely, along with low-frequency harmonics that contribute to warmth<br>and fullness. The SNR improvement of -10.43 dB reflects this significant signal loss.<br>While the rumble was successfully eliminated, a more appropriate design would use a<br>lower cutoff frequency (80-150 Hz) with higher filter order to achieve steep rolloff. This<br>would remove rumble while better preserving bass content, though some trade-off<br>would remain inevitable.<br>2. Filter Design Tool: MATLAB Filter Designer App<br>It should be noted that all filters in this project were designed programmatically using<br>MATLAB functions (butter(), designfilt()). MATLAB also provides the Filter<br>Designer App (filterDesigner), an interactive graphical interface for filter design.<br>This tool allows:<br>• 	Visual design of filter specifications with real-time frequency response display<br>• 	Interactive adjustment of filter order, cutoff frequencies, and other parameters<br>• 	Comparison of different filter types (Butterworth, Chebyshev, Elliptic, FIR)<br>• 	Automatic generation of MATLAB code for the designed filter<br>• 	Analysis of filter characteristics including magnitude response, phase response, pole-<br>zero plots, and impulse response</p>
+
+        <p>29 | P a g e<br>Figure 5.1 – Designing filter for Audio 3 using MATLAB Filter Designer<br>The Filter Designer App can facilitate iterative refinement of filter parameters and provides<br>intuitive understanding of how design choices affect filter behaviour. For future work, this<br>tool could be employed to explore alternative filter configurations and optimize the<br>balance between noise removal and signal preservation.<br>3. Limitations of the Approach<br>The implemented filtering approach, while demonstrating fundamental signal processing<br>principles, shows several limitations.<br>1. 	Fixed Filter Parameters<br>The filters use predetermined cutoff frequencies and orders based on initial frequency<br>analysis. This fixed approach does not adapt to variations in noise characteristics<br>across different portions of the audio recording. If noise levels or spectral content<br>change over time (non-stationary noise), the fixed filters may be over-aggressive in<br>some segments and under-aggressive in others.<br>2. 	Trade-off Between Noise Removal and Signal Preservation<br>Frequency-selective filters necessarily remove all content within their stopband,<br>whether noise or signal. This project showed this limitation clearly:<br>• 	Audio 1: Removing hiss above 300 Hz also removed musical harmonics<br>• 	Audio 3: Removing rumble below 1000 Hz also removed bass content<br>When noise and signal occupy overlapping frequency bands, complete noise removal<br>without signal degradation becomes impossible with simple band-limiting filters. More<br>complex approaches that operate on time-frequency representations (e.g.: spectral<br>subtraction, Wiener filtering) can provide better discrimination.<br>3. 	Inability to Handle Non-Stationary Noise<br>The designed filters are linear time-invariant (LTI) systems, meaning their behaviour is<br>constant over time. Noise that varies in frequency, amplitude or spectral</p>
+
+        <p>30 | P a g e<br>characteristics over time (e.g., intermittent clicks, transient bursts, speech in<br>background) cannot be effectively addressed by fixed filters. Adaptive filtering<br>techniques that adjust their parameters based on ongoing analysis would be required<br>for such scenarios.<br>4. 	Single Notch Limitation for Harmonic Interference<br>The band-stop filter for Audio 2 targets only the fundamental frequency of the<br>interference. If the noise source produces harmonics (as fan noise often does), these<br>components remain in the output. A more comprehensive solution would require<br>multiple notch filters or comb filtering techniques to address the entire harmonic<br>series.<br>5. 	Manual Design Process<br>Filter design in this project required manual analysis of frequency spectrums,<br>identification of noise characteristics, calculation of appropriate parameters, and<br>iterative testing. This process is time-consuming and requires expertise in signal<br>processing. Automated noise profiling and filter generation algorithms could<br>streamline this process for practical applications.<br>6. 	Lack of Perceptual Weighting<br>The filters are designed based purely on spectral characteristics without consideration<br>of human auditory perception. The human ear has varying sensitivity across<br>frequencies (as characterized by equal-loudness contours), and noise at certain<br>frequencies is more perceptually objectionable than others. Perceptually-weighted<br>filter design could optimize for subjective audio quality rather than just spectral<br>modification.<br>7. 	Phase Distortion Considerations<br>While filtfilt() was used to eliminate phase distortion through zero-phase<br>filtering, the IIR filter structure inherently introduces nonlinear phase characteristics.<br>For applications requiring preservation of exact temporal relationships (e.g., multi-<br>channel audio, room acoustics), linear-phase FIR filters might be more appropriate<br>despite their higher computational cost.<br>8. 	SNR Metric Limitations<br>The project revealed that traditional SNR metrics have significant limitations for<br>evaluating frequency-selective noise removal:<br>• 	The single-input snr() function produced counterintuitive results because it<br>classified removed harmonics as signal loss<br>• 	The two-input reference-based approach still showed negative improvements<br>because filters removed content containing both noise and signal<br>• 	Manual SNR calculation using SNR = 10log10 (Signal Power<br>Noise Power) provides similar results<br>but with more explicit control.<br>This highlights that SNR, while valuable for broadband noise reduction assessment,<br>may not accurately reflect perceptual improvement for band-limiting filters. Alternative<br>metrics such as Perceptual Evaluation of Speech Quality (PESQ) or frequency-<br>weighted SNR might provide better correlation with subjective quality.</p>
+
+        <p>31 | P a g e<br>4. Suggested Improvement<br>Based on the analysis of effectiveness and limitations, several improvements could<br>enhance the noise removal system including following improvement.<br>i. Machine Learning Approaches<br>Modern deep learning techniques for audio denoising (e.g., convolutional neural<br>networks, recurrent neural networks, U-Net architectures) can learn complex<br>mappings from noisy to clean audio. These approaches:<br>• 	Automatically learn optimal noise suppression strategies from training data<br>• 	Handle non-stationary and non-linear noise characteristics<br>• 	Provide superior performance for speech enhancement and music denoising<br>• 	Can be trained for specific noise types or applications<br>Furthermore, other several improvements can be listed as follows.<br>ii. 	Adaptive Filtering Techniques [Least Mean Squares (LMS) or Recursive Least Squares<br>(RLS) adaptive algorithms]<br>iii. 	Spectral Subtraction Methods (using Short-Time Fourier Transform)<br>iv. 	Multi-Band Parametric Equalization<br>v. 	Optimal Cutoff Frequency Selection<br>vi. 	Harmonic Interference Removal<br>vii. Real-Time Implementation<br>viii. Perceptually-Optimized Design<br>ix. 	Alternative Filter Structures [Higher-order IIR filters, FIR filters with linear phase,<br>Elliptic filters, Chebyshev filters]</p>
+
+        <p>32 | P a g e<br>CONCLUSION<br>This project successfully developed and implemented a signal processing system for<br>analysing and removing noise from audio recordings using frequency-selective digital<br>filters. The work addressed a practical problem faced by portable music player users:<br>background noise contamination that degrades listening quality.<br>1. Project Summary<br>Three noisy audio recordings were analyzed using frequency domain techniques to identify<br>distinct noise characteristics. Audio Signal 1 exhibited high-frequency hiss, Audio Signal 2<br>contained tonal interference at 50.67 Hz characteristic of fan noise, and Audio Signal 3<br>demonstrated low-frequency rumble. Based on this analysis, appropriate digital filters<br>were designed: a first-order low-pass filter at 300 Hz for Audio 1, a second-order band-<br>stop filter centered at 50.67 Hz for Audio 2, and a second-order high-pass filter at 1000 Hz<br>for Audio 3.<br>The filters were implemented in MATLAB using IIR Butterworth designs, selected for their<br>maximally flat passband response. Filter coefficients were generated using the butter()<br>function, and frequency responses were analyzed using freqz() to verify proper design<br>characteristics. The filters were applied to the audio signals using filtfilt() for zero-<br>phase filtering, preserving temporal relationships while removing noise.<br>2. Key Findings<br>The filtering operations showed mixed but instructive results.<br>Successful Noise Removal: Audio 1 and Audio 3 demonstrated effective noise reduction,<br>with subjective listening tests confirming substantial improvement in audio quality. The<br>frequency spectrum comparisons quantitatively showed reduced magnitude in target<br>frequency bands, validating filter effectiveness.<br>Partial Effectiveness: Audio 2's band-stop filter showed limited success in removing the<br>tonal interference. While frequency analysis indicated some attenuation at 50.67 Hz,<br>subjective evaluation revealed that the interference remained audible, highlighting the<br>challenges of removing persistent tonal components with simple notch filters.<br>Trade-offs in Filter Design: The project revealed an inherent trade-off between aggressive<br>noise removal and signal preservation. Audio 3's high-pass filter at 1000 Hz completely<br>eliminated rumble but also removed substantial bass content, as evidenced by the highest<br>MSE value (0.04111). This demonstrates that effective noise removal often requires<br>accepting some degree of desired signal degradation when noise and signal occupy<br>overlapping frequency bands.<br>SNR Metric Limitations: Traditional Signal-to-Noise Ratio calculations proved inadequate<br>for evaluating frequency-selective filters. Both single-input and two-input snr() function<br>methods yielded negative SNR improvements, despite subjective confirmation of<br>improved audio quality. This occurred because the filters intentionally removed frequency<br>bands containing both noise and signal content. The negative SNR improvements (-2.71<br>dB, -0.75 dB, -10.43 dB) quantitatively reflected the removal of harmonic content<br>alongside noise, illustrating that perceptual quality improvement does not always<br>correlate with conventional SNR metrics for band-limiting applications.</p>
+
+        <p>33 | P a g e<br>Mean Square Error as Alternative Metric: MSE values (0.00295, 0.00846, 0.04111) provided<br>more reliable indicators of filter aggressiveness, directly quantifying the energy removed<br>from each signal. Combined with frequency spectrum analysis and subjective evaluation,<br>MSE offered meaningful assessment of filtering effectiveness.<br>3. Technical Accomplishments<br>The project successfully demonstrated fundamental signal processing concepts.<br>• 	Time-domain and frequency-domain signal analysis using FFT to transform audio<br>signals and identify noise characteristics<br>• 	Digital filter design with calculated cutoff frequencies, normalized frequencies, and<br>justified filter orders<br>• 	Filter implementation using MATLAB functions and verification through frequency<br>response analysis<br>• 	Performance evaluation using multiple metrics including MSE, SNR, frequency<br>spectrum comparison, and subjective assessment<br>• 	Zero-phase filtering implementation to preserve audio timing characteristics<br>The work also highlighted the importance of using multiple evaluation methods.<br>Quantitative metrics alone (particularly SNR in this application) proved insufficient for<br>comprehensive assessment. The combination of objective measurements, visual<br>frequency analysis, and subjective listening provided the most complete understanding of<br>filtering effectiveness.<br>4. Learning Outcomes<br>This project provided practical experience in;<br>• 	Signal acquisition and preprocessing: Converting audio formats, loading signals into<br>MATLAB, handling stereo-to-mono conversion<br>• 	Frequency analysis techniques: Computing and interpreting FFT results, identifying<br>noise components in magnitude spectrums<br>• 	Filter design methodology: Selecting appropriate filter types, calculating design<br>parameters, justifying design choices<br>• 	MATLAB implementation: Using signal processing functions (fft(), butter(),<br>filtfilt(), freqz(), snr()), generating publication-quality plots, documenting<br>code<br>• 	Critical evaluation: Interpreting quantitative metrics, recognizing metric limitations,<br>correlating objective and subjective assessments<br>The challenges encountered particularly the limited effectiveness of the band-stop filter<br>and the counterintuitive SNR results provided valuable lessons in the complexities of real-<br>world signal processing applications and the limitations of idealized approaches.<br>5. Practical Applications<br>The techniques developed in this project have direct applications in;<br>• 	Portable music players: Implementing real-time noise reduction for improved listening<br>quality<br>• 	Audio production: Post-processing recorded material to remove environmental noise<br>• 	Telecommunications: Enhancing speech signals by removing background interference</p>
+
+        <p>34 | P a g e<br>• 	Hearing aids: Filtering unwanted environmental noise to improve speech intelligibility<br>• 	Automotive audio systems: Reducing Road and engine noise in vehicle entertainment<br>systems<br>The fundamental principles of frequency analysis and filter design demonstrated here<br>extend beyond audio processing to numerous fields including biomedical signal<br>processing, vibration analysis, instrumentation, and communications systems.<br>6.Remarks<br>This project demonstrated that basic frequency-selective digital filters properly designed<br>based on thorough frequency domain analysis can effectively reduce specific types of<br>noise in audio signals. The first-order low-pass filter successfully removed high-frequency<br>hiss and the second-order high-pass filter eliminated low-frequency rumble, both<br>confirmed through subjective listening despite negative SNR improvements in quantitative<br>assessment.<br>The project achieved its core objectives: demonstrating signal processing fundamentals,<br>designing and implementing digital filters, analysing signal characteristics in both time and<br>frequency domains, and evaluating performance through multiple metrics. The<br>combination of theoretical knowledge, practical implementation, quantitative analysis,<br>and subjective evaluation provided comprehensive understanding of audio signal<br>processing principles applicable to real-world engineering challenges.<br>The experience gained through this work including troubleshooting unexpected results,<br>interpreting conflicting metrics, and balancing competing design objectives represents<br>valuable preparation for more advanced signal processing applications. Future work<br>building on these foundations could explore sophisticated adaptive algorithms, machine<br>learning approaches, and perceptually-optimized designs that push beyond the<br>limitations of basic frequency-selective filtering.</p>
+
+        <p>35 | P a g e<br>REFERENCES<br>01. 	Practical Introduction to Digital Filtering, MathWorks<br>(https://www.mathworks.com/help/signal/ug/practical-introduction-to-digital-<br>filtering.html)<br>02. 	Introduction to Filter Designer, MathWorks<br>(https://www.mathworks.com/help/signal/ug/introduction-to-filter-designer.html)<br>03. 	Smoothing & Denoising, MathWorks<br>(https://www.mathworks.com/help/signal/smoothing-and-denoising.html)<br>04. 	Real-Time Audio in MATLAB, MathWorks<br>(https://www.mathworks.com/help/audio/gs/real-time-audio-in-matlab.html)<br>05. 	Denoising Overview, MathWorks<br>(https://www.mathworks.com/discovery/denoising.html)<br>06. 	MATLAB Central thread [Can you help remove the noise from this audio file?],<br>MathWorks<br>(https://www.mathworks.com/matlabcentral/answers/357022-can-you-help-<br>remove-the-noise-from-this-audio-file)<br>07. 	Noise Machines by MyNoise.net [Simulating Noises]<br>(https://mynoise.net/noiseMachines.php)<br>08. 	Audacity [Software]<br>(https://www.audacityteam.org/download/)<br>09. 	Crysis 3 (PC) OST by Crytek G.m.b.H [Music]<br>10. 	Last Summer by Ikson™, YouTube [Music]<br>(https://www.youtube.com/watch?v=oR41ejcZ9P4)<br>11. 	Dreams - Chill Royalty Free Music by Bensound, YouTube [Music]<br>(https://www.youtube.com/watch?v=0oH9zS6Lufw)<br>12. 	MATLAB 2024b by MathWorks [Software]<br>Including “Signal Analyzer” & “Filter Designer” interactive apps (Built-in “Signal<br>Processing Toolbox 24.2”)<br>13. 	Signal Processing Toolbox, MathWorks<br>(https://www.mathworks.com/help/signal/ug/frequency-domain-analysis-using-<br>the-fft.html)<br>14. 	butter Function, MathWorks<br>(https://www.mathworks.com/help/signal/ref/butter.html)</p>
+
+        <p>36 | P a g e<br>APPENDIX<br>Full MATLAB code (.m) that used for this project<br>% Clear workspace<br>clear; clc; close all;<br>% Load audio files<br>[audio1, Fs1] = audioread('../audio/wav/Crysis3Intro.wav');<br>[audio2, Fs2] = audioread('../audio/wav/DreamsBenSound.wav');<br>[audio3, Fs3] = audioread('../audio/wav/LastSummer.wav');<br>% Convert stereo to mono if necessary<br>if size(audio1, 2) == 2, audio1 = mean(audio1, 2); end<br>if size(audio2, 2) == 2, audio2 = mean(audio2, 2); end<br>if size(audio3, 2) == 2, audio3 = mean(audio3, 2); end<br>% Create Time Vectors<br>N1 = length(audio1);<br>N2 = length(audio2);<br>N3 = length(audio3);<br>t1 = (0:N1-1) / Fs1;<br>t2 = (0:N2-1) / Fs2;<br>t3 = (0:N3-1) / Fs3;<br>% Time-Domain waveforms in one figure<br>figure;<br>subplot(3,1,1);<br>plot(t1, audio1);<br>xlabel('Time (s)');<br>ylabel('Amplitude');<br>title('Audio Signal 1 - Time Domain');<br>grid on;grid("minor");<br>subplot(3,1,2);<br>plot(t2, audio2);<br>xlabel('Time (s)');<br>ylabel('Amplitude');<br>title('Audio Signal 2 - Time Domain');<br>grid on;grid("minor");<br>subplot(3,1,3);<br>plot(t3, audio3);<br>xlabel('Time (s)');<br>ylabel('Amplitude');<br>title('Audio Signal 3 - Time Domain');<br>grid on;grid("minor");<br>% Display Sampling Frequencies<br>fprintf('Sampling Frequencies:\n');<br>fprintf('Audio 1: Fs = %d Hz\n', Fs1);<br>fprintf('Audio 2: Fs = %d Hz\n', Fs2);<br>fprintf('Audio 3: Fs = %d Hz\n', Fs3);<br>% Section 02: Frequency Domain Analysis<br>% Compute FFT for Audio 1<br>Y1 = fft(audio1); % Compute FFT<br>P2_1 = abs(Y1/N1); % Two-sided spectrum<br>P1_1 = P2_1(1:N1/2+1); % Single-sided<br>P1_1(2:end-1) = 2*P1_1(2:end-1); % Adjust amplitude<br>f1 = Fs1*(0:(N1/2))/N1; % Frequency vector<br>% Compute FFT for Audio 2<br>Y2 = fft(audio2);<br>P2_2 = abs(Y2/N2);<br>P1_2 = P2_2(1:N2/2+1);<br>P1_2(2:end-1) = 2*P1_2(2:end-1);<br>f2 = Fs2*(0:(N2/2))/N2;<br>% Compute FFT for Audio 3<br>Y3 = fft(audio3);<br>P2_3 = abs(Y3/N3);<br>P1_3 = P2_3(1:N3/2+1);</p>
+
+        <p>37 | P a g e<br>P1_3(2:end-1) = 2*P1_3(2:end-1);<br>f3 = Fs3*(0:(N3/2))/N3;<br>% Identify Fundamental Frequencies<br>[~, idx1] = max(P1_1);<br>fund_freq1 = f1(idx1);<br>[~, idx2] = max(P1_2);<br>fund_freq2 = f2(idx2);<br>[~, idx3] = max(P1_3);<br>fund_freq3 = f3(idx3);<br>fprintf('\nFundamental Frequency Components:\n');<br>fprintf('Audio 1: %.2f Hz\n', fund_freq1);<br>fprintf('Audio 2: %.2f Hz\n', fund_freq2);<br>fprintf('Audio 3: %.2f Hz\n', fund_freq3);<br>% Plot Single-Sided Magnitude Spectrums<br>figure;<br>subplot(3,1,1);<br>plot(f1, P1_1);<br>xlabel('Frequency (Hz)');<br>ylabel('Magnitude');<br>title('Audio Signal 1 - Single-Sided Magnitude Spectrum');<br>grid on;grid("minor");<br>xlim([0 Fs1/2]);<br>subplot(3,1,2);<br>plot(f2, P1_2);<br>xlabel('Frequency (Hz)');<br>ylabel('Magnitude');<br>title('Audio Signal 2 - Single-Sided Magnitude Spectrum');<br>grid on;grid("minor");<br>xlim([0 Fs2/2]);<br>subplot(3,1,3);<br>plot(f3, P1_3);<br>xlabel('Frequency (Hz)');<br>ylabel('Magnitude');<br>title('Audio Signal 3 - Single-Sided Magnitude Spectrum');<br>grid on;grid("minor");<br>xlim([0 Fs3/2]);<br>% Audio 1: Analysis<br>fprintf('\n--- AUDIO 1 ANALYSIS ---\n');<br>% Calculate average magnitudes in different bands<br>mag_0_50 = mean(P1_1(f1 >= 10 & f1 <= 50));<br>mag_50_100 = mean(P1_1(f1 >= 50 & f1 <= 100));<br>mag_100_200 = mean(P1_1(f1 >= 100 & f1 <= 200));<br>mag_200_400 = mean(P1_1(f1 >= 200 & f1 <= 400));<br>fprintf('Average Magnitude Analysis:\n');<br>fprintf(' 	10-50 Hz: 	%.6f\n', mag_0_50);<br>fprintf(' 	50-100 Hz: 	%.6f\n', mag_50_100);<br>fprintf(' 	100-200 Hz: 	%.6f\n', mag_100_200);<br>fprintf(' 	200-400 Hz: 	%.6f\n', mag_200_400);<br>% Audio 3: Analysis<br>fprintf('\n--- AUDIO 3 ANALYSIS ---\n');<br>% Calculate average magnitudes in different bands<br>mag_1k_4k = mean(P1_3(f3 >= 1000 & f3 <= 4000));<br>mag_4k_8k = mean(P1_3(f3 >= 4000 & f3 <= 8000));<br>mag_8k_12k = mean(P1_3(f3 >= 8000 & f3 <= 12000));<br>fprintf('Average Magnitude Analysis:\n');<br>fprintf(' 	1-4 kHz: 	%.6f\n', mag_1k_4k);<br>fprintf(' 	4-8 kHz: 	%.6f\n', mag_4k_8k);<br>fprintf(' 	8-12 kHz: 	%.6f\n', mag_8k_12k);<br>% Section 03a & 03b: Filter Design and Frequency Response<br>% Design Filter 1: Low-Pass for Audio 1 (Hiss Removal)<br>% First-order Butterworth low-pass filter<br>fc1 = 300;<br>fc1_norm = fc1 / (Fs1/2);</p>
+
+        <p>38 | P a g e<br>order1 = 1;<br>[b1, a1] = butter(order1, fc1_norm, 'low');<br>fprintf('Filter 1 (Low-Pass) designed:\n');<br>fprintf(' 	Cutoff: %d Hz, Order: %d\n', fc1, order1);<br>% Design Filter 2: Band-Stop for Audio 2 (Fan Noise Removal)<br>% Second-order Butterworth band-stop filter<br>fc2_center = 50.67;<br>fc2_bw = 8;<br>fc2_low = fc2_center - fc2_bw/2;<br>fc2_high = fc2_center + fc2_bw/2;<br>fc2_low_norm = fc2_low / (Fs2/2);<br>fc2_high_norm = fc2_high / (Fs2/2);<br>order2 = 2;<br>[b2, a2] = butter(order2, [fc2_low_norm fc2_high_norm], 'stop');<br>fprintf('Filter 2 (Band-Stop) designed:\n');<br>fprintf(' 	Center: %.2f Hz, Bandwidth: %d Hz, Order: %d\n', fc2_center, fc2_bw, order2);<br>% Design Filter 3: High-Pass for Audio 3 (Rumble Removal)<br>% Second-order Butterworth high-pass filter<br>fc3 = 1000;<br>fc3_norm = fc3 / (Fs3/2);<br>order3 = 2;<br>[b3, a3] = butter(order3, fc3_norm, 'high');<br>fprintf('Filter 3 (High-Pass) designed:\n');<br>fprintf(' 	Cutoff: %d Hz, Order: %d\n', fc3, order3);<br>% Plot Frequency Responses<br>figure;<br>freqz(b1, a1, 1024, Fs1);<br>title('Filter 1: Low-Pass Filter Frequency Response (Audio 1 - Hiss Removal)');<br>figure;<br>freqz(b2, a2, 1024, Fs2);<br>title('Filter 2: Band-Stop Filter Frequency Response (Audio 2 - Fan Noise Removal)');<br>figure;<br>freqz(b3, a3, 1024, Fs3);<br>title('Filter 3: High-Pass Filter Frequency Response (Audio 3 - Rumble Removal)');<br>fprintf('\nAll filters designed and frequency responses plotted.\n');<br>% ===== SECTION 03c: APPLY FILTERS =====<br>fprintf('\n--- APPLYING FILTERS ---\n');<br>% Apply using filtfilt for zero-phase filtering<br>filtered_audio1 = filtfilt(b1, a1, audio1);<br>filtered_audio2 = filtfilt(b2, a2, audio2);<br>filtered_audio3 = filtfilt(b3, a3, audio3);<br>fprintf('Filters applied successfully.\n');<br>% ===== SAVE FILTERED AUDIO FILES =====<br>fprintf('\nSAVING FILTERED AUDIO FILES\n');<br>% Normalize to prevent clipping<br>filtered_audio1_norm = filtered_audio1 / max(abs(filtered_audio1));<br>filtered_audio2_norm = filtered_audio2 / max(abs(filtered_audio2));<br>filtered_audio3_norm = filtered_audio3 / max(abs(filtered_audio3));<br>% Save files<br>audiowrite('filtered_Crysis3Intro_LPF.wav', filtered_audio1_norm, Fs1);<br>audiowrite('filtered_DreamsBenSound_BSF.wav', filtered_audio2_norm, Fs2);<br>audiowrite('filtered_LastSummer_HPF.wav', filtered_audio3_norm, Fs3);<br>% Compute FFT of Filtered Signals<br>% FFT of Filtered Audio 1<br>Y1_filt = fft(filtered_audio1);<br>P2_1_filt = abs(Y1_filt/N1);<br>P1_1_filt = P2_1_filt(1:N1/2+1);<br>P1_1_filt(2:end-1) = 2*P1_1_filt(2:end-1);</p>
+
+        <p>39 | P a g e<br>f1_filt = Fs1*(0:(N1/2))/N1;<br>% FFT of Filtered Audio 2<br>Y2_filt = fft(filtered_audio2);<br>P2_2_filt = abs(Y2_filt/N2);<br>P1_2_filt = P2_2_filt(1:N2/2+1);<br>P1_2_filt(2:end-1) = 2*P1_2_filt(2:end-1);<br>f2_filt = Fs2*(0:(N2/2))/N2;<br>% FFT of Filtered Audio 3<br>Y3_filt = fft(filtered_audio3);<br>P2_3_filt = abs(Y3_filt/N3);<br>P1_3_filt = P2_3_filt(1:N3/2+1);<br>P1_3_filt(2:end-1) = 2*P1_3_filt(2:end-1);<br>f3_filt = Fs3*(0:(N3/2))/N3;<br>fprintf('FFT computed for all filtered signals.\n');<br>% Figure 1: Audio 1 Comparison<br>figure;<br>subplot(2,1,1);<br>plot(f1, P1_1, 'LineWidth', 1.5);<br>xlabel('Frequency (Hz)');<br>ylabel('Magnitude');<br>title('Audio 1: Original Signal - Frequency Spectrum');<br>grid on;grid("minor");<br>% xlim([0 5000]);<br>subplot(2,1,2);<br>plot(f1_filt, P1_1_filt, 'r', 'LineWidth', 1.5);<br>xlabel('Frequency (Hz)');<br>ylabel('Magnitude');<br>title('Audio 1: Filtered Signal - Frequency Spectrum');<br>grid on;grid("minor");<br>% xlim([0 5000]);<br>sgtitle('Audio 1: Original vs Filtered Frequency Spectrum Comparison', 'FontSize', 12,<br>'FontWeight', 'bold');<br>% Figure 2: Audio 2 Comparison<br>figure;<br>subplot(2,1,1);<br>plot(f2, P1_2, 'LineWidth', 1.5);<br>xlabel('Frequency (Hz)');<br>ylabel('Magnitude');<br>title('Audio 2: Original Signal - Frequency Spectrum');<br>grid on;grid("minor");<br>% xlim([0 200]);<br>subplot(2,1,2);<br>plot(f2_filt, P1_2_filt, 'r', 'LineWidth', 1.5);<br>xlabel('Frequency (Hz)');<br>ylabel('Magnitude');<br>title('Audio 2: Filtered Signal - Frequency Spectrum');<br>grid on;grid("minor");<br>% xlim([0 200]);<br>sgtitle('Audio 2: Original vs Filtered Frequency Spectrum Comparison', 'FontSize', 12,<br>'FontWeight', 'bold');<br>% Figure 3: Audio 3 Comparison<br>figure;<br>subplot(2,1,1);<br>plot(f3, P1_3, 'LineWidth', 1.5);<br>xlabel('Frequency (Hz)');<br>ylabel('Magnitude');<br>title('Audio 3: Original Signal - Frequency Spectrum');<br>grid on;grid("minor");<br>% xlim([0 3000]);<br>subplot(2,1,2);<br>plot(f3_filt, P1_3_filt, 'r', 'LineWidth', 1.5);<br>xlabel('Frequency (Hz)');<br>ylabel('Magnitude');<br>title('Audio 3: Filtered Signal - Frequency Spectrum');</p>
+
+        <p>40 | P a g e<br>grid on;grid("minor");<br>% xlim([0 3000]);<br>sgtitle('Audio 3: Original vs Filtered Frequency Spectrum Comparison', 'FontSize', 12,<br>'FontWeight', 'bold');<br>% Section 03e: Display FFT Results of Filtered Signals<br>% Audio 1 Filtered<br>fprintf('\nAudio 1 (Filtered):\n');<br>fprintf(' 	Sampling Frequency: %d Hz\n', Fs1);<br>fprintf(' 	Number of Samples: %d\n', length(filtered_audio1));<br>fprintf(' 	Frequency Resolution: %.2f Hz\n', Fs1/length(filtered_audio1));<br>fprintf(' 	Max Magnitude in 0-300 Hz: %.6f\n', max(P1_1_filt(f1_filt <= 300)));<br>fprintf(' 	Max Magnitude in 300-5000 Hz: %.6f\n', max(P1_1_filt(f1_filt > 300 & f1_filt <=<br>5000)));<br>% Audio 2 Filtered<br>fprintf('\nAudio 2 (Filtered):\n');<br>fprintf(' 	Sampling Frequency: %d Hz\n', Fs2);<br>fprintf(' 	Number of Samples: %d\n', length(filtered_audio2));<br>fprintf(' 	Frequency Resolution: %.2f Hz\n', Fs2/length(filtered_audio2));<br>fprintf(' 	Magnitude at ~50 Hz (Original): %.6f\n', P1_2(find(f2 >= 50, 1)));<br>fprintf(' 	Magnitude at ~50 Hz (Filtered): %.6f\n', P1_2_filt(find(f2_filt >= 50, 1)));<br>% Audio 3 Filtered<br>fprintf('\nAudio 3 (Filtered):\n');<br>fprintf(' 	Sampling Frequency: %d Hz\n', Fs3);<br>fprintf(' 	Number of Samples: %d\n', length(filtered_audio3));<br>fprintf(' 	Frequency Resolution: %.2f Hz\n', Fs3/length(filtered_audio3));<br>fprintf(' 	Max Magnitude in 0-1000 Hz: %.6f\n', max(P1_3_filt(f3_filt <= 1000)));<br>fprintf(' 	Max Magnitude in 1000-5000 Hz: %.6f\n', max(P1_3_filt(f3_filt > 1000 & f3_filt <=<br>5000)));<br>% Section 03f: Audio Playback and Subjective Assessment<br>% Audio 1 Comparison<br>% fprintf('\nPlaying Audio 1 - Original (5 seconds)...\n');<br>% sound(audio1(1:min(Fs1*5, length(audio1))), Fs1);<br>% pause(6);<br>% fprintf('Playing Audio 1 - Filtered (5 seconds)...\n');<br>% sound(filtered_audio1(1:min(Fs1*5, length(filtered_audio1))), Fs1);<br>% pause(6);<br>% Audio 2 Comparison<br>% fprintf('\nPlaying Audio 2 - Original (5 seconds)...\n');<br>% sound(audio2(1:min(Fs2*5, length(audio2))), Fs2);<br>% pause(6);<br>% fprintf('Playing Audio 2 - Filtered (5 seconds)...\n');<br>% sound(filtered_audio2(1:min(Fs2*5, length(filtered_audio2))), Fs2);<br>% pause(6);<br>% Audio 3 Comparison<br>% fprintf('\nPlaying Audio 3 - Original (5 seconds)...\n');<br>% sound(audio3(1:min(Fs3*5, length(audio3))), Fs3);<br>% pause(6);<br>% fprintf('Playing Audio 3 - Filtered (5 seconds)...\n');<br>% sound(filtered_audio3(1:min(Fs3*5, length(filtered_audio3))), Fs3);<br>% pause(6);<br>% fprintf('\nAudio playback testing complete.\n');<br>% Audio Playback was commented to increase MATLAB running preformance,<br>% for external media player can be use to play original & exported filtered<br>% audio<br>% Section 04: Performance Evaluation<br>% Section 04a: Calculate Mean Square Error (MSE)<br>fprintf('\n--- Mean Square Error (MSE) Calculation ---\n');<br>% MSE between original (noisy) and filtered signals<br>MSE1 = mean((audio1 - filtered_audio1).^2);<br>MSE2 = mean((audio2 - filtered_audio2).^2);<br>MSE3 = mean((audio3 - filtered_audio3).^2);</p>
+
+        <p>41 | P a g e<br>fprintf('Audio 1 MSE: %.8f\n', MSE1);<br>fprintf('Audio 2 MSE: %.8f\n', MSE2);<br>fprintf('Audio 3 MSE: %.8f\n', MSE3);<br>% Section 04b: Calculate SNR Improvement using MATLAB snr() function<br>fprintf('\n--- Signal-to-Noise Ratio (SNR) Calculation ---\n');<br>% Using snr(x)<br>% Calculate SNR for original (noisy) signals<br>SNR1_original = snr(audio1);<br>SNR2_original = snr(audio2);<br>SNR3_original = snr(audio3);<br>fprintf('Original SNR (Noisy Signals):\n');<br>fprintf(' 	Audio 1: %.2f dB\n', SNR1_original);<br>fprintf(' 	Audio 2: %.2f dB\n', SNR2_original);<br>fprintf(' 	Audio 3: %.2f dB\n', SNR3_original);<br>% Calculate SNR for filtered signals<br>SNR1_filtered = snr(filtered_audio1);<br>SNR2_filtered = snr(filtered_audio2);<br>SNR3_filtered = snr(filtered_audio3);<br>fprintf('\nFiltered SNR (After Noise Removal):\n');<br>fprintf(' 	Audio 1: %.2f dB\n', SNR1_filtered);<br>fprintf(' 	Audio 2: %.2f dB\n', SNR2_filtered);<br>fprintf(' 	Audio 3: %.2f dB\n', SNR3_filtered);<br>% Calculate SNR improvement<br>SNR_improvement1 = SNR1_filtered - SNR1_original;<br>SNR_improvement2 = SNR2_filtered - SNR2_original;<br>SNR_improvement3 = SNR3_filtered - SNR3_original;<br>fprintf('\nSNR Improvement:\n');<br>fprintf(' 	Audio 1: %.2f dB\n', SNR_improvement1);<br>fprintf(' 	Audio 2: %.2f dB\n', SNR_improvement2);<br>fprintf(' 	Audio 3: %.2f dB\n', SNR_improvement3);<br>% Present Results in Table Format<br>fprintf('\nPERFORMANCE EVALUATION SUMMARY TABLE using snr(x) \n');<br>fprintf('\n%-12s %-15s %-18s %-18s %-20s\n', 'Audio File', 'MSE', 'Original SNR (dB)',<br>'Filtered SNR (dB)', 'SNR Improvement (dB)');<br>fprintf('%-12s %-15s %-18s %-18s %-20s\n', '----------', '-------------', '------------------<br>', '------------------', '--------------------');<br>fprintf('%-12s %-15.8f %-18.2f %-18.2f %-20.2f\n', 'Audio 1', MSE1, SNR1_original,<br>SNR1_filtered, SNR_improvement1);<br>fprintf('%-12s %-15.8f %-18.2f %-18.2f %-20.2f\n', 'Audio 2', MSE2, SNR2_original,<br>SNR2_filtered, SNR_improvement2);<br>fprintf('%-12s %-15.8f %-18.2f %-18.2f %-20.2f\n', 'Audio 3', MSE3, SNR3_original,<br>SNR3_filtered, SNR_improvement3);<br>fprintf('\n');<br>% Method: Use filtered signal as reference (clean signal)<br>% Calculate SNR by comparing noisy vs clean reference<br>% Using snr(x,y)<br>% Audio 1: SNR calculation<br>SNR1_original = snr(audio1, audio1 - filtered_audio1); 	% signal, noise<br>SNR1_filtered = snr(filtered_audio1, audio1 - filtered_audio1);<br>% Audio 2: SNR calculation<br>SNR2_original = snr(audio2, audio2 - filtered_audio2);<br>SNR2_filtered = snr(filtered_audio2, audio2 - filtered_audio2);<br>% Audio 3: SNR calculation<br>SNR3_original = snr(audio3, audio3 - filtered_audio3);<br>SNR3_filtered = snr(filtered_audio3, audio3 - filtered_audio3);<br>fprintf('Original SNR (with noise):\n');<br>fprintf(' 	Audio 1: %.2f dB\n', SNR1_original);<br>fprintf(' 	Audio 2: %.2f dB\n', SNR2_original);<br>fprintf(' 	Audio 3: %.2f dB\n', SNR3_original);<br>fprintf('\nFiltered SNR (noise removed):\n');<br>fprintf(' 	Audio 1: %.2f dB\n', SNR1_filtered);<br>fprintf(' 	Audio 2: %.2f dB\n', SNR2_filtered);</p>
+
+        <p>42 | P a g e<br>fprintf(' 	Audio 3: %.2f dB\n', SNR3_filtered);<br>% Calculate SNR improvement<br>SNR_improvement1 = SNR1_filtered - SNR1_original;<br>SNR_improvement2 = SNR2_filtered - SNR2_original;<br>SNR_improvement3 = SNR3_filtered - SNR3_original;<br>fprintf('\nSNR Improvement:\n');<br>fprintf(' 	Audio 1: %.2f dB\n', SNR_improvement1);<br>fprintf(' 	Audio 2: %.2f dB\n', SNR_improvement2);<br>fprintf(' 	Audio 3: %.2f dB\n', SNR_improvement3);<br>% Present Results in Table Format<br>fprintf('\nPERFORMANCE EVALUATION SUMMARY TABLE using snr(x,y) \n');<br>fprintf('\n%-12s %-15s %-18s %-18s %-20s\n', 'Audio File', 'MSE', 'Original SNR (dB)',<br>'Filtered SNR (dB)', 'SNR Improvement (dB)');<br>fprintf('%-12s %-15s %-18s %-18s %-20s\n', '----------', '-------------', '------------------<br>', '------------------', '--------------------');<br>fprintf('%-12s %-15.8f %-18.2f %-18.2f %-20.2f\n', 'Audio 1', MSE1, SNR1_original,<br>SNR1_filtered, SNR_improvement1);<br>fprintf('%-12s %-15.8f %-18.2f %-18.2f %-20.2f\n', 'Audio 2', MSE2, SNR2_original,<br>SNR2_filtered, SNR_improvement2);<br>fprintf('%-12s %-15.8f %-18.2f %-18.2f %-20.2f\n', 'Audio 3', MSE3, SNR3_original,<br>SNR3_filtered, SNR_improvement3);<br>Published with MATLAB® R2024b</p>
+
+        <h1 id="problem-statement-4">Problem Statement</h1>
+
+        <h1 id="project-objective-4">Project Objective</h1>
+
+        <h1 id="signal-acquisition-6">Signal Acquisition</h1>
+
+        <h1 id="matlab-implementation-6">MATLAB Implementation</h1>
+
+        <h1 id="noise-identification-and-characterization-10">Noise Identification and Characterization</h1>
+
+        <h1 id="filter-selection-and-design-calculations-11">Filter Selection and Design Calculations</h1>
+
+        <h1 id="filter-implementation-and-frequency-response-14">Filter Implementation and Frequency Response</h1>
+
+        <h1 id="filtered-signal-analysis-18">Filtered Signal Analysis</h1>
+
+        <h1 id="audio-quality-assessment-21">Audio Quality Assessment</h1>
+
+        <h1 id="summary-of-filtering-results-22">Summary of Filtering Results</h1>
+
+        <h1 id="quantitative-performance-metrics-23">Quantitative Performance Metrics</h1>
+
+        <h1 id="effectiveness-of-designed-filters-27">Effectiveness of Designed Filters</h1>
+
+        <h1 id="filter-design-tool-matlab-filter-designer-app-28">Filter Design Tool: MATLAB Filter Designer App</h1>
+
+        <h1 id="limitations-of-the-approach-29">Limitations of the Approach</h1>
+
+        <h1 id="suggested-improvement-31">Suggested Improvement</h1>
+
+        <h1 id="project-summary-32">Project Summary</h1>
+
+        <h1 id="key-findings-32">Key Findings</h1>
+
+        <h1 id="technical-accomplishments-33">Technical Accomplishments</h1>
+
+        <h1 id="learning-outcomes-33">Learning Outcomes</h1>
+
+        <h1 id="practical-applications-33">Practical Applications</h1>
+
+        <h1 id="background-and-context">Background and Context</h1>
+
+        <h1 id="problem-statement">Problem Statement</h1>
+
+        <h1 id="project-objective">Project Objective</h1>
+
+        <h1 id="signal-acquisition">Signal Acquisition</h1>
+
+        <h1 id="matlab-implementation">MATLAB Implementation</h1>
+
+        <h1 id="noise-identification-and-characterization">Noise Identification and Characterization</h1>
+
+        <h1 id="filter-selection-and-design-calculations">Filter Selection and Design Calculations</h1>
+
+        <h1 id="filter-implementation-and-frequency-response">Filter Implementation and Frequency Response</h1>
+
+        <h1 id="filtered-signal-analysis">Filtered Signal Analysis</h1>
+
+        <h1 id="audio-quality-assessment">Audio Quality Assessment</h1>
+
+        <h1 id="summary-of-filtering-results">Summary of Filtering Results</h1>
+
+        <h1 id="quantitative-performance-metrics">Quantitative Performance Metrics</h1>
+
+        <h1 id="effectiveness-of-designed-filters">Effectiveness of Designed Filters</h1>
+
+        <h1 id="filter-design-tool-matlab-filter-designer-app">Filter Design Tool: MATLAB Filter Designer App</h1>
+
+        <h1 id="limitations-of-the-approach">Limitations of the Approach</h1>
+
+        <h1 id="fixed-filter-parameters">Fixed Filter Parameters</h1>
+
+        <h1 id="trade-off-between-noise-removal-and-signal-preservation">Trade-off Between Noise Removal and Signal Preservation</h1>
+
+        <h1 id="inability-to-handle-non-stationary-noise">Inability to Handle Non-Stationary Noise</h1>
+
+        <h1 id="single-notch-limitation-for-harmonic-interference">Single Notch Limitation for Harmonic Interference</h1>
+
+        <h1 id="manual-design-process">Manual Design Process</h1>
+
+        <h1 id="lack-of-perceptual-weighting">Lack of Perceptual Weighting</h1>
+
+        <h1 id="phase-distortion-considerations">Phase Distortion Considerations</h1>
+
+        <h1 id="snr-metric-limitations">SNR Metric Limitations</h1>
+
+        <h1 id="suggested-improvement">Suggested Improvement</h1>
+
+        <h1 id="project-summary">Project Summary</h1>
+
+        <h1 id="key-findings">Key Findings</h1>
+
+        <h1 id="technical-accomplishments">Technical Accomplishments</h1>
+
+        <h1 id="learning-outcomes">Learning Outcomes</h1>
+
+        <h1 id="practical-applications">Practical Applications</h1>
+
+        <h1 id="practical-introduction-to-digital-filtering-mathworks">Practical Introduction to Digital Filtering, MathWorks</h1>
+
+        <h1 id="introduction-to-filter-designer-mathworks">Introduction to Filter Designer, MathWorks</h1>
+
+        <h1 id="smoothing-denoising-mathworks">Smoothing & Denoising, MathWorks</h1>
+
+        <h1 id="real-time-audio-in-matlab-mathworks">Real-Time Audio in MATLAB, MathWorks</h1>
+
+        <h1 id="denoising-overview-mathworks">Denoising Overview, MathWorks</h1>
+
+        <h1 id="matlab-central-thread-can-you-help-remove-the-noise-from-this-audio-file">MATLAB Central thread [Can you help remove the noise from this audio file?],</h1>
+
+        <h1 id="noise-machines-by-mynoise-net-simulating-noises">Noise Machines by MyNoise.net [Simulating Noises]</h1>
+
+        <h1 id="audacity-software">Audacity [Software]</h1>
+
+        <h1 id="crysis-3-pc-ost-by-crytek-g-m-b-h-music">Crysis 3 (PC) OST by Crytek G.m.b.H [Music]</h1>
+
+        <h1 id="last-summer-by-ikson-youtube-music">Last Summer by Ikson™, YouTube [Music]</h1>
+
+        <h1 id="dreams-chill-royalty-free-music-by-bensound-youtube-music">Dreams - Chill Royalty Free Music by Bensound, YouTube [Music]</h1>
+
+        <h1 id="matlab-2024b-by-mathworks-software">MATLAB 2024b by MathWorks [Software]</h1>
+
+        <h1 id="signal-processing-toolbox-mathworks">Signal Processing Toolbox, MathWorks</h1>
+
+        <h2 id="magnitude">Magnitude</h2>
+
+        <h2 id="magnitude">Magnitude</h2>
+
+        <h2 id="magnitude">Magnitude</h2>
+
+        <h2 id="magnitude">Magnitude</h2>
+
+        <div class="code-block">
+            <pre><code>% xlim([0 3000]);
+sgtitle('Audio 3: Original vs Filtered Frequency Spectrum Comparison', 'FontSize', 12,
+'FontWeight', 'bold');
+% Section 03e: Display FFT Results of Filtered Signals
+% Audio 1 Filtered
+fprintf('\nAudio 1 (Filtered):\n');
+fprintf(' 	Sampling Frequency: %d Hz\n', Fs1);
+fprintf(' 	Number of Samples: %d\n', length(filtered_audio1));
+fprintf(' 	Frequency Resolution: %.2f Hz\n', Fs1/length(filtered_audio1));
+fprintf(' 	Max Magnitude in 0-300 Hz: %.6f\n', max(P1_1_filt(f1_filt <= 300)));
+fprintf(' 	Max Magnitude in 300-5000 Hz: %.6f\n', max(P1_1_filt(f1_filt > 300 & f1_filt <=
+5000)));
+% Audio 2 Filtered
+fprintf('\nAudio 2 (Filtered):\n');
+fprintf(' 	Sampling Frequency: %d Hz\n', Fs2);
+fprintf(' 	Number of Samples: %d\n', length(filtered_audio2));
+fprintf(' 	Frequency Resolution: %.2f Hz\n', Fs2/length(filtered_audio2));
+fprintf(' 	Magnitude at ~50 Hz (Original): %.6f\n', P1_2(find(f2 >= 50, 1)));
+fprintf(' 	Magnitude at ~50 Hz (Filtered): %.6f\n', P1_2_filt(find(f2_filt >= 50, 1)));
+% Audio 3 Filtered
+fprintf('\nAudio 3 (Filtered):\n');
+fprintf(' 	Sampling Frequency: %d Hz\n', Fs3);
+fprintf(' 	Number of Samples: %d\n', length(filtered_audio3));
+fprintf(' 	Frequency Resolution: %.2f Hz\n', Fs3/length(filtered_audio3));
+fprintf(' 	Max Magnitude in 0-1000 Hz: %.6f\n', max(P1_3_filt(f3_filt <= 1000)));
+fprintf(' 	Max Magnitude in 1000-5000 Hz: %.6f\n', max(P1_3_filt(f3_filt > 1000 & f3_filt <=
+5000)));
+% Section 03f: Audio Playback and Subjective Assessment
+% Audio 1 Comparison
+% fprintf('\nPlaying Audio 1 - Original (5 seconds)...\n');
+% sound(audio1(1:min(Fs1*5, length(audio1))), Fs1);
+% pause(6);
+% fprintf('Playing Audio 1 - Filtered (5 seconds)...\n');
+% sound(filtered_audio1(1:min(Fs1*5, length(filtered_audio1))), Fs1);
+% pause(6);
+% Audio 2 Comparison
+% fprintf('\nPlaying Audio 2 - Original (5 seconds)...\n');
+% sound(audio2(1:min(Fs2*5, length(audio2))), Fs2);
+% pause(6);
+% fprintf('Playing Audio 2 - Filtered (5 seconds)...\n');
+% sound(filtered_audio2(1:min(Fs2*5, length(filtered_audio2))), Fs2);
+% pause(6);
+% Audio 3 Comparison
+% fprintf('\nPlaying Audio 3 - Original (5 seconds)...\n');
+% sound(audio3(1:min(Fs3*5, length(audio3))), Fs3);
+% pause(6);
+% fprintf('Playing Audio 3 - Filtered (5 seconds)...\n');
+% sound(filtered_audio3(1:min(Fs3*5, length(filtered_audio3))), Fs3);
+% pause(6);
+% fprintf('\nAudio playback testing complete.\n');
+% Audio Playback was commented to increase MATLAB running preformance,
+% for external media player can be use to play original & exported filtered
+% audio
+% Section 04: Performance Evaluation
+% Section 04a: Calculate Mean Square Error (MSE)
+fprintf('\n--- Mean Square Error (MSE) Calculation ---\n');
+% MSE between original (noisy) and filtered signals
+MSE1 = mean((audio1 - filtered_audio1).^2);
+MSE2 = mean((audio2 - filtered_audio2).^2);
+MSE3 = mean((audio3 - filtered_audio3).^2);</code></pre>
+            <div class="figure-caption">MATLAB code block or algorithm description</div>
+        </div>
+
+        <div class="code-block">
+            <pre><code>%.8f\n', MSE1);
+fprintf('Audio 2 MSE: %.8f\n', MSE2);
+fprintf('Audio 3 MSE: %.8f\n', MSE3);
+% Section 04b: Calculate SNR Improvement using MATLAB snr() function
+fprintf('\n--- Signal-to-Noise Ratio (SNR) Calculation ---\n');
+% Using snr(x)
+% Calculate SNR for original (noisy) signals
+SNR1_original = snr(audio1);
+SNR2_original = snr(audio2);
+SNR3_original = snr(audio3);
+fprintf('Original SNR (Noisy Signals):\n');
+fprintf(' 	Audio 1: %.2f dB\n', SNR1_original);
+fprintf(' 	Audio 2: %.2f dB\n', SNR2_original);
+fprintf(' 	Audio 3: %.2f dB\n', SNR3_original);
+% Calculate SNR for filtered signals
+SNR1_filtered = snr(filtered_audio1);
+SNR2_filtered = snr(filtered_audio2);
+SNR3_filtered = snr(filtered_audio3);
+fprintf('\nFiltered SNR (After Noise Removal):\n');
+fprintf(' 	Audio 1: %.2f dB\n', SNR1_filtered);
+fprintf(' 	Audio 2: %.2f dB\n', SNR2_filtered);
+fprintf(' 	Audio 3: %.2f dB\n', SNR3_filtered);
+% Calculate SNR improvement
+SNR_improvement1 = SNR1_filtered - SNR1_original;
+SNR_improvement2 = SNR2_filtered - SNR2_original;
+SNR_improvement3 = SNR3_filtered - SNR3_original;
+fprintf('\nSNR Improvement:\n');
+fprintf(' 	Audio 1: %.2f dB\n', SNR_improvement1);
+fprintf(' 	Audio 2: %.2f dB\n', SNR_improvement2);
+fprintf(' 	Audio 3: %.2f dB\n', SNR_improvement3);
+% Present Results in Table Format
+fprintf('\nPERFORMANCE EVALUATION SUMMARY TABLE using snr(x) \n');
+fprintf('\n%-12s %-15s %-18s %-18s %-20s\n', 'Audio File', 'MSE', 'Original SNR (dB)',
+'Filtered SNR (dB)', 'SNR Improvement (dB)');
+fprintf('%-12s %-15s %-18s %-18s %-20s\n', '----------', '-------------', '------------------
+', '------------------', '--------------------');
+fprintf('%-12s %-15.8f %-18.2f %-18.2f %-20.2f\n', 'Audio 1', MSE1, SNR1_original,
+SNR1_filtered, SNR_improvement1);
+fprintf('%-12s %-15.8f %-18.2f %-18.2f %-20.2f\n', 'Audio 2', MSE2, SNR2_original,
+SNR2_filtered, SNR_improvement2);
+fprintf('%-12s %-15.8f %-18.2f %-18.2f %-20.2f\n', 'Audio 3', MSE3, SNR3_original,
+SNR3_filtered, SNR_improvement3);
+fprintf('\n');
+% Method: Use filtered signal as reference (clean signal)
+% Calculate SNR by comparing noisy vs clean reference
+% Using snr(x,y)
+% Audio 1: SNR calculation
+SNR1_original = snr(audio1, audio1 - filtered_audio1); 	% signal, noise
+SNR1_filtered = snr(filtered_audio1, audio1 - filtered_audio1);
+% Audio 2: SNR calculation
+SNR2_original = snr(audio2, audio2 - filtered_audio2);
+SNR2_filtered = snr(filtered_audio2, audio2 - filtered_audio2);
+% Audio 3: SNR calculation
+SNR3_original = snr(audio3, audio3 - filtered_audio3);
+SNR3_filtered = snr(filtered_audio3, audio3 - filtered_audio3);
+fprintf('Original SNR (with noise):\n');
+fprintf(' 	Audio 1: %.2f dB\n', SNR1_original);
+fprintf(' 	Audio 2: %.2f dB\n', SNR2_original);
+fprintf(' 	Audio 3: %.2f dB\n', SNR3_original);
+fprintf('\nFiltered SNR (noise removed):\n');
+fprintf(' 	Audio 1: %.2f dB\n', SNR1_filtered);
+fprintf(' 	Audio 2: %.2f dB\n', SNR2_filtered);</code></pre>
+            <div class="figure-caption">MATLAB code block or algorithm description</div>
+        </div>
+
+        <div class="code-block">
+            <pre><code>%.2f dB\n', SNR3_filtered);
+% Calculate SNR improvement
+SNR_improvement1 = SNR1_filtered - SNR1_original;
+SNR_improvement2 = SNR2_filtered - SNR2_original;
+SNR_improvement3 = SNR3_filtered - SNR3_original;
+fprintf('\nSNR Improvement:\n');
+fprintf(' 	Audio 1: %.2f dB\n', SNR_improvement1);
+fprintf(' 	Audio 2: %.2f dB\n', SNR_improvement2);
+fprintf(' 	Audio 3: %.2f dB\n', SNR_improvement3);
+% Present Results in Table Format
+fprintf('\nPERFORMANCE EVALUATION SUMMARY TABLE using snr(x,y) \n');
+fprintf('\n%-12s %-15s %-18s %-18s %-20s\n', 'Audio File', 'MSE', 'Original SNR (dB)',
+'Filtered SNR (dB)', 'SNR Improvement (dB)');
+fprintf('%-12s %-15s %-18s %-18s %-20s\n', '----------', '-------------', '------------------
+', '------------------', '--------------------');
+fprintf('%-12s %-15.8f %-18.2f %-18.2f %-20.2f\n', 'Audio 1', MSE1, SNR1_original,
+SNR1_filtered, SNR_improvement1);
+fprintf('%-12s %-15.8f %-18.2f %-18.2f %-20.2f\n', 'Audio 2', MSE2, SNR2_original,
+SNR2_filtered, SNR_improvement2);
+fprintf('%-12s %-15.8f %-18.2f %-18.2f %-20.2f\n', 'Audio 3', MSE3, SNR3_original,
+SNR3_filtered, SNR_improvement3);
+Published with MATLAB® R2024b</code></pre>
+            <div class="figure-caption">MATLAB code block or algorithm description</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: – Exporting the Audio as .wav file]</div>
+            <div class="figure-caption">Figure 2.1: – Exporting the Audio as .wav file</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: – Load Audio to MATLAB workspace]</div>
+            <div class="figure-caption">Figure 2.2: – Load Audio to MATLAB workspace</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: – Time Domain Representation of Audio File (Stereo)]</div>
+            <div class="figure-caption">Figure 2.3: – Time Domain Representation of Audio File (Stereo)</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: – Converting Stereo Channels to Mono Channel]</div>
+            <div class="figure-caption">Figure 2.4: – Converting Stereo Channels to Mono Channel</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: Time Domain Representation of Audio File (Mono)]</div>
+            <div class="figure-caption">Figure 2.5: Time Domain Representation of Audio File (Mono)</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: – Displaying Sampling Frequency of each Audio file]</div>
+            <div class="figure-caption">Figure 2.6: – Displaying Sampling Frequency of each Audio file</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: )]</div>
+            <div class="figure-caption">Figure 2.1: )</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: – Calculating FFT]</div>
+            <div class="figure-caption">Figure 2.7: – Calculating FFT</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: , fundamental frequencies for audio files were;]</div>
+            <div class="figure-caption">Figure 2.8: , fundamental frequencies for audio files were;</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: – Identifying Fundamental Frequency]</div>
+            <div class="figure-caption">Figure 2.8: – Identifying Fundamental Frequency</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: – Magnitude Spectrum of Audio files in Frequency Domain]</div>
+            <div class="figure-caption">Figure 2.9: – Magnitude Spectrum of Audio files in Frequency Domain</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: has a wide range of frequencies. This is mostly like a]</div>
+            <div class="figure-caption">Figure 2.9: has a wide range of frequencies. This is mostly like a</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: has sharp peak at 50.67 Hz (mains hum). This could]</div>
+            <div class="figure-caption">Figure 2.9: has sharp peak at 50.67 Hz (mains hum). This could</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: can be seen as an elevated frequencies at lower]</div>
+            <div class="figure-caption">Figure 2.9: can be seen as an elevated frequencies at lower</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: – Filter 1 Frequency Response]</div>
+            <div class="figure-caption">Figure 3.1: – Filter 1 Frequency Response</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: presents the frequency response of the first-order Butterworth low-pass]</div>
+            <div class="figure-caption">Figure 3.1: presents the frequency response of the first-order Butterworth low-pass</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: – Filter 2 Frequency Response]</div>
+            <div class="figure-caption">Figure 3.2: – Filter 2 Frequency Response</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: illustrates the frequency response of the second-order Butterworth band-]</div>
+            <div class="figure-caption">Figure 3.2: illustrates the frequency response of the second-order Butterworth band-</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: – Filter 3 Frequency Response]</div>
+            <div class="figure-caption">Figure 3.3: – Filter 3 Frequency Response</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: displays the frequency response of the second-order Butterworth high-pass]</div>
+            <div class="figure-caption">Figure 3.3: displays the frequency response of the second-order Butterworth high-pass</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: – Applying Designed Filters to the Original Audio Files]</div>
+            <div class="figure-caption">Figure 3.4: – Applying Designed Filters to the Original Audio Files</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: – Normalizing the Filtered Audio]</div>
+            <div class="figure-caption">Figure 3.5: – Normalizing the Filtered Audio</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: – Exporting Filtered & Normalized Audio Files]</div>
+            <div class="figure-caption">Figure 3.6: – Exporting Filtered & Normalized Audio Files</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: – Comparison of Original Audio 1 & Filtered Audio 1 in Frequency Domain]</div>
+            <div class="figure-caption">Figure 4.1: – Comparison of Original Audio 1 & Filtered Audio 1 in Frequency Domain</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: presents a side-by-side comparison of the frequency spectrums for Audio 1]</div>
+            <div class="figure-caption">Figure 4.1: presents a side-by-side comparison of the frequency spectrums for Audio 1</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: – Comparison of Original Audio 1 & Filtered Audio 1 in Frequency Domain [0-5000Hz]]</div>
+            <div class="figure-caption">Figure 4.2: – Comparison of Original Audio 1 & Filtered Audio 1 in Frequency Domain [0-5000Hz]</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: – Comparison of Original Audio 2 & Filtered Audio 2 in Frequency Domain]</div>
+            <div class="figure-caption">Figure 4.3: – Comparison of Original Audio 2 & Filtered Audio 2 in Frequency Domain</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: illustrates the frequency spectrum comparison for Audio 2, focusing on the]</div>
+            <div class="figure-caption">Figure 4.3: illustrates the frequency spectrum comparison for Audio 2, focusing on the</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: – Comparison of Original Audio 2 & Filtered Audio 2 in Frequency Domain [0-200Hz]]</div>
+            <div class="figure-caption">Figure 4.4: – Comparison of Original Audio 2 & Filtered Audio 2 in Frequency Domain [0-200Hz]</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: – Comparison of Original Audio 3 & Filtered Audio 3 in Frequency Domain]</div>
+            <div class="figure-caption">Figure 4.5: – Comparison of Original Audio 3 & Filtered Audio 3 in Frequency Domain</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: presents the frequency spectrum comparison for Audio 3, with emphasis on]</div>
+            <div class="figure-caption">Figure 4.5: presents the frequency spectrum comparison for Audio 3, with emphasis on</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: – Comparison of Original Audio 3 & Filtered Audio 3 in Frequency Domain [0-3000Hz]]</div>
+            <div class="figure-caption">Figure 4.6: – Comparison of Original Audio 3 & Filtered Audio 3 in Frequency Domain [0-3000Hz]</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: – Alternative Method]</div>
+            <div class="figure-caption">Figure 4.7: – Alternative Method</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: ) shows clear attenuation of content above 300 Hz,]</div>
+            <div class="figure-caption">Figure 4.1: ) shows clear attenuation of content above 300 Hz,</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: )]</div>
+            <div class="figure-caption">Figure 4.3: )</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: ) shows substantial attenuation of content below 1000 Hz, with]</div>
+            <div class="figure-caption">Figure 4.5: ) shows substantial attenuation of content below 1000 Hz, with</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: – Designing filter for Audio 3 using MATLAB Filter Designer]</div>
+            <div class="figure-caption">Figure 5.1: – Designing filter for Audio 3 using MATLAB Filter Designer</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: Audio 1 Comparison]</div>
+            <div class="figure-caption">Figure 1: Audio 1 Comparison</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: Audio 2 Comparison]</div>
+            <div class="figure-caption">Figure 2: Audio 2 Comparison</div>
+        </div>
+
+        <div class="figure">
+            <div>[Figure: Audio 3 Comparison]</div>
+            <div class="figure-caption">Figure 3: Audio 3 Comparison</div>
+        </div>
+
+    </div>
+</body>
+</html>
