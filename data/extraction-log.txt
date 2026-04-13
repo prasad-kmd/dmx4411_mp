@@ -1,0 +1,36 @@
+[INFO] 2026-04-13T19:53:58.592Z - ===========================================
+[INFO] 2026-04-13T19:53:58.597Z - PDF Content Extraction Script - Task 0.1
+[INFO] 2026-04-13T19:53:58.597Z - ===========================================
+[INFO] 2026-04-13T19:53:58.597Z - Start time: 2026-04-13T19:53:58.597Z
+[INFO] 2026-04-13T19:53:58.597Z - Starting PDF extraction from: /workspace/public/MP_Full-Report.pdf
+[INFO] 2026-04-13T19:53:58.612Z - PDF file size: 2.41 MB
+[INFO] 2026-04-13T19:53:59.013Z - Successfully parsed PDF with 41 pages
+[INFO] 2026-04-13T19:53:59.013Z - PDF Info: {"PDFFormatVersion":"1.6","Language":null,"EncryptFilterName":"Standard","IsLinearized":true,"IsAcroFormPresent":false,"IsXFAPresent":false,"IsCollectionPresent":false,"IsSignaturesPresent":false,"Author":"","CreationDate":"D:20260413185918+05'30'","Creator":"Acrobat PDFMaker 25 for Word","ModDate":"D:20260413190000+05'30'","Producer":"Adobe PDF Library 25.1.163","Title":""}
+[INFO] 2026-04-13T19:54:03.693Z - Extracting section headings...
+[INFO] 2026-04-13T19:54:03.694Z - Found 67 headings
+[INFO] 2026-04-13T19:54:03.694Z - Extracting body text...
+[INFO] 2026-04-13T19:54:03.695Z - Found 41 body text paragraphs
+[INFO] 2026-04-13T19:54:03.695Z - Extracting LaTeX equations...
+[INFO] 2026-04-13T19:54:03.695Z - Found 0 equations
+[INFO] 2026-04-13T19:54:03.695Z - Extracting MATLAB code snippets...
+[INFO] 2026-04-13T19:54:03.696Z - Found 3 code snippets
+[INFO] 2026-04-13T19:54:03.696Z - Extracting tables...
+[INFO] 2026-04-13T19:54:03.696Z - Found 0 tables
+[INFO] 2026-04-13T19:54:03.696Z - Extracting figure metadata...
+[INFO] 2026-04-13T19:54:03.697Z - Found 40 figures
+[INFO] 2026-04-13T19:54:03.697Z - PDF extraction completed successfully
+[INFO] 2026-04-13T19:54:03.697Z - Saving extracted content to /data directory...
+[INFO] 2026-04-13T19:54:03.699Z - Saved: /workspace/data/content.json
+[INFO] 2026-04-13T19:54:03.699Z - Saved: /workspace/data/raw-text.txt
+[INFO] 2026-04-13T19:54:03.700Z - Saved: /workspace/data/equations.json
+[INFO] 2026-04-13T19:54:03.700Z - Saved: /workspace/data/code-snippets.json
+[INFO] 2026-04-13T19:54:03.700Z - Saved: /workspace/data/tables.json
+[INFO] 2026-04-13T19:54:03.700Z - Saved: /workspace/data/figures.json
+[INFO] 2026-04-13T19:54:03.700Z - === EXTRACTION SUMMARY ===
+[INFO] 2026-04-13T19:54:03.700Z - Headings: 67
+[INFO] 2026-04-13T19:54:03.700Z - Body Text Paragraphs: 41
+[INFO] 2026-04-13T19:54:03.700Z - Equations: 0
+[INFO] 2026-04-13T19:54:03.700Z - Code Snippets: 3
+[INFO] 2026-04-13T19:54:03.700Z - Tables: 0
+[INFO] 2026-04-13T19:54:03.700Z - Figures: 40
+[INFO] 2026-04-13T19:54:03.710Z - Total Pages: 41
