@@ -1,13 +1,25 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import ContextMenu from "@/components/features/ContextMenu";
 
-const inter = Inter({ subsets: ["latin"] });
-
 export const metadata: Metadata = {
-  title: "DSP Audio Noise Removal Project",
-  description: "Undergraduate Research Project on Digital Signal Processing",
+  title: {
+    default: "DSP.Audio | Research Portfolio",
+    template: "%s | DSP.Audio"
+  },
+  description: "Advanced undergraduate research on audio signal denoising using MATLAB and Butterworth filter implementations.",
+  icons: {
+    icon: "/images/favicon.png",
+    shortcut: "/images/favicon.png",
+    apple: "/images/favicon.png",
+  },
+  openGraph: {
+    title: "DSP Audio Noise Removal Project",
+    description: "Explore frequency domain analysis and filter design for audio signals.",
+    type: "website",
+    locale: "en_US",
+    siteName: "DSP.Audio",
+  },
 };
 
 export default function RootLayout({
@@ -16,8 +28,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="en" className="scroll-smooth">
+      <body>
         {children}
         <ContextMenu />
       </body>

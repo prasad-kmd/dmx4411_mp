@@ -1,8 +1,80 @@
 @import "tailwindcss";
 
 @font-face {
+    font-family: 'Space Mono';
+    src: url('/fonts/SpaceMono-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Noto Serif Sinhala';
+    src: url('/fonts/NotoSerifSinhala-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('/fonts/Roboto-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('/fonts/Inter-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
     font-family: 'Google Sans';
     src: url('/fonts/GoogleSans-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Mozilla Headline';
+    src: url('/fonts/MozillaHeadline-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Mozilla Text';
+    src: url('/fonts/MozillaText-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Noto Sans';
+    src: url('/fonts/NotoSans-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Noto Sans Display';
+    src: url('/fonts/NotoSansDisplay-Regular.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -12,6 +84,9 @@
   --background: #ffffff;
   --foreground: #171717;
   --primary: #4f46e5;
+  --font-sans: 'Google Sans', 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Space Mono', monospace;
+  --font-headline: 'Mozilla Headline', sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -24,7 +99,11 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: 'Google Sans', 'Inter', sans-serif;
+  font-family: var(--font-sans);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-headline);
 }
 
 @layer base {
@@ -47,4 +126,26 @@ body {
 ::-webkit-scrollbar-thumb {
   background: #4f46e5;
   border-radius: 10px;
+}
+
+.click-spark {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #4f46e5;
+  pointer-events: none;
+  z-index: 9999;
+  animation: spark-anim 0.6s ease-out forwards;
+}
+@keyframes spark-anim {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(3); opacity: 0; }
+}
+@media print {
+    .no-print { display: none !important; }
+    aside { display: none !important; }
+    main { max-width: 100% !important; width: 100% !important; margin: 0 !important; }
+    .prose { font-size: 12pt; }
+    section { page-break-inside: avoid; }
 }
