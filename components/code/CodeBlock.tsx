@@ -24,6 +24,8 @@ export function CodeBlock({
   showLineNumbers = true,
   className,
 }: CodeBlockProps) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _ = highlightLines;
   const [html, setHtml] = useState<string>("");
   const { mode } = useThemeStore();
 

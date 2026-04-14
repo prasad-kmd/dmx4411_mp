@@ -11,7 +11,7 @@ import { CustomContextMenu } from "@/components/interactive/CustomContextMenu";
 const googleSans = localFont({
   src: [
     {
-      path: "../public/fonts/GoogleSans-Regular.woff2",
+      path: "./fonts/GoogleSans-Regular.woff2",
       weight: "400",
       style: "normal",
     },
@@ -22,7 +22,7 @@ const googleSans = localFont({
 const jetBrainsMono = localFont({
   src: [
     {
-      path: "../public/fonts/JetBrainsMono-Regular.woff2",
+      path: "./fonts/JetBrainsMono-Regular.woff2",
       weight: "400",
       style: "normal",
     },
