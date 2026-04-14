@@ -1,43 +1,58 @@
-# Stage 0: Initial Setup & PDF Extraction
+# Stage 1: Core Layout & Navigation
 
-This stage focuses on establishing the foundation for the Audio Signal Denoising System website and extracting content from the project report.
+This stage focuses on establishing the responsive UI structure and navigation for the Audio Signal Denoising System website.
 
 ## Completed Tasks
 
-### 1. Project Initialization
-- Initialized Next.js 15 project with App Router.
-- Set up TypeScript in strict mode.
-- Configured Tailwind CSS v4 for styling.
-- Installed essential dependencies (Framer Motion, GSAP, KaTeX, Shiki, etc.).
-- Set up directory structure: `app/`, `components/`, `lib/`, `data/`, `scripts/`, `styles/`.
+### 1. Global Layout Architecture
+- Implemented `MainLayout` to manage the overall structure.
+- Developed a **Collapsible Sidebar** with navigation links to all 9 report sections.
+- Created a **Sticky Navbar** that includes the page title and theme controls.
+- Designed a **Footer** with copyright information and research context.
 
-### 2. PDF Content Extraction
-- Implemented `scripts/extract-pdf-content.ts` using `pdf-parse`.
-- Successfully extracted text content from `MP_Full-Report.pdf`.
-- Saved raw text and structured JSON data to the `/data` directory.
-- Defined TypeScript interfaces for project data in `lib/types.ts`.
+### 2. Theme System Implementation
+- Integrated a global state management for theming using **Zustand** (`lib/theme-store.ts`).
+- Supported **Dark/Light Mode** with persistence and hydration safety.
+- Used Tailwind CSS variables for dynamic color updates across themes.
 
-### 3. Asset & Configuration Setup
-- Configured local fonts from `public/fonts/` with a generated CSS file.
-- Linked favicon in the root layout metadata.
-- Set up utility functions and constants.
-- Configured `next.config.mjs` for static export.
+### 3. Navigation & Routing
+- Created all 9 required pages with corresponding routes:
+  - Home (`/`)
+  - Introduction (`/introduction`)
+  - Methodology (`/methodology`)
+  - Design (`/design`)
+  - Results (`/results`)
+  - Discussion (`/discussion`)
+  - Conclusion (`/conclusion`)
+  - References (`/references`)
+  - Appendix (`/appendix`)
+- Integrated active state detection for sidebar links.
 
-### 4. Placeholder Generation
-- Created `data/placeholders.json` to handle missing or complex elements during initial development.
+### 4. Local Font Integration
+- Configured mandatory **Local Fonts** (Inter, GoogleSans, JetBrainsMono) via `@font-face`.
+- Mapped fonts to Tailwind `fontFamily` using CSS variables (`--font-inter`, etc.) in `globals.css` and `tailwind.config.ts`.
+- Ensured compliance with the "no external fonts" requirement.
 
-## Project Plan: 10 Stages
+### 5. Technical Stack
+- **Next.js 15.0.5** (App Router)
+- **Tailwind CSS 3.4.17**
+- **Lucide React** for icons
+- **Zustand** for state management
+- **Framer Motion** for layout transitions
 
-### Stage 0: Initial Setup & PDF Extraction
+## Project Plan Status
+
+### ✅ Stage 0: Initial Setup & PDF Extraction
 - Project foundation, dependency installation, and content extraction.
 
-### Stage 1: Core Layout & Navigation
+### ✅ Stage 1: Core Layout & Navigation
 - Root layout, collapsible sidebar, sticky navbar, and footer.
 - Basic page routes for all sections.
+- Theme system integration.
 
 ### Stage 2: Theme System & Interactive Base
-- Dark/light mode with Zustand and accent colors.
 - Interactive effects: Click Spark, custom tooltips, and context menus.
+- Enhanced animations.
 
 ### Stage 3: Error Handling & Core Pages
 - Error boundaries, loading states, and custom 404 page.
