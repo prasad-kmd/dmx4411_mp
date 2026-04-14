@@ -1,0 +1,14 @@
+
+> dsp-mini-project@0.1.0 dev /app
+> next dev
+
+   ▲ Next.js 15.1.9
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.0.2:3000
+
+ ✓ Starting...
+ ✓ Ready in 2.2s
+ ○ Compiling / ...
+ ✓ Compiled / in 6.1s (620 modules)
+ GET / 200 in 6951ms
+ ✓ Compiled in 225ms (291 modules)
