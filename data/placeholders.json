@@ -1,0 +1,37 @@
+{
+  "figures": [
+    {
+      "id": "fig-1",
+      "number": "1",
+      "title": "Time Domain Plot of Original Signal",
+      "description": "A plot showing the amplitude of the audio signal over time, including noise."
+    }
+  ],
+  "equations": [
+    {
+      "id": "eq-placeholder",
+      "latex": "y(n) = \\sum_{k=0}^{M} b_k x(n-k)",
+      "description": "General FIR Filter Equation"
+    }
+  ],
+  "tables": [
+    {
+      "id": "table-1",
+      "caption": "Filter Design Parameters",
+      "headers": ["Parameter", "Value"],
+      "rows": [
+        ["Cutoff Frequency", "1000 Hz"],
+        ["Filter Order", "50"]
+      ]
+    }
+  ],
+  "code": [
+    {
+      "id": "code-placeholder",
+      "name": "Placeholder Script",
+      "language": "matlab",
+      "code": "% MATLAB code placeholder\nfs = 44100;\nt = 0:1/fs:1;\nx = sin(2*pi*440*t);",
+      "description": "Sample MATLAB code"
+    }
+  ]
+}

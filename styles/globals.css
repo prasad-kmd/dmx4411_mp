@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@layer base {
+  @import "./fonts.css";
+
+  :root {
+    --background: #ffffff;
+    --foreground: #171717;
+    --font-inter: 'Inter', sans-serif;
+    --font-jetbrains: 'JetBrainsMono', monospace;
+    --font-google: 'GoogleSans', sans-serif;
+    --font-mozilla: 'MozillaText', sans-serif;
+    --font-mozilla-headline: 'MozillaHeadline', sans-serif;
+    --font-noto: 'NotoSans', sans-serif;
+    --font-roboto: 'Roboto', sans-serif;
+    --font-space: 'SpaceMono', monospace;
+  }
+
+  .dark {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+
+  body {
+    color: var(--foreground);
+    background: var(--background);
+    font-family: var(--font-inter);
+  }
+}

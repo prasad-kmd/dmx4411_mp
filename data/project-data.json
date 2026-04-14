@@ -1,0 +1,70 @@
+{
+  "sections": [
+    {
+      "id": "introduction",
+      "title": "INTRODUCTION",
+      "level": 1,
+      "content": []
+    },
+    {
+      "id": "methodology",
+      "title": "METHODOLOGY",
+      "level": 1,
+      "content": []
+    },
+    {
+      "id": "design",
+      "title": "DESIGN",
+      "level": 1,
+      "content": []
+    },
+    {
+      "id": "results",
+      "title": "RESULTS",
+      "level": 1,
+      "content": []
+    },
+    {
+      "id": "discussion",
+      "title": "DISCUSSION",
+      "level": 1,
+      "content": []
+    },
+    {
+      "id": "conclusion",
+      "title": "CONCLUSION",
+      "level": 1,
+      "content": []
+    },
+    {
+      "id": "references",
+      "title": "REFERENCES",
+      "level": 1,
+      "content": []
+    },
+    {
+      "id": "appendix",
+      "title": "APPENDIX",
+      "level": 1,
+      "content": []
+    }
+  ],
+  "equations": [
+    {
+      "id": "eq1",
+      "latex": "X(k) = \\sum_{n=0}^{N-1} x(n) e^{-j\\frac{2\\pi}{N}nk}",
+      "description": "Discrete Fourier Transform"
+    }
+  ],
+  "codeSnippets": [
+    {
+      "id": "code1",
+      "name": "Load Audio",
+      "language": "matlab",
+      "code": "[x, fs] = audioread(\"audio.wav\");",
+      "description": "Loading audio signal"
+    }
+  ],
+  "tables": [],
+  "figures": []
+}
