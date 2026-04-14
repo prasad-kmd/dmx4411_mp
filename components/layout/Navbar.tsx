@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Settings, Moon, Menu } from "lucide-react";
+import { Settings, Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -28,9 +29,7 @@ export function Navbar() {
 
       <div className="w-px h-6 bg-border mx-1" />
 
-      <button className="p-2 rounded-full hover:bg-accent transition-colors" title="Toggle Theme">
-        <Moon size={20} className="text-muted-foreground" />
-      </button>
+      <ThemeToggle />
 
       <button className="md:hidden p-2 rounded-full hover:bg-accent transition-colors" title="Menu">
         <Menu size={20} className="text-muted-foreground" />

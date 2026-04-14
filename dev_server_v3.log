@@ -1,0 +1,31 @@
+
+> dsp-mini-project@0.1.0 dev /app
+> next dev
+
+ ⚠ Port 3000 is in use, trying 3001 instead.
+   ▲ Next.js 15.1.9
+   - Local:        http://localhost:3001
+   - Network:      http://192.168.0.2:3001
+
+ ✓ Starting...
+ ✓ Ready in 2.1s
+ ○ Compiling / ...
+ ⚠ ./components/layout/Footer.tsx
+Attempted import error: 'Github' is not exported from '__barrel_optimize__?names=AudioLines,Cpu,ExternalLink,FileDown,Github,Mail!=!lucide-react' (imported as 'Github').
+
+Import trace for requested module:
+./components/layout/Footer.tsx
+./components/layout/MainLayout.tsx
+React.jsx: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
+ ⨯ [Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.] {
+  digest: '1952323894'
+}
+ GET / 500 in 8104ms
+ ⚠ ./components/layout/Footer.tsx
+Attempted import error: 'Github' is not exported from '__barrel_optimize__?names=AudioLines,Cpu,ExternalLink,FileDown,Github,Mail!=!lucide-react' (imported as 'Github').
+
+Import trace for requested module:
+./components/layout/Footer.tsx
+./components/layout/MainLayout.tsx
+ ELIFECYCLE  Command failed.
+[?25h

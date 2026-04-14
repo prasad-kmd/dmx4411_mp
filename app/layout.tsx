@@ -4,6 +4,9 @@ import "./globals.css";
 import { Toaster } from "sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { MainLayout } from "@/components/layout/MainLayout";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import { ClickSparkEffect } from "@/components/interactive/ClickSparkEffect";
+import { CustomContextMenu } from "@/components/interactive/CustomContextMenu";
 
 const googleSans = localFont({
   src: [
@@ -51,12 +54,17 @@ export default function RootLayout({
       <body
         className={`${googleSans.variable} ${jetBrainsMono.variable} font-primary antialiased`}
       >
-        <TooltipProvider>
-          <MainLayout>
-            {children}
-          </MainLayout>
-          <Toaster position="bottom-right" />
-        </TooltipProvider>
+        <ThemeProvider>
+          <TooltipProvider>
+            <CustomContextMenu>
+              <MainLayout>
+                {children}
+              </MainLayout>
+            </CustomContextMenu>
+            <ClickSparkEffect />
+            <Toaster position="bottom-right" />
+          </TooltipProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

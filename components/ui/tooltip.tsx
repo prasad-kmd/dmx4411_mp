@@ -22,8 +22,34 @@ const TooltipContent = React.forwardRef<
       className
     )}
     {...props}
-  />
+  >
+    {props.children}
+    <TooltipPrimitive.Arrow className="fill-popover border-none" />
+  </TooltipPrimitive.Content>
 ));
 TooltipContent.displayName = TooltipPrimitive.Content.displayName;
+
+export function CustomTooltip({
+  children,
+  content,
+  side = "top",
+  align = "center"
+}: {
+  children: React.ReactNode;
+  content: React.ReactNode;
+  side?: "top" | "right" | "bottom" | "left";
+  align?: "start" | "center" | "end";
+}) {
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        {children}
+      </TooltipTrigger>
+      <TooltipContent side={side} align={align}>
+        {content}
+      </TooltipContent>
+    </Tooltip>
+  );
+}
 
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider };
