@@ -1,44 +1,34 @@
-# Stage 1: Core Layout & Navigation
+# Stage 2: Theme System & Interactive Base
 
-This stage focuses on establishing the responsive UI structure and navigation for the Audio Signal Denoising System website.
+This stage establishes the advanced theme management and foundational interactive elements for the Audio Signal Denoising System website.
 
 ## Completed Tasks
 
-### 1. Global Layout Architecture
-- Implemented `MainLayout` to manage the overall structure.
-- Developed a **Collapsible Sidebar** with navigation links to all 9 report sections.
-- Created a **Sticky Navbar** that includes the page title and theme controls.
-- Designed a **Footer** with copyright information and research context.
+### 1. Advanced Theme Store (Zustand)
+- Enhanced the theme store to manage both **Mode** (Light/Dark) and **Accent Colors**.
+- Implemented `setAccentColor` and `toggleMode` actions with persistence.
+- Configured 7 distinct accent colors (Blue, Purple, Green, Orange, Pink, Cyan, Red) in `lib/constants.ts`.
 
-### 2. Theme System Implementation
-- Integrated a global state management for theming using **Zustand** (`lib/theme-store.ts`).
-- Supported **Dark/Light Mode** with persistence and hydration safety.
-- Used Tailwind CSS variables for dynamic color updates across themes.
+### 2. Dynamic Accent Integration
+- Updated `Providers.tsx` to dynamically apply accent HSL values to CSS variables (`--accent`, `--accent-foreground`) on the document root.
+- Integrated smooth CSS transitions in `globals.css` for background, text, and border color changes.
 
-### 3. Navigation & Routing
-- Created all 9 required pages with corresponding routes:
-  - Home (`/`)
-  - Introduction (`/introduction`)
-  - Methodology (`/methodology`)
-  - Design (`/design`)
-  - Results (`/results`)
-  - Discussion (`/discussion`)
-  - Conclusion (`/conclusion`)
-  - References (`/references`)
-  - Appendix (`/appendix`)
-- Integrated active state detection for sidebar links.
+### 3. Advanced Theme Toggle UI
+- Created a custom `ThemeToggle` component using **Radix UI Dropdown Menu**.
+- Includes:
+  - Framer Motion animated icons (Sun/Moon).
+  - Mode selection with checkmarks.
+  - A grid of interactive color swatches for accent selection.
+  - Hover effects and state indicators.
 
-### 4. Local Font Integration
-- Configured mandatory **Local Fonts** (Inter, GoogleSans, JetBrainsMono) via `@font-face`.
-- Mapped fonts to Tailwind `fontFamily` using CSS variables (`--font-inter`, etc.) in `globals.css` and `tailwind.config.ts`.
-- Ensured compliance with the "no external fonts" requirement.
+### 4. Interactive Base Elements
+- **Click Spark Effect:** Implemented a canvas-based global particle effect that triggers on user clicks, utilizing the current theme's accent color.
+- **Custom Tooltip System:** Built a reusable `CustomTooltip` component based on Radix UI Tooltip primitives for consistent styling and accessibility.
+- **Custom Context Menu:** Implemented a global `CustomContextMenu` that replaces the default browser right-click menu with project-specific actions (Copy Selection, Search Web, Theme Toggle, Share, Save as PDF).
 
-### 5. Technical Stack
-- **Next.js 15.0.5** (App Router)
-- **Tailwind CSS 3.4.17**
-- **Lucide React** for icons
-- **Zustand** for state management
-- **Framer Motion** for layout transitions
+### 5. Dependency & Performance Tuning
+- Downgraded `framer-motion` to version `11.18.2` to resolve module resolution issues in Next.js 15.
+- Verified that all interactive elements are responsive and accessible.
 
 ## Project Plan Status
 
@@ -48,11 +38,11 @@ This stage focuses on establishing the responsive UI structure and navigation fo
 ### ✅ Stage 1: Core Layout & Navigation
 - Root layout, collapsible sidebar, sticky navbar, and footer.
 - Basic page routes for all sections.
-- Theme system integration.
 
-### Stage 2: Theme System & Interactive Base
-- Interactive effects: Click Spark, custom tooltips, and context menus.
-- Enhanced animations.
+### ✅ Stage 2: Theme System & Interactive Base
+- Dark/light mode with Zustand and 7 accent colors.
+- Advanced Theme Toggle UI with color swatches.
+- Click Spark effect, Custom Tooltips, and Context Menus.
 
 ### Stage 3: Error Handling & Core Pages
 - Error boundaries, loading states, and custom 404 page.
@@ -64,27 +54,19 @@ This stage focuses on establishing the responsive UI structure and navigation fo
 - Methodology page implementation.
 
 ### Stage 5: Audio Components & Custom Players
-- Custom audio players with lazy loading.
-- Side-by-side and toggle comparison components for noisy/filtered signals.
-- Results page implementation with audio features.
+- Custom audio players with lazy loading comparison features.
 
 ### Stage 6: Charts, Graphs & Data Visualization
 - Recharts-based spectrum plots and filter response visualizations.
-- Interactive chart controls and performance metrics dashboard.
-- Design page implementation.
 
 ### Stage 7: Table of Contents & Advanced Navigation
-- Dynamic TOC with scroll spy.
-- Breadcrumbs, scroll progress indicator, and quick navigation menu.
-- Enhanced sidebar with active states.
+- Dynamic TOC with scroll spy and breadcrumbs.
 
 ### Stage 8: Content Population & Polish
-- Implementation of Discussion, Conclusion, References, and Appendix pages.
-- GSAP scroll-triggered animations and accessibility enhancements.
+- Full content implementation for remaining pages and GSAP animations.
 
 ### Stage 9: Final Polish & Deployment
-- Visual refinements, performance optimization, and SEO configuration.
-- Deployment to GitHub Pages using GitHub Actions.
+- SEO, performance optimization, and GitHub Pages deployment.
 
 ## How to Run
 1. Install dependencies: `npm install`
