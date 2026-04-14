@@ -7,7 +7,7 @@ export default function Home() {
       </p>
       <div className="p-4 bg-muted rounded-lg font-mono">
         <p>Testing monospace font: JetBrains Mono</p>
-        <code className="text-sm">const dsp = "signal processing";</code>
+        <code className="text-sm">const dsp = &quot;signal processing&quot;;</code>
       </div>
     </div>
   );

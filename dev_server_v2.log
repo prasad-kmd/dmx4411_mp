@@ -1,0 +1,34 @@
+
+> dsp-mini-project@0.1.0 dev /app
+> next dev
+
+   ▲ Next.js 15.1.9
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.0.2:3000
+
+ ✓ Starting...
+ ✓ Ready in 2.7s
+ ○ Compiling / ...
+ ⚠ ./components/layout/Footer.tsx
+Attempted import error: 'Github' is not exported from '__barrel_optimize__?names=AudioLines,Cpu,ExternalLink,FileDown,Github,Mail!=!lucide-react' (imported as 'Github').
+
+Import trace for requested module:
+./components/layout/Footer.tsx
+./components/layout/MainLayout.tsx
+React.jsx: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
+ ⨯ [Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.] {
+  digest: '918032607'
+}
+ GET / 500 in 7737ms
+ ⚠ ./components/layout/Footer.tsx
+Attempted import error: 'Github' is not exported from '__barrel_optimize__?names=AudioLines,Cpu,ExternalLink,FileDown,Github,Mail!=!lucide-react' (imported as 'Github').
+
+Import trace for requested module:
+./components/layout/Footer.tsx
+./components/layout/MainLayout.tsx
+ ⚠ ./components/layout/Footer.tsx
+Attempted import error: 'Github' is not exported from '__barrel_optimize__?names=AudioLines,Cpu,ExternalLink,FileDown,Github,Mail!=!lucide-react' (imported as 'Github').
+
+Import trace for requested module:
+./components/layout/Footer.tsx
+./components/layout/MainLayout.tsx

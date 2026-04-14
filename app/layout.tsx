@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { Toaster } from "sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { MainLayout } from "@/components/layout/MainLayout";
 
 const googleSans = localFont({
   src: [
@@ -44,11 +47,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${googleSans.variable} ${jetBrainsMono.variable} font-primary antialiased`}
       >
-        {children}
+        <TooltipProvider>
+          <MainLayout>
+            {children}
+          </MainLayout>
+          <Toaster position="bottom-right" />
+        </TooltipProvider>
       </body>
     </html>
   );
