@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import {
-  Github,
+  Github as GithubIcon,
   FileDown,
   AudioLines,
   Cpu,
@@ -91,7 +91,7 @@ export function Footer() {
               href="#"
               className="flex items-center gap-2 px-4 py-2 rounded-md border hover:bg-accent transition-colors text-sm font-medium"
             >
-              <Github size={18} /> View on GitHub
+              <GithubIcon size={18} /> View on GitHub
             </Link>
             <Link
               href="mailto:contact@example.com"

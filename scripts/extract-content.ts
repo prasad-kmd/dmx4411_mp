@@ -44,19 +44,27 @@ async function extractContent() {
 
   let currentSection: ContentSection | null = null;
   const sectionStack: ContentSection[] = [];
+  let codeCount = 0;
+  let figCount = 0;
+  let tableCount = 0;
 
-  $('h1, h2, h3, h4, p, table').each((_, element) => {
+  $('p, h1, h2, h3, table').each((_, element) => {
     const $el = $(element);
+    const className = ($el.attr('class') || '').toUpperCase();
     const tagName = element.tagName.toLowerCase();
+    const text = cleanText($el.text());
 
-    if (tagName.startsWith('h')) {
-      const level = parseInt(tagName.substring(1));
-      const title = cleanText($el.text());
-      if (!title) return;
+    if (!text && tagName !== 'table') return;
 
+    const isHeading1 = className === 'HEAD1' || tagName === 'h1';
+    const isHeading2 = className === 'HEAD2' || tagName === 'h2';
+    const isHeading3 = className === 'HEAD3' || tagName === 'h3';
+
+    if (isHeading1 || isHeading2 || isHeading3) {
+      const level = isHeading1 ? 1 : isHeading2 ? 2 : 3;
       const section: ContentSection = {
-        id: slugify(title) || `section-${Math.random().toString(36).substr(2, 9)}`,
-        title,
+        id: slugify(text),
+        title: text,
         level,
         content: '',
         subsections: [],
@@ -87,73 +95,57 @@ async function extractContent() {
         }
       }
     } else if (tagName === 'p') {
-      const text = cleanText($el.text());
-      if (!text) return;
-
-      if ($el.hasClass('MATLABCode')) {
-        const code = $el.text().trim();
-        if (currentSection) {
-          const codeBlock: CodeBlock = {
-            id: `code-${Math.random().toString(36).substr(2, 9)}`,
-            language: 'matlab',
-            code,
-            sectionId: currentSection.id,
-            lineCount: code.split('\n').length,
-          };
-          currentSection.codeBlocks.push(codeBlock);
-          contentData.codeBlocks.push(codeBlock);
+        if (className === 'MATLABCODE') {
+            if (currentSection) {
+                const code = $el.text().trim();
+                const codeBlock: CodeBlock = {
+                  id: `code-${++codeCount}`,
+                  language: 'matlab',
+                  code,
+                  sectionId: currentSection.id,
+                  lineCount: code.split('\n').length,
+                };
+                currentSection.codeBlocks.push(codeBlock);
+                contentData.codeBlocks.push(codeBlock);
+            }
+        } else if (className === 'IMGCAP') {
+             if (currentSection) {
+                const figure: Figure = {
+                  id: `fig-${++figCount}`,
+                  caption: text,
+                  description: '',
+                  figureType: 'chart',
+                  placeholder: text,
+                  sectionId: currentSection.id,
+                };
+                currentSection.figures.push(figure);
+                contentData.figures.push(figure);
+            }
+        } else {
+            if (currentSection) {
+                currentSection.content += text + '\n\n';
+            }
         }
-      } else if ($el.hasClass('ImgCap')) {
-        if (currentSection) {
-          const figure: Figure = {
-            id: `fig-${Math.random().toString(36).substr(2, 9)}`,
-            caption: text,
-            description: '',
-            figureType: 'chart',
-            placeholder: text,
-            sectionId: currentSection.id,
-          };
-          currentSection.figures.push(figure);
-          contentData.figures.push(figure);
-        }
-      } else {
-        if (text.includes('=') && (text.includes('+') || text.includes('-') || text.includes('*') || text.includes('/')) && text.length < 200) {
-           if (currentSection) {
-              const equation: Equation = {
-                id: `eq-${Math.random().toString(36).substr(2, 9)}`,
-                latex: text,
-                display: true,
-                sectionId: currentSection.id,
-              };
-              currentSection.equations.push(equation);
-              contentData.equations.push(equation);
-           }
-        }
-
-        if (currentSection) {
-          currentSection.content += text + '\n\n';
-        }
-      }
     } else if (tagName === 'table') {
-      const rows: string[][] = [];
-      $el.find('tr').each((_, tr) => {
-        const row: string[] = [];
-        $(tr).find('td, th').each((_, td) => {
-          row.push(cleanText($(td).text()));
+        const rows: string[][] = [];
+        $el.find('tr').each((_, tr) => {
+          const row: string[] = [];
+          $(tr).find('td, th').each((_, td) => {
+            row.push(cleanText($(td).text()));
+          });
+          rows.push(row);
         });
-        rows.push(row);
-      });
 
-      if (rows.length > 0 && currentSection) {
-        const table: Table = {
-          id: `table-${Math.random().toString(36).substr(2, 9)}`,
-          headers: rows[0],
-          rows: rows.slice(1),
-          sectionId: currentSection.id,
-        };
-        currentSection.tables.push(table);
-        contentData.tables.push(table);
-      }
+        if (rows.length > 0 && currentSection) {
+          const table: Table = {
+            id: `table-${++tableCount}`,
+            headers: rows[0],
+            rows: rows.slice(1),
+            sectionId: currentSection.id,
+          };
+          currentSection.tables.push(table);
+          contentData.tables.push(table);
+        }
     }
   });
 
