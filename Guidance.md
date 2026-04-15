@@ -27,7 +27,7 @@ Study both repositories thoroughly:
 - Cross-reference with `public/Full-report/MP-Report-HTML.htm` for any formatting nuances
 - Map the report's section hierarchy to website page sections
 
-Initialize a Next.js 14 project with App Router, TypeScript, and Tailwind CSS. Install all dependencies used in the reference template. Mirror the reference template's folder structure and configuration files including next.config.js, tailwind.config.ts, and any global CSS files.
+Initialize a Next.js project with App Router, TypeScript, and Tailwind CSS. Install all dependencies used in the reference template. Mirror the reference template's folder structure and configuration files including next.config.js, tailwind.config.ts, and any global CSS files.
 
 ### Task 1.2 — Design Token System
 
