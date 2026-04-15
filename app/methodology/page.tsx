@@ -4,6 +4,8 @@ import React from "react";
 import contentData from "@/data/content.json";
 import { MathEquation } from "@/components/math/MathEquation";
 import { CodeBlock } from "@/components/code/CodeBlock";
+import { TableOfContents } from "@/components/navigation/TableOfContents";
+import { Breadcrumbs } from "@/components/navigation/Breadcrumbs";
 
 export default function MethodologyPage() {
   const methodologySection = contentData.sections.find(s => s.id === "methodology");
@@ -13,18 +15,20 @@ export default function MethodologyPage() {
   }
 
   return (
-    <div className="space-y-12 pb-20">
-      <div className="space-y-4">
-        <h1 className="text-4xl font-bold tracking-tight font-primary">{methodologySection.title}</h1>
+    <div className="flex gap-12 pb-20">
+      <div className="flex-1 space-y-12">
+        <Breadcrumbs />
+        <div className="space-y-4">
+          <h1 className="text-4xl font-bold tracking-tight font-primary">{methodologySection.title}</h1>
         <p className="text-xl text-muted-foreground leading-relaxed">
           The technical approach, signal acquisition, and MATLAB implementation strategy.
         </p>
       </div>
 
-      <div className="space-y-16">
-        {methodologySection.subsections.map((sub) => (
-          <section key={sub.id} className="space-y-8">
-            <h2 className="text-3xl font-bold font-primary border-b pb-2">{sub.title}</h2>
+        <div className="space-y-16">
+          {methodologySection.subsections.map((sub) => (
+            <section key={sub.id} id={sub.id} className="space-y-8 scroll-mt-24">
+              <h2 className="text-3xl font-bold font-primary border-b pb-2">{sub.title}</h2>
 
             <div className="prose prose-slate dark:prose-invert max-w-none">
               {sub.content.split('\n\n').map((paragraph, i) => (
@@ -35,7 +39,7 @@ export default function MethodologyPage() {
             {/* Sub-sections like Time/Frequency Domain Analysis */}
             <div className="space-y-12 ml-4 border-l-2 pl-8">
               {sub.subsections.map((child) => (
-                <div key={child.id} className="space-y-6">
+                <div key={child.id} id={child.id} className="space-y-6 scroll-mt-24">
                   <h3 className="text-2xl font-bold font-primary">{child.title}</h3>
 
                   <div className="prose prose-slate dark:prose-invert max-w-none">
@@ -100,9 +104,11 @@ xlim([0 Fs1/2]);`}
                 </div>
               ))}
             </div>
-          </section>
-        ))}
+            </section>
+          ))}
+        </div>
       </div>
+      <TableOfContents />
     </div>
   );
 }

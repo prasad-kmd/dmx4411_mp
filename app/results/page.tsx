@@ -14,6 +14,8 @@ import {
   TableRow
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
+import { TableOfContents } from "@/components/navigation/TableOfContents";
+import { Breadcrumbs } from "@/components/navigation/Breadcrumbs";
 
 export default function ResultsPage() {
   const resultsSection = contentData.sections.find(s => s.id === "results");
@@ -83,17 +85,19 @@ export default function ResultsPage() {
   });
 
   return (
-    <div className="space-y-12 pb-20">
-      <div className="space-y-4">
-        <h1 className="text-4xl font-bold tracking-tight font-primary">{resultsSection.title}</h1>
+    <div className="flex gap-12 pb-20">
+      <div className="flex-1 space-y-12">
+        <Breadcrumbs />
+        <div className="space-y-4">
+          <h1 className="text-4xl font-bold tracking-tight font-primary">{resultsSection.title}</h1>
         <p className="text-xl text-muted-foreground leading-relaxed">
           Evaluation of filtering effectiveness through subjective assessment and quantitative metrics.
         </p>
       </div>
 
-      <div className="space-y-20">
-        <section className="space-y-8">
-          <h2 className="text-3xl font-bold font-primary border-b pb-2">1. Filtered Signal Analysis</h2>
+        <div className="space-y-20">
+          <section id="1-filtered-signal-analysis" className="space-y-8 scroll-mt-24">
+            <h2 className="text-3xl font-bold font-primary border-b pb-2">1. Filtered Signal Analysis</h2>
           <div className="prose prose-slate dark:prose-invert max-w-none">
             <p className="text-lg leading-relaxed">
               The designed filters were applied to the noisy audio signals.
@@ -133,7 +137,7 @@ export default function ResultsPage() {
           </div>
         </section>
 
-        <section className="space-y-12">
+          <section id="2-quantitative-comparison" className="space-y-8 scroll-mt-24">
             <h2 className="text-3xl font-bold font-primary border-b pb-2">2. Quantitative Comparison</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                 <div className="space-y-4">
@@ -183,8 +187,10 @@ export default function ResultsPage() {
                 <strong>Scientific Analysis:</strong> The negative SNR values across both calculation methods indicate that traditional SNR metrics have limitations when evaluating frequency-selective noise removal filters. Perceptual audio quality improvement may not always correlate with traditional SNR metrics.
                 </p>
             </div>
-        </section>
+          </section>
+        </div>
       </div>
+      <TableOfContents />
     </div>
   );
 }

@@ -60,9 +60,14 @@ export function Sidebar() {
                     )}
                   />
                   {!isCollapsed && (
-                    <span className="text-sm font-medium truncate">
-                      {item.title}
-                    </span>
+                    <div className="flex-1 flex items-center justify-between min-w-0">
+                      <span className="text-sm font-medium truncate">
+                        {item.title}
+                      </span>
+                      {isActive && (
+                        <div className="h-1 w-1 rounded-full bg-primary-foreground animate-pulse" />
+                      )}
+                    </div>
                   )}
                 </Link>
               </TooltipTrigger>

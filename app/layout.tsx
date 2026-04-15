@@ -7,6 +7,8 @@ import { MainLayout } from "@/components/layout/MainLayout";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { ClickSparkEffect } from "@/components/interactive/ClickSparkEffect";
 import { CustomContextMenu } from "@/components/interactive/CustomContextMenu";
+import { QuickNav } from "@/components/navigation/QuickNav";
+import { ScrollProgress } from "@/components/navigation/ScrollProgress";
 
 const googleSans = localFont({
   src: [
@@ -62,6 +64,8 @@ export default function RootLayout({
               </MainLayout>
             </CustomContextMenu>
             <ClickSparkEffect />
+            <QuickNav />
+            <ScrollProgress />
             <Toaster position="bottom-right" />
           </TooltipProvider>
         </ThemeProvider>

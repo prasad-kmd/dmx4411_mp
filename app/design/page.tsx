@@ -18,6 +18,8 @@ import {
   TabsList,
   TabsTrigger
 } from "@/components/ui/tabs";
+import { TableOfContents } from "@/components/navigation/TableOfContents";
+import { Breadcrumbs } from "@/components/navigation/Breadcrumbs";
 
 export default function DesignPage() {
   const designSection = contentData.sections.find(s => s.id === "design");
@@ -36,18 +38,20 @@ export default function DesignPage() {
   });
 
   return (
-    <div className="space-y-12 pb-20">
-      <div className="space-y-4">
-        <h1 className="text-4xl font-bold tracking-tight font-primary">{designSection.title}</h1>
+    <div className="flex gap-12 pb-20">
+      <div className="flex-1 space-y-12">
+        <Breadcrumbs />
+        <div className="space-y-4">
+          <h1 className="text-4xl font-bold tracking-tight font-primary">{designSection.title}</h1>
         <p className="text-xl text-muted-foreground leading-relaxed">
           Noise identification and specific filter design parameters.
         </p>
       </div>
 
-      <div className="space-y-16">
-        {designSection.subsections.map((sub) => (
-          <section key={sub.id} className="space-y-8">
-            <h2 className="text-3xl font-bold font-primary border-b pb-2">{sub.title}</h2>
+        <div className="space-y-16">
+          {designSection.subsections.map((sub) => (
+            <section key={sub.id} id={sub.id} className="space-y-8 scroll-mt-24">
+              <h2 className="text-3xl font-bold font-primary border-b pb-2">{sub.title}</h2>
 
             <div className="prose prose-slate dark:prose-invert max-w-none">
               {sub.content.split('\n\n').map((p, i) => (
@@ -57,7 +61,7 @@ export default function DesignPage() {
 
             <div className="grid grid-cols-1 gap-8">
               {sub.subsections.map((child) => (
-                <Card key={child.id} className="overflow-hidden">
+                <Card key={child.id} id={child.id} className="overflow-hidden scroll-mt-24">
                   <CardHeader className="bg-muted/30">
                     <CardTitle className="text-xl font-primary">{child.title}</CardTitle>
                     <CardDescription>
@@ -107,9 +111,11 @@ export default function DesignPage() {
                 </Card>
               ))}
             </div>
-          </section>
-        ))}
+            </section>
+          ))}
+        </div>
       </div>
+      <TableOfContents />
     </div>
   );
 }
