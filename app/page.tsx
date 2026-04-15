@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { Reveal } from "@/components/interactive/Reveal";
 import {
   ArrowRight,
   AudioLines,
@@ -57,7 +58,7 @@ export default function Home() {
   return (
     <div className="space-y-24 pb-20">
       {/* Hero Section */}
-      <section className="relative py-20 flex flex-col items-center text-center space-y-8">
+      <Reveal direction="down" className="relative py-20 flex flex-col items-center text-center space-y-8">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(45%_45%_at_50%_50%,var(--primary)_0%,transparent_100%)] opacity-[0.03]" />
 
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold tracking-wider uppercase border border-primary/20">
@@ -88,45 +89,48 @@ export default function Home() {
             Download Report
           </Link>
         </div>
-      </section>
+      </Reveal>
 
       {/* Stats Grid */}
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {stats.map((stat, i) => (
-          <div key={i} className="p-6 rounded-2xl border bg-card/50 backdrop-blur-sm hover:border-primary/50 transition-colors group">
-            <stat.icon className="mb-4 text-muted-foreground group-hover:text-primary transition-colors" size={24} />
-            <div className="text-3xl font-bold mb-1">{stat.value}</div>
-            <div className="text-sm font-semibold mb-2">{stat.label}</div>
-            <p className="text-xs text-muted-foreground leading-relaxed">{stat.description}</p>
-          </div>
+          <Reveal key={i} delay={i * 0.1} direction="up" className="h-full">
+            <div className="p-6 rounded-2xl border bg-card/50 backdrop-blur-sm hover:border-primary/50 transition-colors group h-full">
+              <stat.icon className="mb-4 text-muted-foreground group-hover:text-primary transition-colors" size={24} />
+              <div className="text-3xl font-bold mb-1">{stat.value}</div>
+              <div className="text-sm font-semibold mb-2">{stat.label}</div>
+              <p className="text-xs text-muted-foreground leading-relaxed">{stat.description}</p>
+            </div>
+          </Reveal>
         ))}
       </section>
 
       {/* Section Previews */}
       <section className="space-y-12">
-        <div className="text-center space-y-4">
+        <Reveal direction="up" className="text-center space-y-4">
           <h2 className="text-3xl font-bold font-primary">Project Roadmap</h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
             Navigate through the different stages of our research and implementation.
           </p>
-        </div>
+        </Reveal>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {sections.map((section, i) => (
-            <Link
-              key={i}
-              href={section.href}
-              className="p-8 rounded-2xl border bg-card hover:bg-accent/50 hover:shadow-xl hover:-translate-y-1 transition-all group"
-            >
-              <section.icon className="mb-6 text-primary" size={32} />
-              <h3 className="text-xl font-bold mb-3">{section.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                {section.description}
-              </p>
-              <div className="flex items-center gap-2 text-primary text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">
-                Learn More <ArrowRight size={16} />
-              </div>
-            </Link>
+            <Reveal key={i} delay={i * 0.1} direction="up" className="h-full">
+              <Link
+                href={section.href}
+                className="p-8 rounded-2xl border bg-card hover:bg-accent/50 hover:shadow-xl hover:-translate-y-1 transition-all group h-full flex flex-col"
+              >
+                <section.icon className="mb-6 text-primary" size={32} />
+                <h3 className="text-xl font-bold mb-3">{section.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-6 flex-1">
+                  {section.description}
+                </p>
+                <div className="flex items-center gap-2 text-primary text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">
+                  Learn More <ArrowRight size={16} />
+                </div>
+              </Link>
+            </Reveal>
           ))}
         </div>
       </section>

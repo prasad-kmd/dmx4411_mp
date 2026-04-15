@@ -179,6 +179,8 @@ export function CustomAudioPlayer({ src, label, className }: CustomAudioPlayerPr
                     size="icon"
                     className="h-10 w-10 rounded-full"
                     onClick={togglePlay}
+                    aria-label={isPlaying ? "Pause" : "Play"}
+                    title={isPlaying ? "Pause" : "Play"}
                   >
                     {isPlaying ? <Pause size={18} /> : <Play size={18} className="ml-1" />}
                   </Button>
@@ -187,6 +189,8 @@ export function CustomAudioPlayer({ src, label, className }: CustomAudioPlayerPr
                     size="icon"
                     className="h-8 w-8"
                     onClick={resetAudio}
+                    aria-label="Reset to start"
+                    title="Reset to start"
                   >
                     <RotateCcw size={16} />
                   </Button>
@@ -196,7 +200,13 @@ export function CustomAudioPlayer({ src, label, className }: CustomAudioPlayerPr
                   {/* Playback Speed */}
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="sm" className="h-8 text-[11px] font-mono">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-8 text-[11px] font-mono"
+                        aria-label="Playback speed"
+                        title="Playback speed"
+                      >
                         {playbackRate}x
                       </Button>
                     </DropdownMenuTrigger>
@@ -216,7 +226,14 @@ export function CustomAudioPlayer({ src, label, className }: CustomAudioPlayerPr
                   {/* Volume */}
                   <Popover>
                     <PopoverTrigger asChild>
-                      <Button variant="ghost" size="icon" className="h-8 w-8" onClick={toggleMute}>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8"
+                        onClick={toggleMute}
+                        aria-label="Volume control"
+                        title="Volume control"
+                      >
                         {isMuted || volume === 0 ? <VolumeX size={16} /> : <Volume2 size={16} />}
                       </Button>
                     </PopoverTrigger>
