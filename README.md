@@ -1,34 +1,33 @@
-# Stage 2: Theme System & Interactive Base
+# Stage 3: Error Handling, SEO, Landing & Introduction
 
-This stage establishes the advanced theme management and foundational interactive elements for the Audio Signal Denoising System website.
+This stage completes the core application resilience and populates the first major content sections of the website.
 
 ## Completed Tasks
 
-### 1. Advanced Theme Store (Zustand)
-- Enhanced the theme store to manage both **Mode** (Light/Dark) and **Accent Colors**.
-- Implemented `setAccentColor` and `toggleMode` actions with persistence.
-- Configured 7 distinct accent colors (Blue, Purple, Green, Orange, Pink, Cyan, Red) in `lib/constants.ts`.
+### 1. Robust Error Handling & Resilience
+- **Route-level Error Boundary:** Implemented `app/error.tsx` using 'use client' to handle runtime errors within specific page sections, providing a clear error message and a "Try Again" recovery action.
+- **Global Error Handler:** Created `app/global-error.tsx` to handle critical failures at the root level, ensuring a safe fallback even if the entire layout fails.
+- **Creative 404 Page:** Developed a custom `app/not-found.tsx` with a responsive, themed layout and quick navigation links to help users find their way back.
 
-### 2. Dynamic Accent Integration
-- Updated `Providers.tsx` to dynamically apply accent HSL values to CSS variables (`--accent`, `--accent-foreground`) on the document root.
-- Integrated smooth CSS transitions in `globals.css` for background, text, and border color changes.
+### 2. Optimized Loading Experience
+- **Root Loading State:** Implemented `app/loading.tsx` featuring a coordinated skeleton pulse animation across the Sidebar, Navbar, and Main Content areas to reduce perceived latency.
 
-### 3. Advanced Theme Toggle UI
-- Created a custom `ThemeToggle` component using **Radix UI Dropdown Menu**.
-- Includes:
-  - Framer Motion animated icons (Sun/Moon).
-  - Mode selection with checkmarks.
-  - A grid of interactive color swatches for accent selection.
-  - Hover effects and state indicators.
+### 3. SEO & Discovery Configuration
+- **Dynamic Sitemap:** Created `app/sitemap.ts` to automatically generate a valid `sitemap.xml` based on the project's routing structure and metadata constants.
+- **Robots Configuration:** Configured `app/robots.ts` to manage crawler access and point to the sitemap, optimized for GitHub Pages hosting.
 
-### 4. Interactive Base Elements
-- **Click Spark Effect:** Implemented a canvas-based global particle effect that triggers on user clicks, utilizing the current theme's accent color.
-- **Custom Tooltip System:** Built a reusable `CustomTooltip` component based on Radix UI Tooltip primitives for consistent styling and accessibility.
-- **Custom Context Menu:** Implemented a global `CustomContextMenu` that replaces the default browser right-click menu with project-specific actions (Copy Selection, Search Web, Theme Toggle, Share, Save as PDF).
+### 4. Landing Page Implementation
+- **Hero Section:** Built an engaging homepage (`app/page.tsx`) with a dynamic title, project summary, and animated entrance effects.
+- **Project Overview:** Integrated a statistics grid and section preview cards with themed icons and "Learn More" navigation.
 
-### 5. Dependency & Performance Tuning
-- Downgraded `framer-motion` to version `11.18.2` to resolve module resolution issues in Next.js 15.
-- Verified that all interactive elements are responsive and accessible.
+### 5. Introduction Section Content
+- **Structured Content:** Developed `app/introduction/page.tsx` using extracted PDF content, organized into Background, Problem Statement, and Project Objectives.
+- **Reusable UI Components:** Created a `SectionHeader` component for consistent section titling and a `Card` primitive in `components/ui/Card.tsx` for structured data presentation.
+- **Enhanced Navigation:** Implemented section-to-section navigation using Next.js `Link` components for seamless transitions.
+
+### 6. Technical Refinement
+- **Build Compatibility:** Enabled `trailingSlash: true` in `next.config.mjs` to ensure directory-based URLs in static exports, maintaining routing integrity on standard web servers.
+- **Tailwind Extension:** Expanded the theme configuration in `tailwind.config.ts` to include `accent-primary` for more granular control over themed highlights.
 
 ## Project Plan Status
 
@@ -37,16 +36,14 @@ This stage establishes the advanced theme management and foundational interactiv
 
 ### ✅ Stage 1: Core Layout & Navigation
 - Root layout, collapsible sidebar, sticky navbar, and footer.
-- Basic page routes for all sections.
 
 ### ✅ Stage 2: Theme System & Interactive Base
 - Dark/light mode with Zustand and 7 accent colors.
-- Advanced Theme Toggle UI with color swatches.
-- Click Spark effect, Custom Tooltips, and Context Menus.
+- Interactive sparkles, tooltips, and context menus.
 
-### Stage 3: Error Handling & Core Pages
-- Error boundaries, loading states, and custom 404 page.
-- Landing page and Introduction section content.
+### ✅ Stage 3: Error Handling & Core Pages
+- Error boundaries, 404, loading states, and SEO.
+- Full Landing and Introduction page implementation.
 
 ### Stage 4: Content Components - Math & Code
 - KaTeX integration for mathematical equations.
@@ -71,4 +68,4 @@ This stage establishes the advanced theme management and foundational interactiv
 ## How to Run
 1. Install dependencies: `npm install`
 2. Run development server: `npm run dev`
-3. Build for production: `npm run build`
+3. Build for static export: `npm run build`
