@@ -102,6 +102,9 @@ importers:
       '@types/react-dom':
         specifier: ^18.3.1
         version: 18.3.7(@types/react@18.3.28)
+      '@types/react-katex':
+        specifier: ^3.0.4
+        version: 3.0.4
       autoprefixer:
         specifier: ^10.4.20
         version: 10.5.0(postcss@8.5.10)
@@ -1035,6 +1038,9 @@ packages:
     resolution: {integrity: sha512-MEe3UeoENYVFXzoXEWsvcpg6ZvlrFNlOQ7EOsvhI3CfAXwzPfO8Qwuxd40nepsYKqyyVQnTdEfv68q91yLcKrQ==}
     peerDependencies:
       '@types/react': ^18.0.0
+
+  '@types/react-katex@3.0.4':
+    resolution: {integrity: sha512-aLkykKzSKLpXI6REJ3uClao6P47HAFfR1gcHOZwDeTuALsyjgMhz+oynLV4gX0kiJVnvHrBKF/TLXqyNTpHDUg==}
 
   '@types/react@18.3.28':
     resolution: {integrity: sha512-z9VXpC7MWrhfWipitjNdgCauoMLRdIILQsAEV+ZesIzBq/oUlxk0m3ApZuMFCXdnS4U7KrI+l3WRUEGQ8K1QKw==}
@@ -3703,6 +3709,10 @@ snapshots:
   '@types/prop-types@15.7.15': {}
 
   '@types/react-dom@18.3.7(@types/react@18.3.28)':
+    dependencies:
+      '@types/react': 18.3.28
+
+  '@types/react-katex@3.0.4':
     dependencies:
       '@types/react': 18.3.28
 
