@@ -1,6 +1,9 @@
 {
   "name": "featured-project-web",
   "version": "1.0.0",
+  "description": "",
+  "author": "prasad-kmd",
+  "license": "AGPL-3.0",
   "private": true,
   "scripts": {
     "build": "next build",
@@ -46,6 +49,7 @@
     "react-chartjs-2": "latest",
     "react-dom": "19.2.4",
     "react-katex": "^3.0.1",
+    "recharts": "^3.8.1",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-katex": "^7.0.1",
     "rehype-parse": "^9.0.1",

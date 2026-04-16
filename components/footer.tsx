@@ -89,12 +89,10 @@ export function Footer() {
             </h3>
             <ul className="space-y-4">
               {[
-                { name: "Portfolio", href: "/portfolio" },
-                { name: "Blog", href: "/blog" },
-                { name: "Projects", href: "/projects" },
-                { name: "Tools", href: "/tools" },
-                { name: "Wiki", href: "/wiki" },
-                { name: "Tutorials", href: "/tutorials" },
+                { name: "Portfolio", href: siteConfig.mainWebsiteUrl + "/portfolio" },
+                { name: "About Me", href: "/about" },
+                { name: "What's Now", href: siteConfig.mainWebsiteUrl + "/now" },
+                { name: "Resources", href: siteConfig.mainWebsiteUrl + "/resources" },
               ].map((link) => (
                 <li key={link.name}>
                   <Link
@@ -116,14 +114,11 @@ export function Footer() {
             </h3>
             <ul className="space-y-4">
               {[
-                { name: "About Me", href: "/about" },
-                { name: "What's Now", href: "/now" },
-                { name: "Setup / Uses", href: "/uses" },
-                { name: "Roadmap", href: "/roadmap" },
+                { name: "Setup / Uses", href: siteConfig.mainWebsiteUrl + "/uses" },
+                { name: "Roadmap", href: siteConfig.mainWebsiteUrl + "/roadmap" },
                 { name: "Changelog", href: "/changelog" },
-                { name: "Snippets", href: "/snippets" },
-                { name: "Open Source", href: "/open-source" },
-                { name: "Resources", href: "/resources" },
+                { name: "Open Source", href: siteConfig.mainWebsiteUrl + "/open-source" },
+                { name: "External Links", href: "/external-link" },
                 { name: "Site Directory", href: "/pages" },
               ].map((link) => (
                 <li key={link.name}>
@@ -149,8 +144,6 @@ export function Footer() {
                 { name: "Privacy Policy", href: "/privacy-policy" },
                 { name: "Terms of Service", href: "/terms-and-conditions" },
                 { name: "Disclaimer", href: "/disclaimer" },
-                { name: "Accessibility", href: "/accessibility" },
-                { name: "Security", href: "/security" },
               ].map((link) => (
                 <li key={link.name}>
                   <Link
@@ -178,7 +171,7 @@ export function Footer() {
           </div>
 
           <Link
-            href="/status"
+            href={siteConfig.mainWebsiteUrl + "/status"}
             className="flex items-center gap-4 px-4 py-2 rounded-full bg-muted/30 border border-border/50 backdrop-blur-sm hover:bg-muted/50 transition-colors"
           >
             <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />

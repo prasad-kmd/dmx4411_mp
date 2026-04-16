@@ -6,6 +6,7 @@ import { Navigation } from "@/components/navigation";
 import { SidebarProvider } from "@/components/sidebar-context";
 import { ThemeProvider } from "@/components/theme-provider";
 import { FloatingNavbar } from "@/components/floating-navbar";
+import EquationReferencePanel from "@/components/research/equation-reference-panel";
 import { Toaster } from "sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import "katex/dist/katex.min.css";
@@ -285,6 +286,7 @@ export default function RootLayout({
                       {children}
                       <Footer />
                     </main>
+                    <EquationReferencePanel />
                     <ScrollToTop />
                     <Toaster position="bottom-right" richColors />
                     <ConnectivityListener />

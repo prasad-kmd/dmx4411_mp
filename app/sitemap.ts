@@ -8,32 +8,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ? siteConfig.url.slice(0, -1)
     : siteConfig.url;
 
-  const types = ["blog", "articles", "projects", "tutorials"] as const;
-  const contentRoutes = types.flatMap((type) => {
-    const items = getContentByType(type);
-    return items.map((item) => ({
-      url: `${baseUrl}/${type}/${item.slug}`,
-      lastModified: item.date ? new Date(item.date) : new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    }));
-  });
-
   const staticRoutes = [
     "",
     "/about",
-    "/portfolio",
-    "/blog",
-    "/articles",
-    "/projects",
-    "/tutorials",
-    "/gallery",
     "/contact",
     "/pages",
-    "/game-deal",
-    "/feeds",
-    "/researches",
-    "/open-books",
+    "/external-link",
+    "/introduction",
+    "/methodology",
+    "/design",
+    "/results",
+    "/discussion",
+    "/conclusion",
+    "/references",
+    "/appendix",
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
@@ -41,5 +29,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: route === "" ? 1 : 0.8,
   }));
 
-  return [...staticRoutes, ...contentRoutes];
+  return [...staticRoutes];
 }

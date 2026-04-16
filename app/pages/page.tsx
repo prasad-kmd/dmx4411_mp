@@ -33,7 +33,10 @@ import {
   Heart,
   Trophy,
   Clapperboard,
+  Globe,
 } from "lucide-react";
+
+import { siteConfig } from "@/lib/config";
 
 const title = "Site Directory";
 const description =
@@ -60,7 +63,7 @@ const categories = [
       },
       {
         name: "Portfolio",
-        href: "/portfolio",
+        href: siteConfig.mainWebsiteUrl + "/portfolio",
         icon: UserRound,
         color: "text-emerald-500",
         bgColor: "bg-emerald-500/10",
@@ -68,7 +71,7 @@ const categories = [
       },
       {
         name: "Blog",
-        href: "/blog",
+        href: siteConfig.mainWebsiteUrl + "/blog",
         icon: FileText,
         color: "text-orange-500",
         bgColor: "bg-orange-500/10",
@@ -76,7 +79,7 @@ const categories = [
       },
       {
         name: "Articles",
-        href: "/articles",
+        href: siteConfig.mainWebsiteUrl + "/articles",
         icon: BookOpen,
         color: "text-purple-500",
         bgColor: "bg-purple-500/10",
@@ -84,7 +87,7 @@ const categories = [
       },
       {
         name: "Projects",
-        href: "/projects",
+        href: siteConfig.mainWebsiteUrl + "/projects",
         icon: GitBranch,
         color: "text-pink-500",
         bgColor: "bg-pink-500/10",
@@ -92,7 +95,7 @@ const categories = [
       },
       {
         name: "Tutorials",
-        href: "/tutorials",
+        href: siteConfig.mainWebsiteUrl + "/tutorials",
         icon: Newspaper,
         color: "text-cyan-500",
         bgColor: "bg-cyan-500/10",
@@ -107,7 +110,7 @@ const categories = [
     pages: [
       {
         name: "Quiz Library",
-        href: "/quiz",
+        href: siteConfig.mainWebsiteUrl + "/quiz",
         icon: Trophy,
         color: "text-amber-500",
         bgColor: "bg-amber-500/10",
@@ -115,7 +118,7 @@ const categories = [
       },
       {
         name: "Engineering Wiki",
-        href: "/wiki",
+        href: siteConfig.mainWebsiteUrl + "/wiki",
         icon: Book,
         color: "text-blue-500",
         bgColor: "bg-blue-500/10",
@@ -123,7 +126,7 @@ const categories = [
       },
       {
         name: "Engineering Researches",
-        href: "/researches",
+        href: siteConfig.mainWebsiteUrl + "/researches",
         icon: FlaskConical,
         color: "text-teal-500",
         bgColor: "bg-teal-500/10",
@@ -131,7 +134,7 @@ const categories = [
       },
       {
         name: "Open Books",
-        href: "/open-books",
+        href: siteConfig.mainWebsiteUrl + "/open-books",
         icon: Library,
         color: "text-blue-500",
         bgColor: "bg-blue-500/10",
@@ -139,7 +142,7 @@ const categories = [
       },
       {
         name: "Code Snippets",
-        href: "/snippets",
+        href: siteConfig.mainWebsiteUrl + "/snippets",
         icon: FileText,
         color: "text-pink-500",
         bgColor: "bg-pink-500/10",
@@ -151,119 +154,13 @@ const categories = [
     name: "Knowledge & Resources",
     id: "resources",
     description: "Downloadable assets and reference materials.",
-    pages: [
-      {
-        name: "Open Source",
-        href: "/open-source",
-        icon: Github,
-        color: "text-slate-500",
-        bgColor: "bg-slate-500/10",
-        description: "GitHub repositories and contribution guides.",
-      },
-      {
-        name: "Downloads",
-        href: "/resources",
-        icon: FileArchive,
-        color: "text-emerald-500",
-        bgColor: "bg-emerald-500/10",
-        description: "CAD files, code examples, and datasheets.",
-      },
-      {
-        name: "Cheat Sheets",
-        href: "/cheat-sheets",
-        icon: Printer,
-        color: "text-orange-500",
-        bgColor: "bg-orange-500/10",
-        description: "Printable reference pages for quick lookups.",
-      },
-      {
-        name: "Reading List",
-        href: "/reading-list",
-        icon: BookMarked,
-        color: "text-purple-500",
-        bgColor: "bg-purple-500/10",
-        description: "Curated books and papers with annotations.",
-      },
-      {
-        name: "Glossary",
-        href: "/glossary",
-        icon: Hash,
-        color: "text-cyan-500",
-        bgColor: "bg-cyan-500/10",
-        description: "Technical terminology definitions.",
-      },
-    ],
+    pages: [],
   },
   {
     name: "About & Career",
     id: "career",
     description: "Professional background and personal snapshots.",
-    pages: [
-      {
-        name: "About Me",
-        href: "/about",
-        icon: Users,
-        color: "text-indigo-500",
-        bgColor: "bg-indigo-500/10",
-        description: "The mission behind this platform.",
-      },
-      {
-        name: "Sponsorship",
-        href: "/sponsorship",
-        icon: Heart,
-        color: "text-red-500",
-        bgColor: "bg-red-500/10",
-        description: "Support the development of open-source tools.",
-      },
-      {
-        name: "What's Now",
-        href: "/now",
-        icon: Activity,
-        color: "text-blue-500",
-        bgColor: "bg-blue-500/10",
-        description: "Current focus and active builds.",
-      },
-      {
-        name: "Setup / Uses",
-        href: "/uses",
-        icon: Wrench,
-        color: "text-emerald-500",
-        bgColor: "bg-emerald-500/10",
-        description: "Hardware setup and software stack.",
-      },
-      {
-        name: "Project Roadmap",
-        href: "/roadmap",
-        icon: GitBranch,
-        color: "text-orange-500",
-        bgColor: "bg-orange-500/10",
-        description: "Upcoming features and milestones.",
-      },
-      {
-        name: "Site Changelog",
-        href: "/changelog",
-        icon: FileText,
-        color: "text-purple-500",
-        bgColor: "bg-purple-500/10",
-        description: "History of updates on this site.",
-      },
-      {
-        name: "Visual Gallery",
-        href: "/gallery",
-        icon: ImageIcon,
-        color: "text-amber-500",
-        bgColor: "bg-amber-500/10",
-        description: "Visual documentation of field work.",
-      },
-      {
-        name: "Contact",
-        href: "/contact",
-        icon: Mail,
-        color: "text-red-500",
-        bgColor: "bg-red-500/10",
-        description: "Get in touch for collaborations.",
-      },
-    ],
+    pages: [],
   },
   {
     name: "Legal & Technical",
@@ -294,44 +191,12 @@ const categories = [
         bgColor: "bg-yellow-500/10",
         description: "Legal limitations and liabilities.",
       },
-      {
-        name: "Accessibility",
-        href: "/accessibility",
-        icon: Accessibility,
-        color: "text-purple-500",
-        bgColor: "bg-purple-500/10",
-        description: "Commitment to inclusive design.",
-      },
-      {
-        name: "Security Policy",
-        href: "/security",
-        icon: ShieldAlert,
-        color: "text-red-500",
-        bgColor: "bg-red-500/10",
-        description: "Reporting vulnerabilities.",
-      },
-      {
-        name: "Site Status",
-        href: "/status",
-        icon: Activity,
-        color: "text-green-500",
-        bgColor: "bg-green-500/10",
-        description: "System uptime and health.",
-      },
-      {
-        name: "Style Guide",
-        href: "/style-guide",
-        icon: Palette,
-        color: "text-pink-500",
-        bgColor: "bg-pink-500/10",
-        description: "Brand assets and guidelines.",
-      },
     ],
   },
   {
     name: "Discovery",
     id: "discovery",
-    description: "External integrations and global search.",
+    description: "Integrations and site overview.",
     pages: [
       {
         name: "Global Search",
@@ -342,20 +207,12 @@ const categories = [
         description: "Find any content across the platform.",
       },
       {
-        name: "External Feeds",
-        href: "/feeds",
-        icon: Rss,
+        name: "External Links",
+        href: "/external-link",
+        icon: Newspaper,
         color: "text-orange-500",
         bgColor: "bg-orange-500/10",
-        description: "Latest posts from engineering blogs.",
-      },
-      {
-        name: "Game Deals",
-        href: "/game-deal",
-        icon: Gamepad2,
-        color: "text-rose-500",
-        bgColor: "bg-rose-500/10",
-        description: "Best game discounts across stores.",
+        description: "Verified external engineering resources.",
       },
     ],
   },
@@ -407,31 +264,54 @@ export default function PagesOverview() {
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {category.pages.map((page) => (
+                {category.id === "resources" || category.id === "career" ? (
                   <Link
-                    key={page.href}
-                    href={page.href}
-                    className="group relative flex flex-col rounded-2xl border border-border bg-card p-5 transition-all hover:border-primary/50 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1"
+                    href={siteConfig.mainWebsiteUrl}
+                    className="group relative flex flex-col items-center justify-center rounded-3xl border border-dashed border-primary/30 bg-primary/5 p-12 text-center transition-all hover:border-primary/50 hover:bg-primary/10 sm:col-span-2 lg:col-span-3 lg:p-16"
                   >
-                    <div className="flex items-start justify-between mb-3">
-                      <div
-                        className={`inline-flex h-10 w-10 items-center justify-center rounded-xl ${page.bgColor} ${page.color} transition-transform group-hover:scale-110`}
-                      >
-                        <page.icon className="h-5 w-5" />
-                      </div>
-                      <ArrowRight className="h-4 w-4 text-muted-foreground opacity-0 transition-all group-hover:translate-x-1 group-hover:opacity-100 group-hover:text-primary" />
+                    <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-transform group-hover:scale-110">
+                      <Globe className="h-8 w-8" />
                     </div>
-                    <div>
-                      <h3 className="text-lg font-bold group-hover:text-primary transition-colors google-sans">
-                        {page.name}
-                      </h3>
-                      <p className="mt-1 text-xs text-muted-foreground leading-relaxed local-inter line-clamp-2">
-                        {page.description}
-                      </p>
+                    <h3 className="mb-3 text-2xl font-bold google-sans group-hover:text-primary transition-colors">
+                      View {category.name} on Main Platform
+                    </h3>
+                    <p className="mx-auto max-w-md text-sm text-muted-foreground local-inter leading-relaxed">
+                      Our comprehensive {category.name.toLowerCase()} hub, containing all professional assets, 
+                      career history, and integrated resources, is hosted on our main website.
+                    </p>
+                    <div className="mt-8 flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-primary">
+                      Visit Main Website
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </div>
-                    <div className="absolute inset-0 -z-10 rounded-2xl bg-gradient-to-br from-primary/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+                    <div className="absolute inset-0 -z-10 rounded-3xl bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
                   </Link>
-                ))}
+                ) : (
+                  category.pages.map((page) => (
+                    <Link
+                      key={page.href}
+                      href={page.href}
+                      className="group relative flex flex-col rounded-2xl border border-border bg-card p-5 transition-all hover:border-primary/50 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1"
+                    >
+                      <div className="flex items-start justify-between mb-3">
+                        <div
+                          className={`inline-flex h-10 w-10 items-center justify-center rounded-xl ${page.bgColor} ${page.color} transition-transform group-hover:scale-110`}
+                        >
+                          <page.icon className="h-5 w-5" />
+                        </div>
+                        <ArrowRight className="h-4 w-4 text-muted-foreground opacity-0 transition-all group-hover:translate-x-1 group-hover:opacity-100 group-hover:text-primary" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold group-hover:text-primary transition-colors google-sans">
+                          {page.name}
+                        </h3>
+                        <p className="mt-1 text-xs text-muted-foreground leading-relaxed local-inter line-clamp-2">
+                          {page.description}
+                        </p>
+                      </div>
+                      <div className="absolute inset-0 -z-10 rounded-2xl bg-gradient-to-br from-primary/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+                    </Link>
+                  ))
+                )}
               </div>
             </section>
           ))}
