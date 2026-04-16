@@ -36,7 +36,7 @@ export default function ResultsPage() {
                          <Badge className="mb-2">Original</Badge>
                          <div className="h-24 flex items-end gap-0.5 px-4 opacity-40">
                             {Array.from({ length: 30 }).map((_, i) => (
-                              <div key={i} className="flex-1 bg-muted-foreground" style={{ height: `${Math.random() * 100}%` }} />
+                              <div key={i} className="flex-1 bg-muted-foreground" style={{ height: `${(Math.sin(i * 0.5) + 1) * 50}%` }} />
                             ))}
                          </div>
                       </div>
@@ -44,7 +44,7 @@ export default function ResultsPage() {
                          <Badge className="mb-2 bg-primary/20 text-primary border-primary/20">Filtered</Badge>
                          <div className="h-24 flex items-end gap-0.5 px-4 opacity-40">
                             {Array.from({ length: 30 }).map((_, i) => (
-                              <div key={i} className="flex-1 bg-primary" style={{ height: `${Math.max(10, Math.random() * 60)}%` }} />
+                              <div key={i} className="flex-1 bg-primary" style={{ height: `${(Math.cos(i * 0.3) + 1) * 30}%` }} />
                             ))}
                          </div>
                       </div>

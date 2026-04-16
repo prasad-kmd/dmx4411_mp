@@ -1,4 +1,41 @@
-export const PROJECT_DATA = {
+export interface FilterParams {
+  order: number;
+  cutoff?: number;
+  normalizedFreq?: number;
+  centerFreq?: number;
+  bandwidth?: number;
+  cutoffLow?: number;
+  cutoffHigh?: number;
+  normalizedFreqLow?: number;
+  normalizedFreqHigh?: number;
+}
+
+export interface AudioSignal {
+  id: string;
+  name: string;
+  filename: string;
+  noiseType: string;
+  filterType: string;
+  fundamentalFreq: number;
+  mse: number;
+  snrOriginalSignal: number;
+  snrFilteredSignal: number;
+  snrImprovementSignal: number;
+  snrOriginalSignalNoise: number;
+  snrFilteredSignalNoise: number;
+  snrImprovementSignalNoise: number;
+  filterParams: FilterParams;
+}
+
+export interface ProjectData {
+  title: string;
+  subtitle: string;
+  samplingRate: number;
+  audioSignals: AudioSignal[];
+  navLinks: { label: string; href: string }[];
+}
+
+export const PROJECT_DATA: ProjectData = {
   title: "Audio Denoising System Using Digital Signal Processing",
   subtitle: "DMX4411 Mini Project — Signal Acquisition, Filter Design & Performance Evaluation",
   samplingRate: 44100,

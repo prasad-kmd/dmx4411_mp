@@ -2,6 +2,7 @@ import { FloatingTOC } from "@/components/floating-toc";
 import { CodeBlock } from "@/components/code-block";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { PROJECT_DATA } from "@/lib/constants";
 import 'katex/dist/katex.min.css';
 import { BlockMath, InlineMath } from 'react-katex';
@@ -115,5 +116,3 @@ mag = 20*log10(abs(h));`;
     </div>
   );
 }
-
-import { Button } from "@/components/ui/button";

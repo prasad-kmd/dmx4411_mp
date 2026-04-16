@@ -12,24 +12,41 @@ function extractContent() {
 
   const text = fs.readFileSync(reportPath, 'utf8');
 
-  // Simple extraction logic - split by sections
-  const sections = text.split(/\r?\n\r?\n(?=[A-Z]{3,})/);
+  // Clean up the text - remove the BOM if present
+  const cleanText = text.replace(/^\uFEFF/, '');
+  const allLines = cleanText.split(/\r?\n/);
 
   const contentMap: Record<string, string> = {};
 
-  sections.forEach(section => {
-    const lines = section.trim().split('\n');
-    const title = lines[0].trim().toUpperCase();
-    const body = lines.slice(1).join('\n').trim();
+  const sections = [
+    { id: 'introduction', start: 'INTRODUCTION', end: 'METHODOLOGY' },
+    { id: 'methodology', start: 'METHODOLOGY', end: 'DESIGN' },
+    { id: 'design', start: 'DESIGN', end: 'RESULTS' },
+    { id: 'results', start: 'RESULTS', end: 'DISCUSSION' },
+    { id: 'discussion', start: 'DISCUSSION', end: 'CONCLUSION' },
+    { id: 'conclusion', start: 'CONCLUSION', end: 'REFERENCES' },
+    { id: 'references', start: 'REFERENCES', end: 'APPENDIX' },
+    { id: 'appendix', start: 'APPENDIX', end: null }
+  ];
 
-    if (title === 'INTRODUCTION') contentMap['introduction'] = body;
-    else if (title === 'METHODOLOGY') contentMap['methodology'] = body;
-    else if (title === 'DESIGN') contentMap['design'] = body;
-    else if (title === 'RESULTS') contentMap['results'] = body;
-    else if (title === 'DISCUSSION') contentMap['discussion'] = body;
-    else if (title === 'CONCLUSION') contentMap['conclusion'] = body;
-    else if (title === 'REFERENCES') contentMap['references'] = body;
-    else if (title === 'APPENDIX') contentMap['appendix'] = body;
+  const findSectionLine = (title: string) => {
+    for (let i = 0; i < allLines.length; i++) {
+      if (allLines[i].trim() === title) {
+        return i;
+      }
+    }
+    return -1;
+  };
+
+  sections.forEach((section) => {
+    const startLine = findSectionLine(section.start);
+    if (startLine !== -1) {
+      let endLine = section.end ? findSectionLine(section.end) : allLines.length;
+      if (endLine === -1) endLine = allLines.length;
+
+      const sectionContent = allLines.slice(startLine + 1, endLine).join('\n').trim();
+      contentMap[section.id] = sectionContent;
+    }
   });
 
   // Ensure data directory exists
@@ -39,6 +56,7 @@ function extractContent() {
 
   fs.writeFileSync(outputPath, JSON.stringify(contentMap, null, 2));
   console.log('Content extracted to:', outputPath);
+  console.log('Extracted sections:', Object.keys(contentMap));
 }
 
 extractContent();

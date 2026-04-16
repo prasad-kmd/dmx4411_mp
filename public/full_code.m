@@ -1,3 +1,4 @@
+Full MATLAB code (.m) that used for this project
 % Clear workspace
 clear; clc; close all;
 
@@ -254,7 +255,8 @@ title('Audio 1: Filtered Signal - Frequency Spectrum');
 grid on;grid("minor");
 % xlim([0 5000]);
 
-sgtitle('Audio 1: Original vs Filtered Frequency Spectrum Comparison', 'FontSize', 12, 'FontWeight', 'bold');
+sgtitle('Audio 1: Original vs Filtered Frequency Spectrum Comparison', 'FontSize', 12,
+'FontWeight', 'bold');
 
 % Figure 2: Audio 2 Comparison
 figure;
@@ -274,7 +276,8 @@ title('Audio 2: Filtered Signal - Frequency Spectrum');
 grid on;grid("minor");
 % xlim([0 200]);
 
-sgtitle('Audio 2: Original vs Filtered Frequency Spectrum Comparison', 'FontSize', 12, 'FontWeight', 'bold');
+sgtitle('Audio 2: Original vs Filtered Frequency Spectrum Comparison', 'FontSize', 12,
+'FontWeight', 'bold');
 
 % Figure 3: Audio 3 Comparison
 figure;
@@ -294,7 +297,8 @@ title('Audio 3: Filtered Signal - Frequency Spectrum');
 grid on;grid("minor");
 % xlim([0 3000]);
 
-sgtitle('Audio 3: Original vs Filtered Frequency Spectrum Comparison', 'FontSize', 12, 'FontWeight', 'bold');
+sgtitle('Audio 3: Original vs Filtered Frequency Spectrum Comparison', 'FontSize', 12,
+'FontWeight', 'bold');
 
 % Section 03e: Display FFT Results of Filtered Signals
 % Audio 1 Filtered
@@ -303,7 +307,8 @@ fprintf('  Sampling Frequency: %d Hz\n', Fs1);
 fprintf('  Number of Samples: %d\n', length(filtered_audio1));
 fprintf('  Frequency Resolution: %.2f Hz\n', Fs1/length(filtered_audio1));
 fprintf('  Max Magnitude in 0-300 Hz: %.6f\n', max(P1_1_filt(f1_filt <= 300)));
-fprintf('  Max Magnitude in 300-5000 Hz: %.6f\n', max(P1_1_filt(f1_filt > 300 & f1_filt <= 5000)));
+fprintf('  Max Magnitude in 300-5000 Hz: %.6f\n', max(P1_1_filt(f1_filt > 300 & f1_filt <=
+5000)));
 
 % Audio 2 Filtered
 fprintf('\nAudio 2 (Filtered):\n');
@@ -319,7 +324,8 @@ fprintf('  Sampling Frequency: %d Hz\n', Fs3);
 fprintf('  Number of Samples: %d\n', length(filtered_audio3));
 fprintf('  Frequency Resolution: %.2f Hz\n', Fs3/length(filtered_audio3));
 fprintf('  Max Magnitude in 0-1000 Hz: %.6f\n', max(P1_3_filt(f3_filt <= 1000)));
-fprintf('  Max Magnitude in 1000-5000 Hz: %.6f\n', max(P1_3_filt(f3_filt > 1000 & f3_filt <= 5000)));
+fprintf('  Max Magnitude in 1000-5000 Hz: %.6f\n', max(P1_3_filt(f3_filt > 1000 & f3_filt <=
+5000)));
 
 % Section 03f: Audio Playback and Subjective Assessment
 % Audio 1 Comparison
@@ -404,11 +410,16 @@ fprintf('  Audio 3: %.2f dB\n', SNR_improvement3);
 % Present Results in Table Format
 fprintf('\nPERFORMANCE EVALUATION SUMMARY TABLE using snr(x) \n');
 
-fprintf('\n%-12s %-15s %-18s %-18s %-20s\n', 'Audio File', 'MSE', 'Original SNR (dB)', 'Filtered SNR (dB)', 'SNR Improvement (dB)');
-fprintf('%-12s %-15s %-18s %-18s %-20s\n', '----------', '-------------', '------------------', '------------------', '--------------------');
-fprintf('%-12s %-15.8f %-18.2f %-18.2f %-20.2f\n', 'Audio 1', MSE1, SNR1_original, SNR1_filtered, SNR_improvement1);
-fprintf('%-12s %-15.8f %-18.2f %-18.2f %-20.2f\n', 'Audio 2', MSE2, SNR2_original, SNR2_filtered, SNR_improvement2);
-fprintf('%-12s %-15.8f %-18.2f %-18.2f %-20.2f\n', 'Audio 3', MSE3, SNR3_original, SNR3_filtered, SNR_improvement3);
+fprintf('\n%-12s %-15s %-18s %-18s %-20s\n', 'Audio File', 'MSE', 'Original SNR (dB)',
+'Filtered SNR (dB)', 'SNR Improvement (dB)');
+fprintf('%-12s %-15s %-18s %-18s %-20s\n', '----------', '-------------', '------------------
+', '------------------', '--------------------');
+fprintf('%-12s %-15.8f %-18.2f %-18.2f %-20.2f\n', 'Audio 1', MSE1, SNR1_original,
+SNR1_filtered, SNR_improvement1);
+fprintf('%-12s %-15.8f %-18.2f %-18.2f %-20.2f\n', 'Audio 2', MSE2, SNR2_original,
+SNR2_filtered, SNR_improvement2);
+fprintf('%-12s %-15.8f %-18.2f %-18.2f %-20.2f\n', 'Audio 3', MSE3, SNR3_original,
+SNR3_filtered, SNR_improvement3);
 fprintf('\n');
 % Method: Use filtered signal as reference (clean signal)
 % Calculate SNR by comparing noisy vs clean reference
@@ -417,7 +428,7 @@ fprintf('\n');
 SNR1_original = snr(audio1, audio1 - filtered_audio1);  % signal, noise
 SNR1_filtered = snr(filtered_audio1, audio1 - filtered_audio1);
 
-% Audio 2: SNR calculation  
+% Audio 2: SNR calculation
 SNR2_original = snr(audio2, audio2 - filtered_audio2);
 SNR2_filtered = snr(filtered_audio2, audio2 - filtered_audio2);
 
@@ -448,8 +459,17 @@ fprintf('  Audio 3: %.2f dB\n', SNR_improvement3);
 % Present Results in Table Format
 fprintf('\nPERFORMANCE EVALUATION SUMMARY TABLE using snr(x,y) \n');
 
-fprintf('\n%-12s %-15s %-18s %-18s %-20s\n', 'Audio File', 'MSE', 'Original SNR (dB)', 'Filtered SNR (dB)', 'SNR Improvement (dB)');
-fprintf('%-12s %-15s %-18s %-18s %-20s\n', '----------', '-------------', '------------------', '------------------', '--------------------');
-fprintf('%-12s %-15.8f %-18.2f %-18.2f %-20.2f\n', 'Audio 1', MSE1, SNR1_original, SNR1_filtered, SNR_improvement1);
-fprintf('%-12s %-15.8f %-18.2f %-18.2f %-20.2f\n', 'Audio 2', MSE2, SNR2_original, SNR2_filtered, SNR_improvement2);
-fprintf('%-12s %-15.8f %-18.2f %-18.2f %-20.2f\n', 'Audio 3', MSE3, SNR3_original, SNR3_filtered, SNR_improvement3);
+fprintf('\n%-12s %-15s %-18s %-18s %-20s\n', 'Audio File', 'MSE', 'Original SNR (dB)',
+'Filtered SNR (dB)', 'SNR Improvement (dB)');
+fprintf('%-12s %-15s %-18s %-18s %-20s\n', '----------', '-------------', '------------------
+', '------------------', '--------------------');
+fprintf('%-12s %-15.8f %-18.2f %-18.2f %-20.2f\n', 'Audio 1', MSE1, SNR1_original,
+SNR1_filtered, SNR_improvement1);
+fprintf('%-12s %-15.8f %-18.2f %-18.2f %-20.2f\n', 'Audio 2', MSE2, SNR2_original,
+SNR2_filtered, SNR_improvement2);
+fprintf('%-12s %-15.8f %-18.2f %-18.2f %-20.2f\n', 'Audio 3', MSE3, SNR3_original,
+SNR3_filtered, SNR_improvement3);
+Published with MATLAB(r) R2024b
+
+
+1 | Page

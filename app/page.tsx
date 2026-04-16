@@ -1,6 +1,7 @@
 import { Hero } from "@/components/hero";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { PROJECT_DATA } from "@/lib/constants";
 import { ArrowRight, Play, AudioWaveform as Waveform, FileText, Settings, BarChart3, Binary } from "lucide-react";
@@ -101,5 +102,3 @@ export default function Home() {
     </div>
   );
 }
-
-import { Button } from "@/components/ui/button";
