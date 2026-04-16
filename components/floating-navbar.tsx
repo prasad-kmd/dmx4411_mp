@@ -6,8 +6,6 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Search } from "./search";
-import { BookmarksModal } from "./bookmarks-modal";
-import { useBookmarks } from "@/hooks/use-bookmarks";
 import { toast } from "sonner";
 import { AccentPicker } from "./accent-picker";
 import {
@@ -27,8 +25,6 @@ export function FloatingNavbar({
 }: FloatingNavbarProps) {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const [isBookmarksOpen, setIsBookmarksOpen] = useState(false);
-  const { bookmarks } = useBookmarks();
   const [copied, setCopied] = useState(false);
 
   // Avoid hydration mismatch
@@ -80,19 +76,6 @@ export function FloatingNavbar({
       icon: Share2,
       label: copied ? "Copied!" : "Share",
       onClick: handleShare,
-    },
-    {
-      icon: Bookmark,
-      label: "Bookmarks",
-      onClick: () => {
-        if (bookmarks.length === 0) {
-          toast.info("No bookmarks saved yet", {
-            description: "Bookmark posts to see them here",
-          });
-        } else {
-          setIsBookmarksOpen(true);
-        }
-      },
     },
   ];
 
@@ -168,10 +151,6 @@ export function FloatingNavbar({
           </TooltipContent>
         )}
       </Tooltip>
-      <BookmarksModal
-        isOpen={isBookmarksOpen}
-        onClose={() => setIsBookmarksOpen(false)}
-      />
     </div>
   );
 }

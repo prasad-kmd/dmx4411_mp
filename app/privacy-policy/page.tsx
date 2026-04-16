@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { ShieldCheck, ArrowLeft, Shield, UserX, Laptop, Palette, Bookmark, Ban, ChevronDown, Check, X } from "lucide-react"
+import { ShieldCheck, ArrowLeft, Shield, UserX, Laptop, Palette, Ban, ChevronDown, Check, X } from "lucide-react"
 import { useState } from "react"
 import { cn } from "@/lib/utils"
 import { siteConfig } from "@/lib/config";
@@ -18,16 +18,6 @@ const cookieData = {
     icon: Palette,
     color: "text-indigo-500",
     bgColor: "bg-indigo-500/10",
-  },
-  bookmarks: {
-    title: "User Bookmarks",
-    key: "user_bookmarks",
-    type: "Local Storage",
-    purpose: 'Stores the IDs of blog posts you have marked as "Saved" to create a personal reading list.',
-    privacy: "Safe. The list exists only in your browser cache.",
-    icon: Bookmark,
-    color: "text-emerald-500",
-    bgColor: "bg-emerald-500/10",
   },
 }
 
@@ -118,7 +108,7 @@ export default function PrivacyPolicyPage() {
                 </div>
                 <div>
                   <h4 className="font-bold text-foreground mb-1 google-sans">100% Client-Side</h4>
-                  <p className="text-muted-foreground text-sm">Theme modes and bookmarks are saved in your browser, not our database.</p>
+                  <p className="text-muted-foreground text-sm">Theme modes are saved in your browser, not our database.</p>
                 </div>
               </div>
               

@@ -23,7 +23,6 @@ import {
   Github,
   FileArchive,
   Printer,
-  BookMarked,
   Activity,
   Accessibility,
   ShieldAlert,

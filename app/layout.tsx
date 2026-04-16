@@ -115,7 +115,6 @@ import { siteConfig } from "@/lib/config";
 import ServiceWorkerRegistrar from "@/components/service-worker-registrar";
 import { ConnectivityListener } from "@/components/connectivity-listener";
 import { ScrollToTop } from "@/components/scroll-to-top";
-import { BookmarksProvider } from "@/hooks/use-bookmarks";
 import { CustomContextMenu } from "@/components/custom-context-menu";
 import { Footer } from "@/components/footer";
 import { ViewTransitions } from "@/components/view-transitions";
@@ -268,8 +267,7 @@ export default function RootLayout({
           <AccentColorInitializer />
           <TooltipProvider>
             <SidebarProvider>
-              <BookmarksProvider>
-                <ViewTransitions>
+              <ViewTransitions>
                   <ClickSpark
                     sparkColor="#ffffff"
                     sparkSize={10}
@@ -294,7 +292,6 @@ export default function RootLayout({
                     <ServiceWorkerRegistrar />
                   </ClickSpark>
                 </ViewTransitions>
-              </BookmarksProvider>
             </SidebarProvider>
           </TooltipProvider>
         </ThemeProvider>
