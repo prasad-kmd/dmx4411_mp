@@ -248,6 +248,7 @@ export default function SingleAudioPlayer({
             className="h-12 w-12 shrink-0 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground"
             onClick={handlePlayPause}
             disabled={isLoading}
+            aria-label={isPlaying ? "Pause" : "Play"}
           >
             {isLoading ? (
               <Loader2 className="h-6 w-6 animate-spin" />
@@ -274,7 +275,13 @@ export default function SingleAudioPlayer({
         </div>
 
         <div className="flex items-center gap-3 pt-2">
-          <Button size="icon" variant="ghost" className="h-8 w-8 text-muted-foreground" onClick={toggleMute}>
+          <Button
+            size="icon"
+            variant="ghost"
+            className="h-8 w-8 text-muted-foreground"
+            onClick={toggleMute}
+            aria-label={isMuted ? "Unmute" : "Mute"}
+          >
             {isMuted || volume === 0 ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
           </Button>
           <Slider

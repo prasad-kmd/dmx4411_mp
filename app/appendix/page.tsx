@@ -75,7 +75,7 @@ SNR1 = snr(audio1);
 </div>
 
 <div class="flex justify-center my-12">
-    <a href="#" class="inline-flex h-14 items-center justify-center rounded-full border border-primary/20 bg-primary/5 px-10 text-xs font-black uppercase tracking-[0.2em] text-primary transition-all hover:bg-primary hover:text-white group">
+    <a href="/audio_denoising.m" download="audio_denoising.m" class="inline-flex h-14 items-center justify-center rounded-full border border-primary/20 bg-primary/5 px-10 text-xs font-black uppercase tracking-[0.2em] text-primary transition-all hover:bg-primary hover:text-white group">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mr-2 group-hover:animate-bounce"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Download .m Script
     </a>
