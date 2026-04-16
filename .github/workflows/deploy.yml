@@ -40,9 +40,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Run extraction
-        run: pnpm run extract
-
       - name: Build with Next.js
         run: pnpm run build
 
