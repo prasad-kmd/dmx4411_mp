@@ -1,9 +1,9 @@
 export const siteConfig = {
-  title: "Engineering Workspace | Project Template",
+  title: "Audio Denoising System | DSP Research",
   description:
-    "A high-performance technical documentation and engineering portfolio platform template built with Next.js 16.",
-  author: "Your Name",
-  name: "Engineering Workspace",
+    "Digital Signal Processing Mini Project focusing on audio denoising using MATLAB-designed digital filters.",
+  author: "DSP Research Group",
+  name: "Audio Denoising Project",
   githubUsername: process.env.NEXT_PUBLIC_GITHUB_USERNAME || "your-github",
   url:
     process.env.SITE_URL ||

@@ -33,12 +33,14 @@ import {
 
 const primaryNav = [
   { name: "Home", href: "/", icon: LayoutPanelLeft },
-  { name: "Portfolio", href: "/portfolio", icon: UserStar },
-  { name: "Blog", href: "/blog", icon: FileText },
-  { name: "Articles", href: "/articles", icon: BookOpen },
-  { name: "Projects", href: "/projects", icon: FolderGit2 },
-  { name: "Wiki", href: "/wiki", icon: Book },
-  { name: "Tutorials", href: "/tutorials", icon: LibraryBig },
+  { name: "Introduction", href: "/introduction", icon: BadgeInfo },
+  { name: "Methodology", href: "/methodology", icon: FolderGit2 },
+  { name: "Design", href: "/design/noise-identification", icon: FileText },
+  { name: "Results", href: "/results/filtered-signal-analysis", icon: BookOpen },
+  { name: "Discussion", href: "/discussion", icon: LibraryBig },
+  { name: "Conclusion", href: "/conclusion", icon: Book },
+  { name: "References", href: "/references", icon: MailSearch },
+  { name: "Appendix", href: "/appendix", icon: FileText },
 ];
 
 const secondaryNav = [
