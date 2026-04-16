@@ -70,7 +70,7 @@ export default function ComparisonAudioPlayer({
             title="Original Audio"
             subtitle="Raw corrupted recording"
             type="Original"
-            accentColor="muted"
+            accentColor="primary"
           />
         </div>
         <div className="space-y-2">

@@ -115,6 +115,23 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Manual Page Navigation (Compact) */}
+      <div className="mx-auto max-w-6xl px-6 pb-20 lg:px-8">
+        <div className="flex justify-end border-t border-border pt-10">
+          <Link
+            href="/introduction"
+            className="group flex flex-col gap-1.5 min-w-[160px] text-right transition-all hover:translate-x-1"
+          >
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 flex items-center gap-1 justify-end group-hover:text-primary transition-colors">
+              Next Section <ArrowRight size={12} className="transition-transform group-hover:translate-x-1" />
+            </span>
+            <span className="text-[13px] font-bold font-google-sans text-foreground group-hover:text-primary transition-colors">
+              Introduction
+            </span>
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

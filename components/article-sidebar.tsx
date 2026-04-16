@@ -3,8 +3,6 @@
 import { useState, useEffect, useRef } from "react";
 import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { AuthorProfile } from "./author-profile";
-import { Author } from "@/lib/content";
 
 interface TOCItem {
   id: string;
@@ -14,31 +12,46 @@ interface TOCItem {
 
 interface ArticleSidebarProps {
   content: string;
-  author?: Author | null;
-  lastUpdated?: string;
 }
 
-export function ArticleSidebar({
-  content,
-  author,
-  lastUpdated,
-}: ArticleSidebarProps) {
+export function ArticleSidebar({ content }: ArticleSidebarProps) {
   const [headings, setHeadings] = useState<TOCItem[]>([]);
   const [activeId, setActiveId] = useState<string>("");
   const navRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const headingRegex =
-      /<h([2-4])\s+[^>]*id=["']([^"']+)["'][^>]*>([\s\S]*?)<\/h\1>/gi;
-    const matches = Array.from(content.matchAll(headingRegex));
+    const container = document.getElementById("article-content");
+    if (!container) return;
 
-    const extractedHeadings = matches.map((match) => ({
-      level: parseInt(match[1]),
-      id: match[2],
-      text: match[3].replace(/<[^>]*>/g, "").trim(),
-    }));
+    const extractHeadings = () => {
+      const headingElements = container.querySelectorAll("h2, h3, h4");
+      const extractedHeadings = Array.from(headingElements).map((el) => {
+        // Use existing ID or generate a stable-ish one from text
+        if (!el.id) {
+          el.id = el.textContent 
+            ? el.textContent.toLowerCase().trim().replace(/\s+/g, "-").replace(/[^\w-]/g, "")
+            : `section-${Math.random().toString(36).substring(2, 9)}`;
+        }
+        return {
+          level: parseInt(el.tagName.replace("H", "")),
+          id: el.id,
+          text: el.textContent?.trim() || "",
+        };
+      });
+      setHeadings(extractedHeadings);
+    };
 
-    setHeadings(extractedHeadings);
+    // Wait a bit for React to render children
+    const timer = setTimeout(extractHeadings, 100);
+
+    // Re-scan if the DOM changes
+    const observer = new MutationObserver(extractHeadings);
+    observer.observe(container, { childList: true, subtree: true });
+
+    return () => {
+      clearTimeout(timer);
+      observer.disconnect();
+    };
   }, [content]);
 
   useEffect(() => {
@@ -78,8 +91,6 @@ export function ArticleSidebar({
   return (
     <aside className="hidden lg:block w-72 shrink-0">
       <div className="sticky top-24 flex flex-col gap-10 max-h-[calc(100vh-8rem)]">
-        {author && <AuthorProfile author={author} lastUpdated={lastUpdated} />}
-
         {headings.length > 0 && (
           <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
             <div className="flex items-center gap-2 mb-6 px-1 shrink-0">
@@ -90,7 +101,7 @@ export function ArticleSidebar({
             </div>
             <nav
               ref={navRef}
-              className="flex-1 overflow-y-auto custom-scrollbar pr-2 pb-8"
+              className="flex-1 overflow-y-auto custom-scrollbar pr-2 pb-8 text-pretty"
             >
               <ul className="space-y-1 border-l border-border/40 ml-0.5">
                 {headings.map((heading) => (
@@ -115,7 +126,7 @@ export function ArticleSidebar({
                           : "text-muted-foreground border-l border-transparent",
                       )}
                     >
-                      <span className="truncate">{heading.text}</span>
+                      <span className="line-clamp-2">{heading.text}</span>
                       <ChevronRight
                         className={cn(
                           "h-3 w-3 ml-auto opacity-0 transition-all group-hover:opacity-100 shrink-0",

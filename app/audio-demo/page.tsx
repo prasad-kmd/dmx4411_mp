@@ -19,7 +19,7 @@ export default function AudioDemoPage() {
                  <Music size={14} />
                  Audio Laboratory
                </div>
-               <h2 className="text-3xl font-bold font-google-sans mb-4">A/B Quality Assessment</h2>
+               <h2 id="quality-assessment" className="text-3xl font-bold font-google-sans mb-4">A/B Quality Assessment</h2>
                <p className="text-muted-foreground leading-relaxed local-inter">
                  The following players allow for direct comparison between the noisy acquisition and the processed output. 
                  Use the visualizers to observe how specific frequency components are attenuated by the Butterworth filters.
@@ -39,9 +39,9 @@ export default function AudioDemoPage() {
             <div key={signal.id} className="space-y-6">
               <div className="flex items-center gap-4 px-4">
                  <div className="h-px flex-1 bg-border/50" />
-                 <span className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/50">
+                 <h3 id={`signal-${signal.id}`} className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/50">
                    Processing Stage: {signal.name}
-                 </span>
+                 </h3>
                  <div className="h-px flex-1 bg-border/50" />
               </div>
 

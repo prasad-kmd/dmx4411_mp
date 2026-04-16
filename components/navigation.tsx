@@ -44,7 +44,6 @@ const primaryNav = [
 ];
 
 const secondaryNav = [
-  { name: "Authors", href: "/authors", icon: UserStar },
   { name: "About", href: "/about", icon: BadgeInfo },
   { name: "Contact", href: "/contact", icon: MailSearch },
 ];

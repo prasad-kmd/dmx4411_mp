@@ -103,14 +103,36 @@ export default function SingleAudioPlayer({
     // Pre-calculate colors outside the animation loop
     // Tailwind v4 uses space separated values in HSL variables, but some browsers/versions might still use comma.
     // We'll normalize to CSS modern HSL syntax: hsl(H S L / A)
-    const getHSL = (varName: string) => {
+    // Helper to get color with alpha from CSS variables
+    const getColorWithAlpha = (varName: string, alpha: number) => {
       const val = getComputedStyle(document.documentElement).getPropertyValue(varName).trim()
-      // If the value already contains 'hsl', use it, otherwise wrap it
-      return val.includes('hsl') ? val : `hsl(${val})`
+      if (!val) return `rgba(0, 0, 0, ${alpha})`
+
+      // Case 1: Hex color (e.g., #202328)
+      if (val.startsWith('#')) {
+        const r = parseInt(val.slice(1, 3), 16)
+        const g = parseInt(val.slice(3, 5), 16)
+        const b = parseInt(val.slice(5, 7), 16)
+        return `rgba(${r}, ${g}, ${b}, ${alpha})`
+      }
+
+      // Case 2: HSL or RGB functional notation
+      if (val.includes('(')) {
+        if (val.includes(',')) {
+          // Legacy comma-separated: hsl(200, 100%, 50%) -> hsla(200, 100%, 50%, 0.2)
+          return val.replace('rgb(', 'rgba(').replace('hsl(', 'hsla(').replace(')', `, ${alpha})`)
+        }
+        // Modern space-separated: hsl(200 100% 50%) -> hsl(200 100% 50% / 0.2)
+        return val.replace(')', ` / ${alpha})`)
+      }
+
+      // Case 3: Raw values (Tailwind style: "200 100% 50%")
+      return `hsla(${val} / ${alpha})`
     }
 
-    const primaryColor = getHSL('--primary')
-    const accentColorVal = getHSL('--accent')
+    // Pre-calculate colors outside the animation loop for performance
+    const colorStop0 = accentColor === "primary" ? getColorWithAlpha('--primary', 0.2) : getColorWithAlpha('--accent', 0.1)
+    const colorStop1 = accentColor === "primary" ? getColorWithAlpha('--primary', 0.8) : getColorWithAlpha('--accent', 0.5)
 
     const draw = () => {
       animationRef.current = requestAnimationFrame(draw)
@@ -127,16 +149,8 @@ export default function SingleAudioPlayer({
         
         // Gradient based on accent color
         const gradient = ctx.createLinearGradient(0, canvas.height, 0, 0)
-        
-        if (accentColor === "primary") {
-           // Use CSS color-mix or standard HSLA. Modern canvas supports most CSS color strings.
-           // However, to be safe with older canvas implementations, we use the functional notation.
-           gradient.addColorStop(0, accentColorVal.replace(')', ' / 0.2)'))
-           gradient.addColorStop(1, accentColorVal.replace(')', ' / 0.8)'))
-        } else {
-           gradient.addColorStop(0, primaryColor.replace(')', ' / 0.1)'))
-           gradient.addColorStop(1, primaryColor.replace(')', ' / 0.5)'))
-        }
+        gradient.addColorStop(0, colorStop0)
+        gradient.addColorStop(1, colorStop1)
 
         ctx.fillStyle = gradient
         ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight)
