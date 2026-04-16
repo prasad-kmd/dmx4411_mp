@@ -9,7 +9,8 @@ import { ArticleSidebar } from "@/components/article-sidebar"
 interface SectionLayoutProps {
   title: string
   subtitle?: string
-  content: string
+  content?: string
+  children?: React.ReactNode
   date?: string
   author?: {
     name: string;
@@ -19,7 +20,7 @@ interface SectionLayoutProps {
   } | null;
 }
 
-export default function SectionLayout({ title, subtitle, content, date, author }: SectionLayoutProps) {
+export default function SectionLayout({ title, subtitle, content, children, date, author }: SectionLayoutProps) {
   return (
     <div className="relative min-h-screen">
       <ScrollProgress />
@@ -52,12 +53,13 @@ export default function SectionLayout({ title, subtitle, content, date, author }
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
             >
-              <ContentRenderer content={content} />
+              {content && <ContentRenderer content={content} />}
+              {children}
             </motion.div>
           </main>
 
           <ArticleSidebar
-            content={content}
+            content={content || ""}
             author={author}
             lastUpdated={date}
           />

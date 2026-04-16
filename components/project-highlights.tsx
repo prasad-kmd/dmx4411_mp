@@ -4,6 +4,7 @@ import React from "react"
 import { motion } from "framer-motion"
 import { AudioWaveform as Waveform, Music, Filter, Zap, Play } from "lucide-react"
 import { PROJECT_DATA } from "@/lib/constants"
+import CompactAudioPlayer from "@/components/audio-player/compact-audio-player"
 
 export default function ProjectHighlights() {
   return (
@@ -60,10 +61,13 @@ export default function ProjectHighlights() {
                  </div>
               </div>
 
-              <button className="w-full flex items-center justify-center gap-2 rounded-xl bg-muted py-4 text-sm font-bold uppercase tracking-widest transition-all hover:bg-primary hover:text-primary-foreground group-hover:shadow-lg group-hover:shadow-primary/20">
-                <Play className="h-4 w-4" />
-                Listen Filtered
-              </button>
+              <CompactAudioPlayer
+                src={`/audio/Filtered/filtered_${signal.file.replace('.wav', `_${signal.filterType === 'Low-Pass' ? 'LPF' : signal.filterType === 'High-Pass' ? 'HPF' : 'BSF'}.wav`)}`}
+                title={signal.file}
+                subtitle={`${signal.filterType} Filtered`}
+                type="Filtered"
+                triggerLabel="Listen Filtered"
+              />
 
               {/* Decorative Background Element */}
               <div className="absolute -bottom-10 -right-10 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity">
