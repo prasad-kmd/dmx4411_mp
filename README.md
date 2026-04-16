@@ -7,8 +7,15 @@ A modern, high-performance technical documentation and engineering portfolio pla
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)
 ![Tailwind](https://img.shields.io/badge/Tailwind_CSS-4-38B2AC?style=for-the-badge&logo=tailwind-css)
 ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
-![GitHub License](https://img.shields.io/github/license/prasad-kmd/featured-project-web?style=for-the-badge)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/w/prasad-kmd/featured-project-web?style=for-the-badge&logo=github&logoColor=black)
+![Node.js](https://img.shields.io/badge/Node.js-20+-green?style=for-the-badge&logo=node.js)
+![pnpm](https://img.shields.io/badge/pnpm-9+-orange?style=for-the-badge&logo=pnpm)
+![Code Style](https://img.shields.io/badge/code_style-eslint-4B32C3?style=for-the-badge&logo=eslint)
+[![License](https://img.shields.io/github/license/prasad-kmd/dmx4411_mp?style=for-the-badge)](LICENSE)
+[![Commit Activity](https://img.shields.io/github/commit-activity/w/prasad-kmd/dmx4411_mp?style=for-the-badge&logo=github)](https://github.com/prasad-kmd/dmx4411_mp/commits)
+[![Last Commit](https://img.shields.io/github/last-commit/prasad-kmd/dmx4411_mp?style=for-the-badge&logo=github)](https://github.com/prasad-kmd/dmx4411_mp/commits)
+![Star Count](https://img.shields.io/github/stars/prasad-kmd/dmx4411_mp?style=for-the-badge)
+![Fork Count](https://img.shields.io/github/forks/prasad-kmd/dmx4411_mp?style=for-the-badge)
+
 ---
 
 ## ✨ Features
@@ -42,10 +49,10 @@ Ensure you have the following installed:
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/next-notion-cms.git
+git clone https://github.com/prasad-kmd/dmx4411_mp.git
 
 # Navigate to the project directory
-cd next-notion-cms
+cd dmx4411_mp
 
 # Install dependencies
 pnpm install
@@ -123,13 +130,25 @@ linkedin: "your-username"
 
 ## 🛠️ Tech Stack
 
-- **Framework:** Next.js 16 (App Router)
-- **Styling:** Tailwind CSS 4
-- **Syntax Highlighting:** Shiki
-- **Animations:** Framer Motion
-- **Icons:** Lucide React
-- **Theme:** next-themes
+| Category | Technology |
+|----------|------------|
+| **Framework** | Next.js 16 (App Router) |
+| **Language** | TypeScript 5 |
+| **Styling** | Tailwind CSS 4 |
+| **Syntax Highlighting** | Shiki |
+| **Animations** | Framer Motion |
+| **Icons** | Lucide React |
+| **Theme Management** | next-themes |
+| **Markdown Processing** | gray-matter, remark, rehype |
+| **Math Rendering** | KaTeX |
+| **Package Manager** | pnpm |
 
 ---
 
-Built with ❤️ for the Engineering Community.
+## 📄 License
+
+This project is licensed under the AGPL-3.0 License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+Built with ❤️ for the Engineering Community by [@prasad-kmd](https://github.com/prasad-kmd).
