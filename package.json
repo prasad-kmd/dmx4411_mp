@@ -1,9 +1,20 @@
 {
-  "name": "featured-project-web",
+  "name": "DMX4411-MP",
   "version": "1.0.0",
   "description": "",
   "author": "prasad-kmd",
   "license": "AGPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prasad-kmd/dmx4411_mp.git"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "bugs": {
+    "url": "https://github.com/prasad-kmd/dmx4411_mp/issues"
+  },
+  "homepage": "https://github.com/prasad-kmd/dmx4411_mp/blob/main/README.md",
   "private": true,
   "scripts": {
     "build": "next build",

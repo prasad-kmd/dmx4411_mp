@@ -5,6 +5,14 @@ import { motion, AnimatePresence } from "framer-motion"
 import { X, Calculator, Hash, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { BlockMath } from "react-katex"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+import "katex/dist/katex.min.css"
 
 const equations = [
   {
@@ -51,13 +59,19 @@ export default function EquationReferencePanel() {
   return (
     <>
       {/* Floating Toggle Button */}
-      <button
-        onClick={() => setIsOpen(true)}
-        className="fixed bottom-8 left-8 z-50 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-2xl shadow-primary/40 hover:scale-110 transition-transform"
-        title="Equation Reference"
-      >
-        <Calculator size={24} />
-      </button>
+      <Tooltip delayDuration={0}>
+        <TooltipTrigger asChild>
+          <button
+            onClick={() => setIsOpen(true)}
+            className="fixed bottom-8 right-[5.5rem] z-50 flex h-11 w-11 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-2xl shadow-primary/40 hover:scale-110 transition-transform active:scale-95"
+          >
+            <Calculator size={20} />
+          </button>
+        </TooltipTrigger>
+        <TooltipContent side="top" className="mb-2">
+           Mathematical Reference
+        </TooltipContent>
+      </Tooltip>
 
       <AnimatePresence>
         {isOpen && (
@@ -73,11 +87,11 @@ export default function EquationReferencePanel() {
 
             {/* Panel */}
             <motion.div
-              initial={{ x: "-100%" }}
+              initial={{ x: "100%" }}
               animate={{ x: 0 }}
-              exit={{ x: "-100%" }}
+              exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed inset-y-0 left-0 z-[101] w-full max-w-md bg-card border-r border-border shadow-2xl p-8 overflow-y-auto"
+              className="fixed inset-y-0 right-0 z-[101] w-full max-w-md bg-card border-l border-border shadow-2xl p-8 overflow-y-auto"
             >
               <div className="flex items-center justify-between mb-10">
                 <div className="flex items-center gap-3">
@@ -98,8 +112,10 @@ export default function EquationReferencePanel() {
                        <Badge variant="outline" className="text-[9px] uppercase tracking-widest px-2 py-0">{eq.category}</Badge>
                     </div>
                     <h3 className="text-sm font-bold mb-4 font-google-sans group-hover:text-primary transition-colors">{eq.title}</h3>
-                    <div className="p-6 rounded-2xl bg-muted/50 border border-border/50 text-center mb-4 overflow-x-auto">
-                       <span className="text-lg">{"$$" + eq.formula + "$$"}</span>
+                    <div className="p-6 rounded-2xl bg-muted/50 border border-border/50 flex justify-center mb-4 overflow-x-auto overflow-y-hidden">
+                       <div className="text-lg scale-110">
+                          <BlockMath math={eq.formula} />
+                       </div>
                     </div>
                     <p className="text-[11px] text-muted-foreground leading-relaxed local-inter italic">
                        {eq.description}
