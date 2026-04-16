@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: process.env.GITHUB_ACTIONS ? 'export' : undefined,
+  // comment it for local/vercel development ^^^
   typescript: {
     ignoreBuildErrors: true,
   },
