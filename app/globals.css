@@ -1,0 +1,107 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: hsl(0 0% 100%);
+  --foreground: hsl(0 0% 4%);
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(0 0% 4%);
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(0 0% 4%);
+  --primary-h: 210;
+  --primary-s: 100%;
+  --primary-l: 50%;
+  --primary: hsl(var(--primary-h) var(--primary-s) var(--primary-l));
+  --primary-foreground: hsl(0 0% 98%);
+  --secondary: hsl(0 0% 96%);
+  --secondary-foreground: hsl(0 0% 9%);
+  --muted: hsl(0 0% 96%);
+  --muted-foreground: hsl(0 0% 45%);
+  --accent: hsl(var(--primary-h) var(--primary-s) var(--primary-l));
+  --accent-foreground: hsl(0 0% 9%);
+  --destructive: hsl(357 100% 45%);
+  --destructive-foreground: hsl(0 0% 98%);
+  --border: hsl(0 0% 90%);
+  --input: hsl(0 0% 90%);
+  --ring: hsl(var(--primary-h) var(--primary-s) var(--primary-l));
+  --radius: 0.75rem;
+}
+
+.dark {
+  --background: hsl(230 25% 4%);
+  --foreground: hsl(0 0% 98%);
+  --card: hsl(230 25% 6%);
+  --card-foreground: hsl(0 0% 98%);
+  --popover: hsl(230 25% 6%);
+  --popover-foreground: hsl(0 0% 98%);
+  --primary: hsl(var(--primary-h) var(--primary-s) var(--primary-l));
+  --primary-foreground: hsl(0 0% 9%);
+  --secondary: hsl(230 25% 12%);
+  --secondary-foreground: hsl(0 0% 98%);
+  --muted: hsl(230 25% 12%);
+  --muted-foreground: hsl(0 0% 65%);
+  --accent: hsl(var(--primary-h) var(--primary-s) var(--primary-l));
+  --accent-foreground: hsl(0 0% 98%);
+  --destructive: hsl(0 62% 30%);
+  --destructive-foreground: hsl(0 0% 98%);
+  --border: hsl(230 25% 15%);
+  --input: hsl(230 25% 15%);
+  --ring: hsl(var(--primary-h) var(--primary-s) var(--primary-l));
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  @keyframes accordion-down {
+    from { height: 0; }
+    to { height: var(--radix-accordion-content-height); }
+  }
+  @keyframes accordion-up {
+    from { height: var(--radix-accordion-content-height); }
+    to { height: 0; }
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+.glass {
+  @apply bg-background/60 backdrop-blur-md border border-white/10;
+}
+
+.dark .glass {
+  @apply bg-black/40 backdrop-blur-md border border-white/5;
+}
