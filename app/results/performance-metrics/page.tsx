@@ -1,5 +1,6 @@
 import SectionLayout from "@/components/sections/section-layout";
 import MetricsDashboard from "@/components/charts/metrics-dashboard";
+import SignalComparisonMatrix from "@/components/research/signal-comparison-matrix";
 
 export default function PerformanceMetricsPage() {
   return (
@@ -36,7 +37,12 @@ export default function PerformanceMetricsPage() {
         </section>
 
         <section>
-          <h2 id="results-summary" className="font-google-sans font-bold">IV. Results Summary</h2>
+          <h2 id="results-summary" className="font-google-sans font-bold">IV. Signal Comparison Matrix</h2>
+          <div className="not-prose mt-8 mb-16">
+             <SignalComparisonMatrix />
+          </div>
+
+          <h2 id="tabular-summary" className="font-google-sans font-bold">V. Tabular Summary</h2>
           <div className="not-prose overflow-hidden rounded-2xl border border-border my-10 shadow-lg">
             <table className="w-full text-left">
               <thead className="bg-muted">
