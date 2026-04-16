@@ -1,46 +1,69 @@
 # Audio Signal Denoising System
 
-An interactive web experience for a Digital Signal Processing (DSP) research project focused on audio noise removal using MATLAB.
+A professional, highly interactive portfolio website for a Digital Signal Processing (DSP) Mini Project focused on audio noise removal using MATLAB.
 
-## Features
+## 🚀 Overview
 
-- **Interactive UI:** Built with Next.js 15, Tailwind CSS, and Radix UI.
-- **Theme System:** Support for dark and light modes with customizable accent colors.
-- **Content-Rich:** Extracted data from technical reports including MATLAB code and mathematical equations.
-- **Advanced Interactivity:** Custom tooltips, context menus, and interactive audio players (upcoming).
-- **Data Visualization:** Frequency spectrums and filter response charts (upcoming).
+This project transforms a technical research report into an immersive web experience. It showcases the analysis of noisy audio signals and the design of digital filters (Low-pass, Band-stop, and High-pass) to restore audio quality.
 
-## Tech Stack
+### Key Features
 
-- **Framework:** Next.js 15 (App Router)
-- **Styling:** Tailwind CSS + shadcn/ui (Radix UI)
+- **Interactive Comparisons:** Listen to original vs. filtered audio side-by-side.
+- **Technical Visualizations:** Frequency spectrums and filter response charts built with Recharts.
+- **Math & Code:** Mathematical justifications rendered with KaTeX and MATLAB syntax highlighting via Shiki.
+- **Modern UI/UX:** Responsive design with Next.js 15, Tailwind CSS, GSAP animations, and a customizable theme system.
+- **Advanced Navigation:** Command palette (Ctrl+K), Breadcrumbs, and active Table of Contents.
+
+## 🛠️ Tech Stack
+
+- **Framework:** Next.js 15 (App Router, TypeScript)
+- **Styling:** Tailwind CSS, Radix UI, shadcn/ui
 - **State Management:** Zustand
-- **Animations:** Framer Motion + GSAP
+- **Animations:** GSAP, Framer Motion
+- **Data Visualization:** Recharts
 - **Math Rendering:** KaTeX
 - **Code Highlighting:** Shiki
+- **Content Parsing:** Cheerio
 
-## Getting Started
+## 📂 Project Structure
 
-1. Install dependencies:
+- `app/`: Main application routes and page layouts.
+- `components/`: Modular React components (UI, Navigation, Charts, Audio).
+- `data/`: Structured project content in JSON format.
+- `scripts/`: Custom content extraction script (`extract-content.ts`).
+- `public/`: Project assets including the original PDF report and audio files.
+
+## 🚦 Getting Started
+
+1. **Clone and Install:**
    ```bash
    pnpm install
    ```
 
-2. Run the development server:
+2. **Run Content Extraction:**
+   Extracts fresh data from the HTML report.
    ```bash
-   pnpm dev
+   pnpm run extract
    ```
 
-3. Build for production (static export):
+3. **Development Mode:**
    ```bash
-   pnpm build
+   pnpm run dev
    ```
 
-## Project Structure
+4. **Build & Export:**
+   Generates a static site in the `out/` directory.
+   ```bash
+   pnpm run build
+   ```
 
-- `app/`: Application routes and layouts.
-- `components/`: Reusable React components.
-- `lib/`: Utilities, types, and state stores.
-- `data/`: Extracted project content in JSON format.
-- `public/`: Static assets (audio, fonts, images).
-- `scripts/`: Content extraction and build scripts.
+## 📋 Stages of Development
+
+- **Stage 0-2:** Project initialization, content extraction, and theme system.
+- **Stage 3-5:** Error handling, core page population, and audio player integration.
+- **Stage 6-8:** Data visualization, advanced navigation, and GSAP polish.
+- **Stage 9:** Final documentation and deployment configuration.
+
+## 📄 License
+
+Undergraduate Research Project - 2024.
