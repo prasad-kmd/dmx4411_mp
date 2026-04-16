@@ -115,12 +115,17 @@ export default function SingleAudioPlayer({
 
         // Gradient based on accent color
         const gradient = ctx.createLinearGradient(0, canvas.height, 0, 0)
+
+        // Use computed styles to get the actual color since canvas doesn't support CSS variables directly
+        const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim()
+        const accentColorVal = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim()
+
         if (accentColor === "primary") {
-           gradient.addColorStop(0, "rgba(var(--accent), 0.2)")
-           gradient.addColorStop(1, "rgba(var(--accent), 0.8)")
+           gradient.addColorStop(0, `hsla(${accentColorVal}, 0.2)`)
+           gradient.addColorStop(1, `hsla(${accentColorVal}, 0.8)`)
         } else {
-           gradient.addColorStop(0, "rgba(var(--primary), 0.1)")
-           gradient.addColorStop(1, "rgba(var(--primary), 0.5)")
+           gradient.addColorStop(0, `hsla(${primaryColor}, 0.1)`)
+           gradient.addColorStop(1, `hsla(${primaryColor}, 0.5)`)
         }
 
         ctx.fillStyle = gradient
