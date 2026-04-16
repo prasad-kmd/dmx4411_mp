@@ -1,5 +1,6 @@
 import SectionLayout from "@/components/sections/section-layout";
 import { MethodologyFlowchart } from "@/components/research/methodology-flowchart";
+import { processHardcodedContent } from "@/lib/content";
 
 const content = `
 <h2 id="signal-acquisition">Signal Acquisition</h2>
@@ -118,12 +119,13 @@ The single-sided magnitude spectrum was calculated to focus on positive frequenc
 <h2 id="methodology-flowchart">Methodology Flowchart</h2>
 `;
 
-export default function MethodologyPage() {
+export default async function MethodologyPage() {
+  const processedContent = await processHardcodedContent(content);
   return (
     <SectionLayout
       title="Methodology"
       subtitle="Signal Acquisition and MATLAB Implementation"
-      content={content}
+      content={processedContent}
     >
         <MethodologyFlowchart />
     </SectionLayout>

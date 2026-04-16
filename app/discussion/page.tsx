@@ -1,4 +1,5 @@
 import SectionLayout from "@/components/sections/section-layout";
+import { processHardcodedContent } from "@/lib/content";
 
 const content = `
 <h2 id="effectiveness-of-designed-filters">Effectiveness of Designed Filters</h2>
@@ -85,12 +86,13 @@ Several improvements could enhance the noise removal system, moving beyond basic
 </div>
 `;
 
-export default function DiscussionPage() {
+export default async function DiscussionPage() {
+  const processedContent = await processHardcodedContent(content);
   return (
     <SectionLayout
       title="Discussion"
       subtitle="Critical analysis of filter effectiveness and system limitations"
-      content={content}
+      content={processedContent}
     />
   );
 }

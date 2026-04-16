@@ -74,7 +74,7 @@ marked.use({
   extensions: [quizExtension as any],
 });
 
-async function highlightCodeBlocks(html: string): Promise<string> {
+export async function highlightCodeBlocks(html: string): Promise<string> {
   try {
     const sh = await getHighlighter();
     // Improved regex to handle various pre/code structures that might come from marked/html
@@ -168,7 +168,7 @@ async function highlightCodeBlocks(html: string): Promise<string> {
   }
 }
 
-function injectHeadingIds(html: string): string {
+export function injectHeadingIds(html: string): string {
   return html.replace(
     /<h([2-4])([^>]*)>(.*?)<\/h\1>/gi,
     (match, level, attrs, text) => {
@@ -183,7 +183,7 @@ function injectHeadingIds(html: string): string {
   );
 }
 
-function injectQuiz(html: string): string {
+export function injectQuiz(html: string): string {
   // This is now a fallback for HTML content that doesn't go through marked
   // To avoid rendering quizzes inside code blocks, we temporarily protect them
   const placeholders: string[] = [];
@@ -236,7 +236,7 @@ function injectQuiz(html: string): string {
   );
 }
 
-function injectAlerts(html: string): string {
+export function injectAlerts(html: string): string {
   const alertTypes = {
     NOTE: { color: "blue", icon: "info" },
     TIP: { color: "green", icon: "lightbulb" },
@@ -334,7 +334,7 @@ function extractFirstImage(
   return undefined;
 }
 
-function sanitizeContent(html: string): string {
+export function sanitizeContent(html: string): string {
   // Remove script tags to prevent React warnings and accidental execution
   return html.replace(/<script\b[^>]*>([\s\S]*?)<\/script>/gim, "");
 }
@@ -553,3 +553,9 @@ export const getAllAuthors = cache(async function (): Promise<Author[]> {
 
   return authors;
 });
+export async function processHardcodedContent(html: string): Promise<string> {
+  const highlighted = await highlightCodeBlocks(html);
+  return sanitizeContent(
+    injectQuiz(injectAlerts(injectHeadingIds(highlighted))),
+  );
+}

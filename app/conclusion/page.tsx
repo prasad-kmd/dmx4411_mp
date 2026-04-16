@@ -1,4 +1,5 @@
 import SectionLayout from "@/components/sections/section-layout";
+import { processHardcodedContent } from "@/lib/content";
 
 const content = `
 <h2 id="project-summary">Project Summary</h2>
@@ -50,12 +51,13 @@ This project successfully developed and implemented a signal processing system f
 </blockquote>
 `;
 
-export default function ConclusionPage() {
+export default async function ConclusionPage() {
+  const processedContent = await processHardcodedContent(content);
   return (
     <SectionLayout
       title="Conclusion"
       subtitle="Final project summary and major learning outcomes"
-      content={content}
+      content={processedContent}
     />
   );
 }

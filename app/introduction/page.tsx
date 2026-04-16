@@ -1,4 +1,5 @@
 import SectionLayout from "@/components/sections/section-layout";
+import { processHardcodedContent } from "@/lib/content";
 
 const content = `
 <h2 id="background-and-context">Background and Context</h2>
@@ -74,12 +75,13 @@ Digital Signal Processing (DSP) techniques are fundamental in audio engineering,
 </p>
 `;
 
-export default function IntroductionPage() {
+export default async function IntroductionPage() {
+  const processedContent = await processHardcodedContent(content);
   return (
     <SectionLayout
       title="Introduction"
       subtitle="Background, Problem Statement and Project Objectives"
-      content={content}
+      content={processedContent}
     />
   );
 }

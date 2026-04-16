@@ -1,4 +1,5 @@
 import SectionLayout from "@/components/sections/section-layout";
+import { processHardcodedContent } from "@/lib/content";
 
 const content = `
 <h2 id="matlab-source-code">Full MATLAB Source Code</h2>
@@ -6,24 +7,7 @@ const content = `
 The following MATLAB code was used for all signal processing, filter design, and performance evaluation tasks in this project. You can review the implementation details for signal acquisition, FFT analysis, and IIR filtering below.
 </p>
 
-<div class="relative group my-10">
-    <div class="absolute -inset-4 bg-gradient-to-r from-primary/20 to-primary/5 rounded-[2.5rem] blur-2xl opacity-0 group-hover:opacity-100 transition duration-500"></div>
-    <div class="relative rounded-3xl border border-border bg-card overflow-hidden shadow-2xl">
-        <div class="flex items-center justify-between px-6 py-4 border-b border-border bg-muted/50">
-            <div class="flex items-center gap-2">
-                <div class="flex gap-1.5">
-                    <div class="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/40"></div>
-                    <div class="w-3 h-3 rounded-full bg-amber-500/20 border border-amber-500/40"></div>
-                    <div class="w-3 h-3 rounded-full bg-emerald-500/20 border border-emerald-500/40"></div>
-                </div>
-                <span class="ml-4 text-[10px] font-black uppercase tracking-widest text-muted-foreground">audio_denoising.m</span>
-            </div>
-            <button class="px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest border border-primary/20 hover:bg-primary hover:text-primary-foreground transition-all">
-                Copy Code
-            </button>
-        </div>
-        
-<pre class="m-0 p-8 text-sm"><code class="language-matlab">
+<pre><code class="language-matlab">
 % Clear workspace 
 clear; clc; close all; 
  
@@ -71,8 +55,6 @@ filtered_audio3 = filtfilt(b3, a3, audio3);
 MSE1 = mean((audio1 - filtered_audio1).^2); 
 SNR1 = snr(audio1);
 </code></pre>
-    </div>
-</div>
 
 <div class="flex justify-center my-12">
     <a href="/audio_denoising.m" download="audio_denoising.m" class="inline-flex h-14 items-center justify-center rounded-full border border-primary/20 bg-primary/5 px-10 text-xs font-black uppercase tracking-[0.2em] text-primary transition-all hover:bg-primary hover:text-white group">
@@ -82,12 +64,13 @@ SNR1 = snr(audio1);
 </div>
 `;
 
-export default function AppendixPage() {
+export default async function AppendixPage() {
+  const processedContent = await processHardcodedContent(content);
   return (
     <SectionLayout
       title="Appendix"
       subtitle="Complete MATLAB source code for noise analysis and filtering"
-      content={content}
+      content={processedContent}
     />
   );
 }
