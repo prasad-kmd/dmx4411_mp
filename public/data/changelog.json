@@ -1,0 +1,84 @@
+[
+  {
+    "version": "0.0",
+    "date": "April 16, 2026",
+    "title": "Initialize project with Next.js app router, custom UI components, and content management structure using [featured-project-web Template](https://github.com/prasad-kmd/featured-project-web)",
+    "description": "",
+    "changes": [
+      "Initialize project with Next.js app router, custom UI components, and content management structure using [featured-project-web Template](https://github.com/prasad-kmd/featured-project-web)",
+      "Update README with new badges, correct repository links, and formatted tech stack table",
+      "Implement project documentation site with audio analysis components, interactive charts, and MATLAB filter implementation pages",
+      "Modified responsive navigation component, equation reference panel, and project metadata to package.json",
+      "Modified audio denoising showcase page and research documentation dashboard",
+      "Modified project documentation pages and content processing utility",
+      "Disable automatic deployment on push to main - Comment out the push trigger for the main branch.",
+      "Ci: add GitHub Actions workflows for static site deployment and configure Next.js for static export",
+      "Ci: Modified [deploy.yml](/github/workflows/deploy.yml)",
+      "Updated privacy policy page with transparency dashboard and storage inspector"
+    ],
+    "type": "feature",
+    "automated": true
+  },
+  {
+    "version": "0.0",
+    "date": "April 15, 2026",
+    "title": "Updated instructions",
+    "description": "",
+    "changes": [
+      "Updated instructions",
+      "Simplify Next.js project initialization instructions - Removed version specification for Next.js project initialization."
+    ],
+    "type": "start",
+    "automated": true
+  },
+  {
+    "version": "0.0",
+    "date": "April 14, 2026",
+    "title": "Add Mozilla Public License Version 2.0",
+    "description": "",
+    "changes": [
+      "Add Mozilla Public License Version 2.0 - Added the Mozilla Public License Version 2.0 to the project."
+    ],
+    "type": "improvement",
+    "automated": true
+  },
+  {
+    "version": "0.0",
+    "date": "April 13, 2026",
+    "title": "Refactor and Rebase the Codebase",
+    "description": "",
+    "changes": [
+      "Refactor and Rebase the Codebase",
+      "Add `Guidance.md` for an AI Coder",
+      "Update: `Guidance.md`",
+      "Update Next.js setup instructions and add font usage guidelines",
+      "Add .gitignore file to exclude unnecessary files",
+      "Add MP-Report in Multiple Formats.",
+      "Some Formats were removed",
+      "Update `Guidance.md`"
+    ],
+    "type": "feature",
+    "automated": true
+  },
+  {
+    "version": "0.0",
+    "date": "October 19, 2025",
+    "title": "Initial commit of the project by @prasad-kmd",
+    "description": "",
+    "changes": [
+      "Initial commit of the project by @prasad-kmd",
+      "Add common instructions for writing guidelines and project structure",
+      "Complete music player equalizer mini-project - This commit includes the complete implementation of the music player equalizer mini-project.",
+      "Merge pull request #1 from prasad-kmd/complete-mini-project - feat: Complete music player equalizer mini-project",
+      "Enhance website with comprehensive detailing and JavaScript",
+      "Merge pull request #2 from prasad-kmd/complete-mini-project - feat: Enhance website with comprehensive detailing and JavaScript",
+      "Complete MATLAB Music Player Equalizer Project - This commit includes the full implementation of the MATLAB-based Music Player Equalizer project.",
+      "Merge pull request #3 from prasad-kmd/complete-mini-project - feat: Complete MATLAB Music Player Equalizer Project",
+      "Create project report webpage - Adds a new `report.html` page to the website to provide a comprehensive summary of the project.",
+      "Merge pull request #4 from prasad-kmd/complete-mini-project - feat: Create project report webpage",
+      "Update KaTeX version and improve math rendering in HTML files"
+    ],
+    "type": "feature",
+    "automated": true
+  }
+]
