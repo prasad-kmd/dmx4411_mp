@@ -133,7 +133,7 @@ export default function FilterResponseChart({
                 type="monotone" 
                 dataKey="magnitude" 
                 stroke="hsl(var(--primary))" 
-                strokeWidth={2}
+                strokeWidth={3}
                 fillOpacity={1} 
                 fill="url(#colorMag)" 
                 dot={false}
@@ -174,7 +174,7 @@ export default function FilterResponseChart({
                 type="monotone" 
                 dataKey="phase" 
                 stroke="#a855f7" 
-                strokeWidth={2}
+                strokeWidth={3}
                 dot={false}
               />
               {cutoffFreq && (

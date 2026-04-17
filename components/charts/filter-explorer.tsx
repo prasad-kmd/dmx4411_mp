@@ -167,7 +167,7 @@ export default function FilterExplorer() {
                   type="monotone" 
                   dataKey="magnitude" 
                   stroke="hsl(var(--primary))" 
-                  strokeWidth={2}
+                  strokeWidth={4}
                   fillOpacity={1} 
                   fill="url(#colorExplorer)" 
                   animationDuration={0}

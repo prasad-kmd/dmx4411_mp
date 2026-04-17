@@ -219,37 +219,39 @@ export default function SingleAudioPlayer({
 
   return (
     <div className={cn(
-      "group relative overflow-hidden rounded-2xl border border-border bg-card/50 p-6 backdrop-blur-sm transition-all hover:border-primary/30 hover:shadow-xl",
+      "group relative overflow-hidden rounded-[2rem] border border-border bg-card/50 p-5 backdrop-blur-sm transition-all hover:border-primary/30 hover:shadow-2xl",
       className
     )}>
-      <div className="mb-4 flex items-start justify-between">
-        <div>
-          <Badge variant={type === "Original" ? "outline" : "default"} className="mb-2 uppercase tracking-widest text-[10px]">
+      <div className="mb-4 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/5 text-primary">
+            <Waveform className="h-4 w-4" />
+          </div>
+          <div>
+            <h4 className="text-sm font-black font-google-sans leading-none">{title}</h4>
+            {subtitle && <p className="text-[10px] text-muted-foreground mt-1 uppercase tracking-wider font-bold">{subtitle}</p>}
+          </div>
+        </div>
+        <Badge variant={type === "Original" ? "outline" : "default"} className="uppercase tracking-widest text-[8px] h-5 px-2">
             {type}
-          </Badge>
-          <h4 className="text-lg font-bold font-google-sans leading-tight">{title}</h4>
-          {subtitle && <p className="text-xs text-muted-foreground mt-1">{subtitle}</p>}
-        </div>
-        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/5 text-primary">
-          <Waveform className="h-5 w-5" />
-        </div>
+        </Badge>
       </div>
 
-      <div className="relative mb-6 h-16 w-full overflow-hidden rounded-lg bg-muted/20">
+      <div className="relative mb-4 h-12 w-full overflow-hidden rounded-xl bg-muted/20">
         {!isLoaded && !isLoading && (
           <div className="flex h-full w-full flex-col items-center justify-center gap-1 opacity-40">
-            <p className="text-[10px] font-black uppercase tracking-widest">Click Play to Load</p>
+            <p className="text-[8px] font-black uppercase tracking-widest">Click Play to Load</p>
           </div>
         )}
         <canvas 
           ref={canvasRef} 
           width={400} 
-          height={64} 
+          height={48} 
           className="h-full w-full"
         />
         {isLoading && (
           <div className="absolute inset-0 flex items-center justify-center bg-background/20 backdrop-blur-[2px]">
-            <Loader2 className="h-6 w-6 animate-spin text-primary" />
+            <Loader2 className="h-4 w-4 animate-spin text-primary" />
           </div>
         )}
       </div>
@@ -259,17 +261,17 @@ export default function SingleAudioPlayer({
           <Button
             size="icon"
             variant="ghost"
-            className="h-12 w-12 shrink-0 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground"
+            className="h-10 w-10 shrink-0 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 active:scale-90"
             onClick={handlePlayPause}
             disabled={isLoading}
             aria-label={isPlaying ? "Pause" : "Play"}
           >
             {isLoading ? (
-              <Loader2 className="h-6 w-6 animate-spin" />
+              <Loader2 className="h-5 w-5 animate-spin" />
             ) : isPlaying ? (
-              <Pause className="h-6 w-6 fill-current" />
+              <Pause className="h-4 w-4 fill-current" />
             ) : (
-              <Play className="h-6 w-6 fill-current ml-1" />
+              <Play className="h-4 w-4 fill-current ml-0.5" />
             )}
           </Button>
 
@@ -279,32 +281,37 @@ export default function SingleAudioPlayer({
               max={duration || 100}
               step={0.1}
               onValueChange={handleSeek}
-              className="py-2"
+              className="py-1"
             />
-            <div className="flex justify-between text-[10px] font-bold tabular-nums text-muted-foreground uppercase tracking-widest">
+            <div className="flex justify-between text-[9px] font-black tabular-nums text-muted-foreground uppercase tracking-widest">
               <span>{formatTime(currentTime)}</span>
               <span>{formatTime(duration)}</span>
             </div>
           </div>
         </div>
 
-        <div className="flex items-center gap-3 pt-2">
-          <Button 
-            size="icon" 
-            variant="ghost" 
-            className="h-8 w-8 text-muted-foreground" 
-            onClick={toggleMute}
-            aria-label={isMuted ? "Unmute" : "Mute"}
-          >
-            {isMuted || volume === 0 ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
-          </Button>
-          <Slider
-            value={[isMuted ? 0 : volume]}
-            max={1}
-            step={0.01}
-            onValueChange={handleVolumeChange}
-            className="w-24"
-          />
+        <div className="flex items-center justify-between pt-1">
+          <div className="flex items-center gap-2">
+            <Button 
+                size="icon" 
+                variant="ghost" 
+                className="h-7 w-7 text-muted-foreground hover:text-primary transition-colors" 
+                onClick={toggleMute}
+                aria-label={isMuted ? "Unmute" : "Mute"}
+            >
+                {isMuted || volume === 0 ? <VolumeX className="h-3.5 w-3.5" /> : <Volume2 className="h-3.5 w-3.5" />}
+            </Button>
+            <Slider
+                value={[isMuted ? 0 : volume]}
+                max={1}
+                step={0.01}
+                onValueChange={handleVolumeChange}
+                className="w-20 py-0"
+            />
+          </div>
+          <div className="text-[8px] font-black uppercase tracking-[0.2em] text-muted-foreground opacity-50 italic">
+            Visualiser Active
+          </div>
         </div>
       </div>
     </div>

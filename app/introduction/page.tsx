@@ -1,5 +1,16 @@
 import SectionLayout from "@/components/sections/section-layout";
 import { processHardcodedContent } from "@/lib/content";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Introduction",
+  description: "Background, problem statement, and objectives of the audio denoising project.",
+  openGraph: {
+    title: "Project Introduction | DSP Research",
+    description: "Deep dive into the challenges of audio corruption and our research objectives.",
+    images: [`/api/og?title=${encodeURIComponent("Project Introduction")}&description=${encodeURIComponent("Background, problem statement, and objectives.")}&type=research`],
+  },
+};
 
 const content = `
 <h2 id="background-and-context">Background and Context</h2>

@@ -1,5 +1,6 @@
 import SectionLayout from "@/components/sections/section-layout";
 import PDFViewer from "@/components/pdf-viewer/pdf-viewer";
+import { SafeLink } from "@/components/ui/safe-link";
 
 export default function ReferencesPage() {
   return (
@@ -32,7 +33,9 @@ export default function ReferencesPage() {
                   <span className="text-xs font-bold text-muted-foreground mt-0.5 whitespace-nowrap">02.</span>
                   <div className="text-sm">
                     <strong>Audacity</strong>. Open-source audio editor used for MP3 to WAV conversion.
-                    <a href="https://www.audacityteam.org/download/" target="_blank" className="ml-2 inline-flex items-center gap-1 text-primary hover:underline">Download <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></a>
+                    <SafeLink href="https://www.audacityteam.org/download/" className="ml-2 inline-flex items-center gap-1 text-primary hover:underline font-bold">
+                       Download <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    </SafeLink>
                   </div>
                 </li>
               </ul>
@@ -49,14 +52,14 @@ export default function ReferencesPage() {
                   <span className="text-xs font-bold text-muted-foreground mt-0.5 whitespace-nowrap">03.</span>
                   <div className="text-sm">
                     <strong>Practical Introduction to Digital Filtering</strong>, MathWorks.
-                    <a href="https://www.mathworks.com/help/signal/ug/practical-introduction-to-digital-filtering.html" target="_blank" className="block text-primary/60 hover:text-primary transition-colors truncate">View Documentation</a>
+                    <SafeLink href="https://www.mathworks.com/help/signal/ug/practical-introduction-to-digital-filtering.html" className="block text-primary/60 hover:text-primary transition-colors truncate font-medium">View Documentation</SafeLink>
                   </div>
                 </li>
                 <li className="flex items-start gap-3 group">
                   <span className="text-xs font-bold text-muted-foreground mt-0.5 whitespace-nowrap">04.</span>
                   <div className="text-sm">
                     <strong>Signal Processing Toolbox</strong>, MathWorks. Frequency domain analysis using the FFT.
-                    <a href="https://www.mathworks.com/help/signal/ug/frequency-domain-analysis-using-the-fft.html" target="_blank" className="block text-primary/60 hover:text-primary transition-colors truncate">View Documentation</a>
+                    <SafeLink href="https://www.mathworks.com/help/signal/ug/frequency-domain-analysis-using-the-fft.html" className="block text-primary/60 hover:text-primary transition-colors truncate font-medium">View Documentation</SafeLink>
                   </div>
                 </li>
                 <li className="flex items-start gap-3 group">

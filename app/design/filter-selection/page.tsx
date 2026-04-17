@@ -2,6 +2,17 @@ import SectionLayout from "@/components/sections/section-layout";
 import FilterResponseChart from "@/components/charts/filter-response-chart";
 import FilterExplorer from "@/components/charts/filter-explorer";
 import { PROJECT_DATA } from "@/lib/constants";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Filter Selection",
+  description: "Mathematical design parameters and filter justifications.",
+  openGraph: {
+    title: "Filter Selection & Design | DSP Research",
+    description: "Detailed parameters for Low-Pass, High-Pass, and Notch filters.",
+    images: [`/api/og?title=${encodeURIComponent("Filter Selection")}&description=${encodeURIComponent("Mathematical design and filter justifications.")}&type=research`],
+  },
+};
 
 export default function FilterSelectionPage() {
   const [audio1, audio2, audio3] = PROJECT_DATA.audioSignals;

@@ -1,6 +1,17 @@
 import SectionLayout from "@/components/sections/section-layout";
 import { MethodologyFlowchart } from "@/components/research/methodology-flowchart";
 import { processHardcodedContent } from "@/lib/content";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Methodology",
+  description: "Signal acquisition, MATLAB implementation, and analysis techniques.",
+  openGraph: {
+    title: "Research Methodology | DSP Research",
+    description: "Detailed breakdown of signal acquisition and MATLAB implementation workflow.",
+    images: [`/api/og?title=${encodeURIComponent("Research Methodology")}&description=${encodeURIComponent("Signal acquisition and MATLAB implementation.")}&type=research`],
+  },
+};
 
 const content = `
 <h2 id="signal-acquisition">Signal Acquisition</h2>
@@ -95,24 +106,54 @@ f1 = Fs1*(0:(N1/2))/N1; % Frequency vector
 The single-sided magnitude spectrum was calculated to focus on positive frequencies, as audio signals are real-valued and symmetric in the frequency domain. This visualization revealed distinct noise profiles:
 </p>
 
-<div class="grid md:grid-cols-3 gap-6 my-10">
-    <div class="p-6 rounded-2xl bg-card border border-border hover:border-blue-500/50 transition-colors shadow-lg">
-        <div class="text-[10px] font-black uppercase tracking-[0.2em] text-blue-500 mb-4">Audio Signal 1</div>
-        <p class="text-sm leading-relaxed text-muted-foreground mb-4">Wide range of frequencies, characteristic of broadband <strong>hiss noise</strong>.</p>
-        <div class="text-xl font-bold font-google-sans text-foreground">439.83 Hz</div>
-        <div class="text-[9px] uppercase tracking-widest font-black text-muted-foreground/60">Fundamental Freq</div>
+<div class="grid md:grid-cols-3 gap-4 my-10">
+    <div class="group relative overflow-hidden p-6 rounded-[2rem] bg-card/50 border border-border hover:border-blue-500/30 transition-all duration-300">
+        <div class="absolute top-0 right-0 p-3 opacity-10 group-hover:scale-110 transition-transform">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="text-blue-500"><path d="M2 10v3"/><path d="M6 6v11"/><path d="M10 3v18"/><path d="M14 8v7"/><path d="M18 5v13"/><path d="M22 10v3"/></svg>
+        </div>
+        <div class="relative z-10">
+            <div class="text-[9px] font-black uppercase tracking-[0.2em] text-blue-500/70 mb-2">Signal A-01</div>
+            <h4 class="text-lg font-bold font-google-sans mb-3">Broadband Hiss</h4>
+            <p class="text-xs leading-relaxed text-muted-foreground mb-6 opacity-80">Characteristic white-noise profile with wide-spectrum energy distribution.</p>
+            <div class="flex items-end justify-between">
+                <div>
+                    <div class="text-xl font-black font-google-sans text-foreground tabular-nums">439.83 Hz</div>
+                    <div class="text-[8px] uppercase tracking-widest font-bold text-muted-foreground/50">Fundamental Freq</div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="p-6 rounded-2xl bg-card border border-border hover:border-emerald-500/50 transition-colors shadow-lg">
-        <div class="text-[10px] font-black uppercase tracking-[0.2em] text-emerald-500 mb-4">Audio Signal 2</div>
-        <p class="text-sm leading-relaxed text-muted-foreground mb-4">Sharp peak at 50.67 Hz, indicative of <strong>tonal interference</strong> (mains hum).</p>
-        <div class="text-xl font-bold font-google-sans text-foreground">50.67 Hz</div>
-        <div class="text-[9px] uppercase tracking-widest font-black text-muted-foreground/60">Fundamental Freq</div>
+    <div class="group relative overflow-hidden p-6 rounded-[2rem] bg-card/50 border border-border hover:border-emerald-500/30 transition-all duration-300">
+        <div class="absolute top-0 right-0 p-3 opacity-10 group-hover:scale-110 transition-transform">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-500"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>
+        </div>
+        <div class="relative z-10">
+            <div class="text-[9px] font-black uppercase tracking-[0.2em] text-emerald-500/70 mb-2">Signal A-02</div>
+            <h4 class="text-lg font-bold font-google-sans mb-3">Tonal Hum</h4>
+            <p class="text-xs leading-relaxed text-muted-foreground mb-6 opacity-80">Localized interference peak specifically at power line frequency harmonics.</p>
+            <div class="flex items-end justify-between">
+                <div>
+                    <div class="text-xl font-black font-google-sans text-foreground tabular-nums">50.67 Hz</div>
+                    <div class="text-[8px] uppercase tracking-widest font-bold text-muted-foreground/50">Fundamental Freq</div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="p-6 rounded-2xl bg-card border border-border hover:border-orange-500/50 transition-colors shadow-lg">
-        <div class="text-[10px] font-black uppercase tracking-[0.2em] text-orange-500 mb-4">Audio Signal 3</div>
-        <p class="text-sm leading-relaxed text-muted-foreground mb-4">Elevated magnitudes at lower frequencies, representing <strong>rumble noise</strong>.</p>
-        <div class="text-xl font-bold font-google-sans text-foreground">42.20 Hz</div>
-        <div class="text-[9px] uppercase tracking-widest font-black text-muted-foreground/60">Fundamental Freq</div>
+    <div class="group relative overflow-hidden p-6 rounded-[2rem] bg-card/50 border border-border hover:border-orange-500/30 transition-all duration-300">
+        <div class="absolute top-0 right-0 p-3 opacity-10 group-hover:scale-110 transition-transform">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="text-orange-500"><path d="m3 11 18-5v12L3 14v-3z"/></svg>
+        </div>
+        <div class="relative z-10">
+            <div class="text-[9px] font-black uppercase tracking-[0.2em] text-orange-500/70 mb-2">Signal A-03</div>
+            <h4 class="text-lg font-bold font-google-sans mb-3">LF Rumble</h4>
+            <p class="text-xs leading-relaxed text-muted-foreground mb-6 opacity-80">Sub-harmonic vibrations and structural noise in the lower audible range.</p>
+            <div class="flex items-end justify-between">
+                <div>
+                    <div class="text-xl font-black font-google-sans text-foreground tabular-nums">42.20 Hz</div>
+                    <div class="text-[8px] uppercase tracking-widest font-bold text-muted-foreground/50">Fundamental Freq</div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
