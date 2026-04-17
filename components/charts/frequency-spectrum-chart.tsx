@@ -167,7 +167,7 @@ export default function FrequencySpectrumChart({
               type="monotone" 
               dataKey="original" 
               stroke="#3b82f6" 
-              strokeWidth={2}
+              strokeWidth={3}
               fillOpacity={1} 
               fill="url(#colorOriginal)" 
               name="Original Spectrum"
@@ -178,7 +178,7 @@ export default function FrequencySpectrumChart({
               type="monotone" 
               dataKey="filtered" 
               stroke="#10b981" 
-              strokeWidth={2}
+              strokeWidth={3}
               fillOpacity={1} 
               fill="url(#colorFiltered)" 
               name="Filtered Spectrum"

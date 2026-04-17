@@ -14,15 +14,58 @@ import {
   Rss,
 } from "lucide-react";
 import { siteConfig } from "@/lib/config";
+import { motion } from "framer-motion";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
     <footer className="relative border-t border-border bg-card/30 backdrop-blur-md overflow-hidden">
-      {/* Decorative background elements */}
-      <div className="absolute top-0 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl translate-y-1/2 pointer-events-none" />
+      {/* Decorative background elements with motion */}
+      <motion.div
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.3, 0.5, 0.3],
+          x: [0, 50, 0],
+          y: [0, -30, 0]
+        }}
+        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[100px] -translate-y-1/2 pointer-events-none"
+      />
+      <motion.div
+        animate={{
+          scale: [1.2, 1, 1.2],
+          opacity: [0.2, 0.4, 0.2],
+          x: [0, -40, 0],
+          y: [0, 60, 0]
+        }}
+        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] translate-y-1/2 pointer-events-none"
+      />
+
+      {/* DSP Waveform background (subtle) */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none select-none overflow-hidden">
+         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <motion.path
+               d="M 0 100 Q 250 50 500 100 T 1000 100 T 1500 100 T 2000 100"
+               fill="transparent"
+               stroke="currentColor"
+               strokeWidth="2"
+               animate={{ d: ["M 0 100 Q 250 50 500 100 T 1000 100 T 1500 100 T 2000 100", "M 0 100 Q 250 150 500 100 T 1000 100 T 1500 100 T 2000 100", "M 0 100 Q 250 50 500 100 T 1000 100 T 1500 100 T 2000 100"] }}
+               transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+               className="text-primary"
+            />
+            <motion.path
+               d="M 0 150 Q 300 100 600 150 T 1200 150 T 1800 150"
+               fill="transparent"
+               stroke="currentColor"
+               strokeWidth="1"
+               animate={{ d: ["M 0 150 Q 300 100 600 150 T 1200 150 T 1800 150", "M 0 150 Q 300 200 600 150 T 1200 150 T 1800 150", "M 0 150 Q 300 100 600 150 T 1200 150 T 1800 150"] }}
+               transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+               className="text-primary"
+            />
+         </svg>
+      </div>
 
       <div className="relative mx-auto max-w-7xl px-6 pt-16 pb-8">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-4 lg:grid-cols-5">

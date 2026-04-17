@@ -26,28 +26,28 @@ export default function SignalComparisonMatrix() {
   ]
 
   return (
-    <div className="w-full overflow-x-auto rounded-[2rem] border border-border bg-card shadow-2xl shadow-primary/5">
-      <table className="w-full border-collapse">
+    <div className="w-full overflow-x-auto rounded-[2.5rem] border border-border bg-card/50 shadow-2xl backdrop-blur-sm">
+      <table className="w-full border-collapse min-w-[800px] table-fixed">
         <thead>
-          <tr className="border-b border-border/50">
-            <th className="p-8 text-left sticky left-0 bg-card z-10 w-64">
-               <span className="text-[10px] font-black uppercase tracking-[0.4em] text-muted-foreground/50">Comparison Matrix</span>
+          <tr className="border-b border-border/50 bg-muted/20">
+            <th className="p-6 text-left sticky left-0 bg-card/90 backdrop-blur-md z-10 w-48">
+               <span className="text-[10px] font-black uppercase tracking-widest text-primary/70">Comparison Matrix</span>
             </th>
             {PROJECT_DATA.audioSignals.map((signal, idx) => (
               <th 
                 key={signal.id} 
                 className={cn(
-                  "p-8 text-center transition-colors min-w-[200px]",
+                  "p-6 text-center transition-colors",
                   hoveredCol === idx ? "bg-primary/5" : ""
                 )}
                 onMouseEnter={() => setHoveredCol(idx)}
                 onMouseLeave={() => setHoveredCol(null)}
               >
-                <div className="flex flex-col items-center gap-3">
-                   <div className="h-10 w-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center font-bold">
+                <div className="flex flex-col items-center gap-2">
+                   <div className="h-8 w-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center text-xs font-black">
                       {idx + 1}
                    </div>
-                   <span className="text-lg font-bold font-google-sans">{signal.name}</span>
+                   <span className="text-sm font-black font-google-sans tracking-tight">{signal.name}</span>
                 </div>
               </th>
             ))}
@@ -55,9 +55,9 @@ export default function SignalComparisonMatrix() {
         </thead>
         <tbody className="divide-y divide-border/30">
           {rows.map((row, rowIdx) => (
-            <tr key={rowIdx} className="group hover:bg-muted/30 transition-colors">
-              <td className="p-6 font-bold text-xs uppercase tracking-widest text-muted-foreground/80 sticky left-0 bg-card group-hover:bg-muted/30 z-10 flex items-center gap-3">
-                <row.icon size={14} className="text-primary/40" />
+            <tr key={rowIdx} className="group hover:bg-muted/20 transition-colors">
+              <td className="p-4 pl-6 font-bold text-[10px] uppercase tracking-widest text-muted-foreground/60 sticky left-0 bg-card/90 backdrop-blur-md group-hover:bg-muted/20 z-10 flex items-center gap-2 h-14">
+                <row.icon size={12} className="text-primary/30" />
                 {row.label}
               </td>
               {PROJECT_DATA.audioSignals.map((signal, colIdx) => {
@@ -67,7 +67,7 @@ export default function SignalComparisonMatrix() {
                   <td 
                     key={signal.id} 
                     className={cn(
-                      "p-6 text-center transition-colors",
+                      "p-4 text-center transition-colors h-14",
                       hoveredCol === colIdx ? "bg-primary/5" : ""
                     )}
                     onMouseEnter={() => setHoveredCol(colIdx)}
